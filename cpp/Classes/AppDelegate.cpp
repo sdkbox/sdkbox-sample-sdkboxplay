@@ -1,6 +1,10 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 
+#ifdef SDKBOX_ENABLED
+#include "PluginSdkboxPlay/PluginSdkboxPlay.h"
+#endif
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -24,6 +28,10 @@ void AppDelegate::initGLContextAttrs()
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
+#ifdef SDKBOX_ENABLED
+    sdkbox::PluginSdkboxPlay::init();
+#endif
+
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {

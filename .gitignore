@@ -2,6 +2,7 @@
 contents.xcworkspacedata
 xcuserdata/
 
+cpp/*.zip
 cpp/bin/
 cpp/proj.ios_mac/build/
 
