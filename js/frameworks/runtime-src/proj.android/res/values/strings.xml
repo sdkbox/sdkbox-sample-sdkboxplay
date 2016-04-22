@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">sdkboxplay_js</string>
+    <string name="app_name">SdkboxPlay</string>
+    <string name="google_app_id">774139307474</string>
+    <integer name="google_play_services_version">8298000</integer>
 </resources>
