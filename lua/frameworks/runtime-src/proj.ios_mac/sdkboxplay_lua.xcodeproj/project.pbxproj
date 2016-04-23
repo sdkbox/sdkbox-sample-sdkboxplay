@@ -15,6 +15,8 @@
 		1C60435A1CCA2EFA00D9C475 /* PluginSdkboxPlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C6043541CCA2EFA00D9C475 /* PluginSdkboxPlay.cpp */; };
 		1C60435B1CCA2EFA00D9C475 /* PluginSdkboxPlayLuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C6043561CCA2EFA00D9C475 /* PluginSdkboxPlayLuaHelper.cpp */; };
 		1C60435C1CCA2EFA00D9C475 /* SDKBoxLuaHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C6043581CCA2EFA00D9C475 /* SDKBoxLuaHelper.cpp */; };
+		1CEEE4E31CCB8C4000F816B6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEEE4E21CCB8C4000F816B6 /* GameKit.framework */; };
+		1CEEE4E51CCB8C4D00F816B6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEEE4E41CCB8C4D00F816B6 /* SystemConfiguration.framework */; };
 		3EEEDB61197107C0006A9FF8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEEDB60197107C0006A9FF8 /* MediaPlayer.framework */; };
 		44F04DA286A5DF17F3940ACE /* libluacocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74504302983F5C5C58C8380A /* libluacocos2d iOS.a */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
@@ -72,6 +74,8 @@
 		1C6043571CCA2EFA00D9C475 /* PluginSdkboxPlayLuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PluginSdkboxPlayLuaHelper.h; path = ../Classes/PluginSdkboxPlayLuaHelper.h; sourceTree = "<group>"; };
 		1C6043581CCA2EFA00D9C475 /* SDKBoxLuaHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDKBoxLuaHelper.cpp; path = ../Classes/SDKBoxLuaHelper.cpp; sourceTree = "<group>"; };
 		1C6043591CCA2EFA00D9C475 /* SDKBoxLuaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDKBoxLuaHelper.h; path = ../Classes/SDKBoxLuaHelper.h; sourceTree = "<group>"; };
+		1CEEE4E21CCB8C4000F816B6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		1CEEE4E41CCB8C4D00F816B6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		3EEEDB60197107C0006A9FF8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CEEE4E51CCB8C4D00F816B6 /* SystemConfiguration.framework in Frameworks */,
+				1CEEE4E31CCB8C4000F816B6 /* GameKit.framework in Frameworks */,
 				1C6043521CCA2EC800D9C475 /* PluginSdkboxPlay.framework in Frameworks */,
 				1C6043531CCA2EC800D9C475 /* sdkbox.framework in Frameworks */,
 				9FA3AE4E1BE9BCC900FC9645 /* CFNetwork.framework in Frameworks */,
@@ -255,6 +261,8 @@
 		F293B3CB15EB7BE500256477 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1CEEE4E41CCB8C4D00F816B6 /* SystemConfiguration.framework */,
+				1CEEE4E21CCB8C4000F816B6 /* GameKit.framework */,
 				1C6043501CCA2EC800D9C475 /* PluginSdkboxPlay.framework */,
 				1C6043511CCA2EC800D9C475 /* sdkbox.framework */,
 				9FA3AE4D1BE9BCC900FC9645 /* CFNetwork.framework */,
