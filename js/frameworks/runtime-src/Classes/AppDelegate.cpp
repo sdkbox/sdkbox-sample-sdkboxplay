@@ -12,6 +12,11 @@
 #include "js_module_register.h"
 #endif
 
+#ifdef SDKBOX_ENABLED
+#include "PluginSdkboxPlay.hpp"
+#include "PluginSdkboxPlayJSHelper.h"
+#endif
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -70,6 +75,12 @@ bool AppDelegate::applicationDidFinishLaunching()
 #else
     js_module_register();
     ScriptingCore* sc = ScriptingCore::getInstance();
+    
+#ifdef SDKBOX_ENABLED
+    sc->addRegisterCallback(register_all_PluginSdkboxPlay);
+    sc->addRegisterCallback(register_all_PluginSdkboxPlayJS_helper);
+#endif
+    
     sc->start();
     sc->runScript("script/jsb_boot.js");
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)

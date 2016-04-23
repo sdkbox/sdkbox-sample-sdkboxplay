@@ -10,11 +10,13 @@
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
 		1AD7E0A818C9DB93004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
-		1C6043451CCA10B100D9C475 /* PluginSdkboxPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6043431CCA10B100D9C475 /* PluginSdkboxPlay.framework */; };
-		1C6043461CCA10B100D9C475 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6043441CCA10B100D9C475 /* sdkbox.framework */; };
 		1C60434D1CCA145500D9C475 /* PluginSdkboxPlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C6043471CCA145500D9C475 /* PluginSdkboxPlay.cpp */; };
 		1C60434E1CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C6043491CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp */; };
 		1C60434F1CCA145500D9C475 /* SDKBoxJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C60434B1CCA145500D9C475 /* SDKBoxJSHelper.cpp */; };
+		1CA06C6E1CCAC0ED00ABAA7F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA06C6D1CCAC0ED00ABAA7F /* GameKit.framework */; };
+		1CA06C701CCAC12400ABAA7F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA06C6F1CCAC12400ABAA7F /* SystemConfiguration.framework */; };
+		1CEEE4DF1CCB7B0200F816B6 /* PluginSdkboxPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6043431CCA10B100D9C475 /* PluginSdkboxPlay.framework */; };
+		1CEEE4E11CCB7B0300F816B6 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEEE4E01CCB7B0300F816B6 /* sdkbox.framework */; };
 		28614A5582EFCDE41E6DCD96 /* libjscocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25314D7F96A5964397743D54 /* libjscocos2d iOS.a */; };
 		498B452C9E98B6E14A9B86D2 /* script in Resources */ = {isa = PBXBuildFile; fileRef = 671A491884E0C7533ED0085C /* script */; };
 		5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731417ECDF7A00D62437 /* Icon-29.png */; };
@@ -65,13 +67,15 @@
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1A96A4F2174A3432008653A9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "$(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1C6043431CCA10B100D9C475 /* PluginSdkboxPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginSdkboxPlay.framework; sourceTree = "<group>"; };
-		1C6043441CCA10B100D9C475 /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		1C6043471CCA145500D9C475 /* PluginSdkboxPlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSdkboxPlay.cpp; sourceTree = "<group>"; };
 		1C6043481CCA145500D9C475 /* PluginSdkboxPlay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PluginSdkboxPlay.hpp; sourceTree = "<group>"; };
 		1C6043491CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSdkboxPlayJSHelper.cpp; sourceTree = "<group>"; };
 		1C60434A1CCA145500D9C475 /* PluginSdkboxPlayJSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginSdkboxPlayJSHelper.h; sourceTree = "<group>"; };
 		1C60434B1CCA145500D9C475 /* SDKBoxJSHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDKBoxJSHelper.cpp; sourceTree = "<group>"; };
 		1C60434C1CCA145500D9C475 /* SDKBoxJSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKBoxJSHelper.h; sourceTree = "<group>"; };
+		1CA06C6D1CCAC0ED00ABAA7F /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		1CA06C6F1CCAC12400ABAA7F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		1CEEE4E01CCB7B0300F816B6 /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		25314D7F96A5964397743D54 /* libjscocos2d iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libjscocos2d iOS.a"; path = "$(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios/libjscocos2d iOS.a"; sourceTree = "<absolute>"; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
@@ -138,8 +142,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C6043451CCA10B100D9C475 /* PluginSdkboxPlay.framework in Frameworks */,
-				1C6043461CCA10B100D9C475 /* sdkbox.framework in Frameworks */,
+				1CEEE4E11CCB7B0300F816B6 /* sdkbox.framework in Frameworks */,
+				1CEEE4DF1CCB7B0200F816B6 /* PluginSdkboxPlay.framework in Frameworks */,
+				1CA06C701CCAC12400ABAA7F /* SystemConfiguration.framework in Frameworks */,
+				1CA06C6E1CCAC0ED00ABAA7F /* GameKit.framework in Frameworks */,
 				ED545A901B68A25E00C3958E /* libiconv.dylib in Frameworks */,
 				9F20C9E61A5BD38A006FB50B /* Security.framework in Frameworks */,
 				BA4E718719EB6E7900932425 /* MediaPlayer.framework in Frameworks */,
@@ -232,8 +238,10 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1CEEE4E01CCB7B0300F816B6 /* sdkbox.framework */,
+				1CA06C6F1CCAC12400ABAA7F /* SystemConfiguration.framework */,
+				1CA06C6D1CCAC0ED00ABAA7F /* GameKit.framework */,
 				1C6043431CCA10B100D9C475 /* PluginSdkboxPlay.framework */,
-				1C6043441CCA10B100D9C475 /* sdkbox.framework */,
 				ED545A911B68A26600C3958E /* libiconv.dylib */,
 				ED545A8F1B68A25E00C3958E /* libiconv.dylib */,
 				87D4C4441AB2187000F68C44 /* Security.framework */,
