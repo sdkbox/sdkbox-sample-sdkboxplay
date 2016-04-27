@@ -4,11 +4,6 @@
 #include "cocos2d.h"
 #include "lua_module_register.h"
 
-#ifdef SDKBOX_ENABLED
-#include "PluginSdkboxPlayLua.hpp"
-#include "PluginSdkboxPlayLuaHelper.h"
-#endif
-
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_LINUX)
 #include "ide-support/CodeIDESupport.h"
 #endif
@@ -53,12 +48,6 @@ void AppDelegate::initGLContextAttrs()
 // don't modify or remove this function
 static int register_all_packages()
 {
-    
-#ifdef SDKBOX_ENABLED
-    register_all_PluginSdkboxPlayLua(LuaEngine::getInstance()->getLuaStack()->getLuaState());
-    register_all_PluginSdkboxPlayLua_helper(LuaEngine::getInstance()->getLuaStack()->getLuaState());
-#endif
-    
     return 0; //flag for packages manager
 }
 
