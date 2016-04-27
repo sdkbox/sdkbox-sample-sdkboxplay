@@ -24,76 +24,52 @@ end
 
 function MainScene:setupTestMenu()
 
-    sdkbox.PluginSdkboxPlay:init()
     sdkbox.PluginSdkboxPlay:setListener(function(args)
 
         dump(args)
 
         if "onScoreSubmitted" == args.name then
-            -- local isLogin = args.isLoggedIn
-            -- if isLogin then
-            --     showText("login successful")
-            -- else
-            --     showText("login failed")
-            end
+            -- do something
         elseif "onIncrementalAchievementUnlocked" ==  args.name then
-            -- local isLogin = args.ok
-            -- local msg = args.msg;
-            -- if isLogin then
-            --     showText("request permission successful")
-            -- else
-            --     showText("request permission failed")
-            end
+            -- do something
         elseif "onIncrementalAchievementStep" ==  args.name then
-            -- local tag = args.tag;
-            -- local jsonData = args.jsonData;
-            -- cc.log("============")
-            -- cc.log(tag)
-            -- cc.log(jsonData)
-            end
+            -- do something
         elseif "onAchievementUnlocked" ==  args.name then
-            -- local msg = args.message
-            -- showText("share successful")
-            -- cc.log(msg)
-            end
+            -- do something
         elseif "onConnectionStatusChanged" ==  args.name then
-            -- local msg = args.message
-            -- showText("share failed")
-            -- cc.log(msg)
-            end
+            -- do something
+        end
     end)
+    sdkbox.PluginSdkboxPlay:init()
 
     cc.MenuItemFont:setFontName("Arial")
     cc.Menu:create(
                    cc.MenuItemFont:create("Connect"):onClicked(function()
-                        -- sdkbox.PluginAdMob:cache(self.kHomeBanner)
+                        sdkbox.PluginSdkboxPlay:signin()
                     end),
                    cc.MenuItemFont:create("Disconnect"):onClicked(function()
-                        -- sdkbox.PluginAdMob:show(self.kHomeBanner)
+                        sdkbox.PluginSdkboxPlay:signout()
                     end),
                    cc.MenuItemFont:create("Show Leaderboard ldb1"):onClicked(function()
-                        -- sdkbox.PluginAdMob:hide(self.kHomeBanner)
+                        sdkbox.PluginSdkboxPlay:showLeaderboard("ldb1")
                     end),
                    cc.MenuItemFont:create("Achievements"):onClicked(function()
-                        -- local yes = sdkbox.PluginAdMob:isAvailable(self.kHomeBanner) and "yes" or "no"
-                        -- showText("is " .. self.kHomeBanner .. " available " .. yes)
+                        sdkbox.PluginSdkboxPlay:showAchievements()
                     end),
-
                    cc.MenuItemFont:create("Unlock Craftsmen"):onClicked(function()
-                        -- sdkbox.PluginAdMob:cache(self.kGameOverAd)
+                        sdkbox.PluginSdkboxPlay:unlockAchievement("craftsman")
                     end),
                    cc.MenuItemFont:create("Unlock Hunter"):onClicked(function()
-                        -- sdkbox.PluginAdMob:show(self.kGameOverAd)
+                        sdkbox.PluginSdkboxPlay:unlockAchievement("hunter")
                     end),
                    cc.MenuItemFont:create("Unlock Ten Games"):onClicked(function()
-                        -- local yes = sdkbox.PluginAdMob:isAvailable(self.kGameOverAd) and "yes" or "no"
-                        -- showText("is " .. self.kGameOverAd .. " available " .. yes)
+                        sdkbox.PluginSdkboxPlay:unlockAchievement("ten-games")
                     end),
                    cc.MenuItemFont:create("Unlock Incremental"):onClicked(function()
-                        -- sdkbox.PluginAdMob:show(self.kGameOverAd)
+                        sdkbox.PluginSdkboxPlay:incrementAchievement("incremental", 1)
                     end),
                    cc.MenuItemFont:create("Send Score 1000"):onClicked(function()
-                        -- sdkbox.PluginAdMob:show(self.kGameOverAd)
+                        sdkbox.PluginSdkboxPlay:submitScore("ldb1", 1000)
                     end)
                    )
         :move(display.cx, display.cy)
@@ -101,7 +77,7 @@ function MainScene:setupTestMenu()
         :alignItemsVerticallyWithPadding(20)
 
 
-    require('cocos.cocos2d.json')
+    -- require('cocos.cocos2d.json')
 end
 
 return MainScene

@@ -6,6 +6,8 @@ cc.FileUtils:getInstance():addSearchPath("res/")
 require "config"
 require "cocos.init"
 
+print = release_print
+
 local function main()
     require("app.MyApp"):create():run()
 end
