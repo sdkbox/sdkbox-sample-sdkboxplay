@@ -40,7 +40,6 @@
 		509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 509D4AB617EBB2AB00697056 /* Icon-152.png */; };
 		509D4AC817EBB2AB00697056 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D4AB817EBB2AB00697056 /* main.m */; };
 		509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 509D4ABB17EBB2AB00697056 /* RootViewController.mm */; };
-		625349A19DCCA5D4C26E7FE8 /* PluginSdkboxPlayJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE4EF0950040D6EA14C280 /* PluginSdkboxPlayJS.cpp */; };
 		632B443892DA0BE6EEF11F10 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39314C348F9553C32C029256 /* MessageUI.framework */; };
 		6E144EF4830450EE49A515AF /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526041819F61614826BB19BD /* libcocos2d iOS.a */; };
 		9A30A7A11CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A30A79F1CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp */; };
@@ -70,7 +69,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		06CB4ADA98C83D8398CBDCA5 /* PluginSdkboxPlayJS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginSdkboxPlayJS.hpp; path = ../Classes/PluginSdkboxPlayJS.hpp; sourceTree = SOURCE_ROOT; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
 		1A6BF21418C9DB5900FB0E1C /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = ../../../main.js; sourceTree = "<group>"; };
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -119,7 +117,6 @@
 		9A30A79F1CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSdkboxPlayJS.cpp; sourceTree = "<group>"; };
 		9A30A7A01CD329AA00B11C46 /* PluginSdkboxPlayJS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PluginSdkboxPlayJS.hpp; sourceTree = "<group>"; };
 		9F20C9E11A5BBE85006FB50B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		9FAE4EF0950040D6EA14C280 /* PluginSdkboxPlayJS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginSdkboxPlayJS.cpp; path = ../Classes/PluginSdkboxPlayJS.cpp; sourceTree = SOURCE_ROOT; };
 		9FFEB99F1A6AB7F70095C43A /* CodeIDESupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeIDESupport.h; sourceTree = "<group>"; };
 		9FFEB9A01A6AB7F70095C43A /* lang */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lang; sourceTree = "<group>"; };
 		9FFEB9A31A6AB7F70095C43A /* RuntimeJsImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RuntimeJsImpl.cpp; sourceTree = "<group>"; };
@@ -346,8 +343,6 @@
 				1C60434A1CCA145500D9C475 /* PluginSdkboxPlayJSHelper.h */,
 				1C60434B1CCA145500D9C475 /* SDKBoxJSHelper.cpp */,
 				1C60434C1CCA145500D9C475 /* SDKBoxJSHelper.h */,
-				9FAE4EF0950040D6EA14C280 /* PluginSdkboxPlayJS.cpp */,
-				06CB4ADA98C83D8398CBDCA5 /* PluginSdkboxPlayJS.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -463,7 +458,6 @@
 				9FFEB9C21A6B86360095C43A /* SimpleConfigParser.cpp in Sources */,
 				1C60434F1CCA145500D9C475 /* SDKBoxJSHelper.cpp in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
-				625349A19DCCA5D4C26E7FE8 /* PluginSdkboxPlayJS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

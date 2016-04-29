@@ -45,7 +45,6 @@
 		521A8E7119F0C3D200D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6F19F0C3D200D177D7 /* Default-736h@3x.png */; };
 		5CF44AA38A00C9F59E39D879 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AA4481BDB4DD681262F849 /* libcocos2d iOS.a */; };
 		7AE7443B92998ABAC124C422 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5214123A9DAAF641D3D0C9E /* CoreMedia.framework */; };
-		97B24662854C7FC3F694ECE0 /* PluginSdkboxPlayLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2044E0B8E3DE2AA43D054DF /* PluginSdkboxPlayLua.cpp */; };
 		9A30A7A41CD32A6700B11C46 /* PluginSdkboxPlayLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A30A7A21CD32A6700B11C46 /* PluginSdkboxPlayLua.cpp */; };
 		9FA3AE4E1BE9BCC900FC9645 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA3AE4D1BE9BCC900FC9645 /* CFNetwork.framework */; };
 		9FC760451A677A4A00D1E6E7 /* SimpleConfigParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FC760411A67791200D1E6E7 /* SimpleConfigParser.cpp */; };
@@ -132,11 +131,9 @@
 		9FFE009D1ACCF59E00D6E35A /* RuntimeLuaImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RuntimeLuaImpl.cpp; sourceTree = "<group>"; };
 		9FFE009E1ACCF59E00D6E35A /* RuntimeLuaImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeLuaImpl.h; sourceTree = "<group>"; };
 		A7B14D4198D5E15EDDC6538D /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
-		BE0D409BB9DE4D45CD4B0DFE /* PluginSdkboxPlayLua.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginSdkboxPlayLua.hpp; path = ../Classes/PluginSdkboxPlayLua.hpp; sourceTree = SOURCE_ROOT; };
 		C03781B718BF655400FE4F13 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../res; sourceTree = "<group>"; };
 		C03781B818BF655400FE4F13 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
 		C05D1C111923449100B808A4 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../../../config.json; sourceTree = "<group>"; };
-		C2044E0B8E3DE2AA43D054DF /* PluginSdkboxPlayLua.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginSdkboxPlayLua.cpp; path = ../Classes/PluginSdkboxPlayLua.cpp; sourceTree = SOURCE_ROOT; };
 		C39F4EA6B9087FA84FAC007D /* libsimulator iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsimulator iOS.a"; path = "$(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios/libsimulator iOS.a"; sourceTree = "<absolute>"; };
 		C5EE4C1A90B819C5E6BF05AD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		D6B061341803AC000077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
@@ -336,8 +333,6 @@
 				9A30A7A31CD32A6700B11C46 /* PluginSdkboxPlayLua.hpp */,
 				1C6043581CCA2EFA00D9C475 /* SDKBoxLuaHelper.cpp */,
 				1C6043591CCA2EFA00D9C475 /* SDKBoxLuaHelper.h */,
-				BE0D409BB9DE4D45CD4B0DFE /* PluginSdkboxPlayLua.hpp */,
-				C2044E0B8E3DE2AA43D054DF /* PluginSdkboxPlayLua.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -463,7 +458,6 @@
 				9FFE00A11ACCF59E00D6E35A /* RuntimeLuaImpl.cpp in Sources */,
 				9A30A7A41CD32A6700B11C46 /* PluginSdkboxPlayLua.cpp in Sources */,
 				5023811817EBBCAC00990C9B /* AppController.mm in Sources */,
-				97B24662854C7FC3F694ECE0 /* PluginSdkboxPlayLua.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
