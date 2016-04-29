@@ -4,8 +4,8 @@
 
  ****************************************************************************/
 
-#ifndef _PLUGIN_GPS_H_
-#define _PLUGIN_GPS_H_
+#ifndef _PLUGIN_SDKBOXPLAY_H_
+#define _PLUGIN_SDKBOXPLAY_H_
 
 #include <string>
 
@@ -52,7 +52,7 @@ namespace sdkbox {
         static bool init();
 
         /**
-         * Set GPS' plugin listener.
+         * Set SdkboxPlay plugin listener.
          */
         static void setListener(SdkboxPlayListener* listener);
 
@@ -90,7 +90,7 @@ namespace sdkbox {
         
         /**
          * Request to unlock an achievement defined by its name.
-         * This methos assumes the achievement is non incremental.
+         * This method assumes the achievement is non incremental.
          * If the achievement type is incorrectly defined in the configuration file, or the play services determines it is of the wrong type,
          * this method will fail silently.
          * Otherwise, if everything is right, the method <code>onAchievementUnlocked</code> will be invoked on the plugin listener.
@@ -109,7 +109,7 @@ namespace sdkbox {
         static void incrementAchievement( const std::string& achievement_name, int increment );
         
         /**
-         * Reqeust to show the default Achievements view.
+         * Request to show the default Achievements view.
          * In this view, you'll only see public achievements.
          * It will show wether or not achievements are unlocked, and the steps towards unlocking it for incremental achievements.
          * Total experience count is measured as well.
@@ -122,21 +122,13 @@ namespace sdkbox {
         static bool isConnected();
 
         /**
-         * Request connection to the GPS backend.
-         * For this to happen, your application must have correctly configured:
-         *   + url type for google user content (generated on the google play console)
-         *   + include gpg.framework (warning 100Mb+)
-         *   + include gpg.bundle
-         *   + include GoogleSignIn.framework
-         *   + include GoogleSignIn.bundle
-         *   + include GoogleOpenSource.framework
-         *
+         * Request connection to the platform-specific services backend.
          * This method will invoke plugin's listener <code>onConnectionStatusChanged</code> method.
          */
         static void signin();
         
         /**
-         * Request disconnection from the GPS backend.
+         * Request disconnection from the GooglePlay/Game Center backend.
          * This method will invoke plugin's listener <code>onConnectionStatusChanged</code> method.
          */
         static void signout();
@@ -157,6 +149,7 @@ namespace sdkbox {
          * Callback method invoked when an score has been successfully submitted to a leaderboard.
          * It notifies back with the leaderboard_name (not id, see the sdkbox_config.json file) and the
          * subbmited score, as well as whether the score is the daily, weekly, or all time best score.
+         * Since Game center can't determine if submitted score is maximum, it will send the max score flags as false.
          */
         virtual void onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday )=0;
         
@@ -169,7 +162,7 @@ namespace sdkbox {
         
         /**
          * Callback method invoked when the request call to increment an achievement is successful.
-         * If notifies back with the current achievement step count.
+         * If possible (Google play only) it notifies back with the current achievement step count.
          */
         virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step )=0;
         

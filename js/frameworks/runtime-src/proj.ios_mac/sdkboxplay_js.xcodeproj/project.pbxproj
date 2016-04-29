@@ -10,7 +10,6 @@
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
 		1AD7E0A818C9DB93004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
-		1C60434D1CCA145500D9C475 /* PluginSdkboxPlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C6043471CCA145500D9C475 /* PluginSdkboxPlay.cpp */; };
 		1C60434E1CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C6043491CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp */; };
 		1C60434F1CCA145500D9C475 /* SDKBoxJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C60434B1CCA145500D9C475 /* SDKBoxJSHelper.cpp */; };
 		1CA06C6E1CCAC0ED00ABAA7F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA06C6D1CCAC0ED00ABAA7F /* GameKit.framework */; };
@@ -18,6 +17,9 @@
 		1CEEE4DF1CCB7B0200F816B6 /* PluginSdkboxPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6043431CCA10B100D9C475 /* PluginSdkboxPlay.framework */; };
 		1CEEE4E11CCB7B0300F816B6 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEEE4E01CCB7B0300F816B6 /* sdkbox.framework */; };
 		28614A5582EFCDE41E6DCD96 /* libjscocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25314D7F96A5964397743D54 /* libjscocos2d iOS.a */; };
+		3BC6422781B39A44A3E1CED1 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D400430EB836F30E3817B714 /* EventKit.framework */; };
+		3FF74FF1BB1D0F851575CF20 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452E4AED9724C39D426D1D27 /* StoreKit.framework */; };
+		474740868D94BBF06E055E0E /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D55C41EAB0C65BF776514166 /* GameController.framework */; };
 		498B452C9E98B6E14A9B86D2 /* script in Resources */ = {isa = PBXBuildFile; fileRef = 671A491884E0C7533ED0085C /* script */; };
 		5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731417ECDF7A00D62437 /* Icon-29.png */; };
 		5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731517ECDF7A00D62437 /* Icon-40.png */; };
@@ -38,7 +40,10 @@
 		509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 509D4AB617EBB2AB00697056 /* Icon-152.png */; };
 		509D4AC817EBB2AB00697056 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 509D4AB817EBB2AB00697056 /* main.m */; };
 		509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 509D4ABB17EBB2AB00697056 /* RootViewController.mm */; };
+		625349A19DCCA5D4C26E7FE8 /* PluginSdkboxPlayJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE4EF0950040D6EA14C280 /* PluginSdkboxPlayJS.cpp */; };
+		632B443892DA0BE6EEF11F10 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39314C348F9553C32C029256 /* MessageUI.framework */; };
 		6E144EF4830450EE49A515AF /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526041819F61614826BB19BD /* libcocos2d iOS.a */; };
+		9A30A7A11CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A30A79F1CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp */; };
 		9F20C9E61A5BD38A006FB50B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F20C9E11A5BBE85006FB50B /* Security.framework */; };
 		9FFEB9AC1A6AB7F70095C43A /* RuntimeJsImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FFEB9A31A6AB7F70095C43A /* RuntimeJsImpl.cpp */; };
 		9FFEB9C21A6B86360095C43A /* SimpleConfigParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FFEB9C01A6B86360095C43A /* SimpleConfigParser.cpp */; };
@@ -57,18 +62,20 @@
 		C0799CB918BAE62000E9C828 /* res in Resources */ = {isa = PBXBuildFile; fileRef = C0799CB518BAE62000E9C828 /* res */; };
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
+		D65041E9AF633E7C41F7CBEF /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA4A809D656752FC7C0411 /* CoreMedia.framework */; };
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
+		DEA24161B0538E6D9B0B9197 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2345DF8F406A354D7E379F /* CoreTelephony.framework */; };
 		ED545A901B68A25E00C3958E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED545A8F1B68A25E00C3958E /* libiconv.dylib */; };
+		FEC54CCBBFA94A4E23FC357F /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C34FD48D4024F1E65C0557 /* EventKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06CB4ADA98C83D8398CBDCA5 /* PluginSdkboxPlayJS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginSdkboxPlayJS.hpp; path = ../Classes/PluginSdkboxPlayJS.hpp; sourceTree = SOURCE_ROOT; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
 		1A6BF21418C9DB5900FB0E1C /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = ../../../main.js; sourceTree = "<group>"; };
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1A96A4F2174A3432008653A9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "$(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1C6043431CCA10B100D9C475 /* PluginSdkboxPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginSdkboxPlay.framework; sourceTree = "<group>"; };
-		1C6043471CCA145500D9C475 /* PluginSdkboxPlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSdkboxPlay.cpp; sourceTree = "<group>"; };
-		1C6043481CCA145500D9C475 /* PluginSdkboxPlay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PluginSdkboxPlay.hpp; sourceTree = "<group>"; };
 		1C6043491CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSdkboxPlayJSHelper.cpp; sourceTree = "<group>"; };
 		1C60434A1CCA145500D9C475 /* PluginSdkboxPlayJSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginSdkboxPlayJSHelper.h; sourceTree = "<group>"; };
 		1C60434B1CCA145500D9C475 /* SDKBoxJSHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SDKBoxJSHelper.cpp; sourceTree = "<group>"; };
@@ -77,6 +84,8 @@
 		1CA06C6F1CCAC12400ABAA7F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		1CEEE4E01CCB7B0300F816B6 /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		25314D7F96A5964397743D54 /* libjscocos2d iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libjscocos2d iOS.a"; path = "$(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios/libjscocos2d iOS.a"; sourceTree = "<absolute>"; };
+		39314C348F9553C32C029256 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		452E4AED9724C39D426D1D27 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
 		5091731517ECDF7A00D62437 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "ios/Icon-40.png"; sourceTree = "<group>"; };
@@ -107,7 +116,10 @@
 		526041819F61614826BB19BD /* libcocos2d iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcocos2d iOS.a"; path = "$(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios/libcocos2d iOS.a"; sourceTree = "<absolute>"; };
 		671A491884E0C7533ED0085C /* script */ = {isa = PBXFileReference; lastKnownFileType = "?"; name = script; path = ../../../script; sourceTree = "<group>"; };
 		87D4C4441AB2187000F68C44 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		9A30A79F1CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSdkboxPlayJS.cpp; sourceTree = "<group>"; };
+		9A30A7A01CD329AA00B11C46 /* PluginSdkboxPlayJS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PluginSdkboxPlayJS.hpp; sourceTree = "<group>"; };
 		9F20C9E11A5BBE85006FB50B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		9FAE4EF0950040D6EA14C280 /* PluginSdkboxPlayJS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginSdkboxPlayJS.cpp; path = ../Classes/PluginSdkboxPlayJS.cpp; sourceTree = SOURCE_ROOT; };
 		9FFEB99F1A6AB7F70095C43A /* CodeIDESupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeIDESupport.h; sourceTree = "<group>"; };
 		9FFEB9A01A6AB7F70095C43A /* lang */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lang; sourceTree = "<group>"; };
 		9FFEB9A31A6AB7F70095C43A /* RuntimeJsImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RuntimeJsImpl.cpp; sourceTree = "<group>"; };
@@ -125,16 +137,21 @@
 		A922754D1517C094001B78AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A922754F1517C094001B78AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BA4E718619EB6E7900932425 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		BC2345DF8F406A354D7E379F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		C03780EA18BEE0E400FE4F13 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
 		C05D1C161923467600B808A4 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../../../config.json; sourceTree = "<group>"; };
 		C0799CB518BAE62000E9C828 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../res; sourceTree = "<group>"; };
+		D400430EB836F30E3817B714 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
 		D454520B156E22BD00887EB5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D55C41EAB0C65BF776514166 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		D6B061231803AB9F0077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		DB4942DC89CF5E304809354C /* libsimulator iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsimulator iOS.a"; path = "$(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios/libsimulator iOS.a"; sourceTree = "<absolute>"; };
 		ED545A8F1B68A25E00C3958E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
 		ED545A911B68A26600C3958E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		F1C34FD48D4024F1E65C0557 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKitUI.framework; sourceTree = DEVELOPER_DIR; };
+		FAFA4A809D656752FC7C0411 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +180,13 @@
 				6E144EF4830450EE49A515AF /* libcocos2d iOS.a in Frameworks */,
 				28614A5582EFCDE41E6DCD96 /* libjscocos2d iOS.a in Frameworks */,
 				ADA4461682F4B8DA681731C5 /* libsimulator iOS.a in Frameworks */,
+				D65041E9AF633E7C41F7CBEF /* CoreMedia.framework in Frameworks */,
+				DEA24161B0538E6D9B0B9197 /* CoreTelephony.framework in Frameworks */,
+				3BC6422781B39A44A3E1CED1 /* EventKit.framework in Frameworks */,
+				FEC54CCBBFA94A4E23FC357F /* EventKitUI.framework in Frameworks */,
+				632B443892DA0BE6EEF11F10 /* MessageUI.framework in Frameworks */,
+				3FF74FF1BB1D0F851575CF20 /* StoreKit.framework in Frameworks */,
+				474740868D94BBF06E055E0E /* GameController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +286,13 @@
 				A922754B1517C094001B78AA /* UIKit.framework */,
 				A922754D1517C094001B78AA /* Foundation.framework */,
 				A922754F1517C094001B78AA /* CoreGraphics.framework */,
+				FAFA4A809D656752FC7C0411 /* CoreMedia.framework */,
+				BC2345DF8F406A354D7E379F /* CoreTelephony.framework */,
+				D400430EB836F30E3817B714 /* EventKit.framework */,
+				F1C34FD48D4024F1E65C0557 /* EventKitUI.framework */,
+				39314C348F9553C32C029256 /* MessageUI.framework */,
+				452E4AED9724C39D426D1D27 /* StoreKit.framework */,
+				D55C41EAB0C65BF776514166 /* GameController.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -309,12 +340,14 @@
 				9FFEB9A71A6AB7F70095C43A /* js_module_register.h */,
 				D4545215156E28EF00887EB5 /* AppDelegate.cpp */,
 				D4545216156E28EF00887EB5 /* AppDelegate.h */,
-				1C6043471CCA145500D9C475 /* PluginSdkboxPlay.cpp */,
-				1C6043481CCA145500D9C475 /* PluginSdkboxPlay.hpp */,
+				9A30A79F1CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp */,
+				9A30A7A01CD329AA00B11C46 /* PluginSdkboxPlayJS.hpp */,
 				1C6043491CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp */,
 				1C60434A1CCA145500D9C475 /* PluginSdkboxPlayJSHelper.h */,
 				1C60434B1CCA145500D9C475 /* SDKBoxJSHelper.cpp */,
 				1C60434C1CCA145500D9C475 /* SDKBoxJSHelper.h */,
+				9FAE4EF0950040D6EA14C280 /* PluginSdkboxPlayJS.cpp */,
+				06CB4ADA98C83D8398CBDCA5 /* PluginSdkboxPlayJS.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -421,15 +454,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A30A7A11CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
 				9FFEB9AC1A6AB7F70095C43A /* RuntimeJsImpl.cpp in Sources */,
 				1C60434E1CCA145500D9C475 /* PluginSdkboxPlayJSHelper.cpp in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
 				9FFEB9C21A6B86360095C43A /* SimpleConfigParser.cpp in Sources */,
-				1C60434D1CCA145500D9C475 /* PluginSdkboxPlay.cpp in Sources */,
 				1C60434F1CCA145500D9C475 /* SDKBoxJSHelper.cpp in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
+				625349A19DCCA5D4C26E7FE8 /* PluginSdkboxPlayJS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,7 +550,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = " $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios";
 				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = " -ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos/platform/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/spidermonkey/include/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/auto $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/manual $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/curl/include/ios";
@@ -552,7 +586,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = " $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios";
 				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = " -ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos/platform/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/spidermonkey/include/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/auto $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/manual $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/curl/include/ios";

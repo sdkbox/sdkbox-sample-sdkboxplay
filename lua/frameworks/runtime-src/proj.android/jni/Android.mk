@@ -1,4 +1,5 @@
-LOCAL_PATH := $(call my-dir)
+LOCAL_PATH := $(call \
+my-dir)
 
 include $(CLEAR_VARS)
 
@@ -6,13 +7,12 @@ LOCAL_MODULE := cocos2dlua_shared
 
 LOCAL_MODULE_FILENAME := libcocos2dlua
 
-LOCAL_SRC_FILES := \
+LOCAL_SRC_FILES := hellolua/main.cpp \
 ../../Classes/AppDelegate.cpp \
 ../../Classes/ide-support/SimpleConfigParser.cpp \
 ../../Classes/ide-support/RuntimeLuaImpl.cpp \
 ../../Classes/ide-support/lua_debugger.c \
-hellolua/main.cpp\
-../../Classes/PluginSdkboxPlay.cpp \
+../../Classes/PluginSdkboxPlayLua.cpp \
 ../../Classes/PluginSdkboxPlayLuaHelper.cpp \
 ../../Classes/SDKBoxLuaHelper.cpp
 

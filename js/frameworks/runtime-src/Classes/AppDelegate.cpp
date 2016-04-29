@@ -13,7 +13,7 @@
 #endif
 
 #ifdef SDKBOX_ENABLED
-#include "PluginSdkboxPlay.hpp"
+#include "PluginSdkboxPlayJS.hpp"
 #include "PluginSdkboxPlayJSHelper.h"
 #endif
 
@@ -77,7 +77,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     ScriptingCore* sc = ScriptingCore::getInstance();
     
 #ifdef SDKBOX_ENABLED
-    sc->addRegisterCallback(register_all_PluginSdkboxPlay);
+    sc->addRegisterCallback(register_all_PluginSdkboxPlayJS);
     sc->addRegisterCallback(register_all_PluginSdkboxPlayJS_helper);
 #endif
     

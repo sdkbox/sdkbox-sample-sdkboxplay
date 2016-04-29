@@ -13,9 +13,9 @@ public:
     SdkboxPlayCallbackJS();
     void schedule();
     void notityJs(float dt);
-    
+
     std::string _name;
-    
+
     jsval _paramVal[2];
     int _paramLen;
 };
@@ -27,11 +27,11 @@ public:
     void setJSDelegate(JSObject* delegate) {
         _JSDelegate = delegate;
     }
-    
+
     JSObject* getJSDelegate() {
         return _JSDelegate;
     }
-    
+
     void onConnectionStatusChanged(int connection_status) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
@@ -78,7 +78,7 @@ public:
         cb->_paramLen = 2;
         cb->schedule();
     }
-    
+
     void invokeJS(const char* func, jsval* pVals, int valueSize) {
         if (!s_cx) {
             return;
@@ -87,7 +87,7 @@ public:
         const char* func_name = func;
         JS::RootedObject obj(cx, _JSDelegate);
         JSAutoCompartment ac(cx, obj);
-        
+
 #if defined(MOZJS_MAJOR_VERSION)
 #if MOZJS_MAJOR_VERSION >= 33
         bool hasAction;
@@ -103,7 +103,7 @@ public:
         jsval retval;
         jsval func_handle;
 #endif
-        
+
         if (JS_HasProperty(cx, obj, func_name, &hasAction) && hasAction) {
             if(!JS_GetProperty(cx, obj, func_name, &func_handle)) {
                 return;
@@ -111,7 +111,7 @@ public:
             if(func_handle == JSVAL_VOID) {
                 return;
             }
-            
+
 #if MOZJS_MAJOR_VERSION >= 31
             if (0 == valueSize) {
                 JS_CallFunctionName(cx, obj, func_name, JS::HandleValueArray::empty(), &retval);
@@ -127,7 +127,7 @@ public:
 #endif
         }
     }
-    
+
 };
 
 
@@ -165,20 +165,20 @@ JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_setListener(JSContext *cx, uint32_
     s_cx = cx;
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    
+
     if (argc == 1) {
-        
+
         if (!args.get(0).isObject())
         {
             ok = false;
         }
         JSObject *tmpObj = args.get(0).toObjectOrNull();
-        
+
         JSB_PRECONDITION2(ok, cx, false, "js_PluginSdkboxPlayJS_PluginSdkboxPlay_setIAPListener : Error processing arguments");
         SdkboxPlayListenerJS* wrapper = new SdkboxPlayListenerJS();
         wrapper->setJSDelegate(tmpObj);
         sdkbox::PluginSdkboxPlay::setListener(wrapper);
-        
+
         args.rval().setUndefined();
         return true;
     }
@@ -194,7 +194,7 @@ void SdkboxPlay_set_constants(JSContext* cx, JSObject* obj, const std::string& n
 #endif
 {
     jsval val = sdkbox::std_map_string_int_to_jsval(cx, params);
-    
+
     JS::RootedValue rv(cx);
     rv = val;
 #if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
@@ -226,14 +226,14 @@ SdkboxPlay_register_constants(cx, pluginObj);
 void register_all_PluginSdkboxPlayJS_helper(JSContext* cx, JS::HandleObject global) {
     JS::RootedObject pluginObj(cx);
     sdkbox::getJsObjOrCreat(cx, global, "sdkbox.PluginSdkboxPlay", &pluginObj);
-    
+
     REGISTE_SdkboxPlay_FUNCTIONS
 }
 #else
 void register_all_PluginSdkboxPlayJS_helper(JSContext* cx, JSObject* global) {
     JS::RootedObject pluginObj(cx);
     sdkbox::getJsObjOrCreat(cx, JS::RootedObject(cx, global), "sdkbox.PluginAdMob", &pluginObj);
-    
+
     REGISTE_SdkboxPlay_FUNCTIONS
 }
 #endif
@@ -242,7 +242,7 @@ void register_all_PluginSdkboxPlayJS_helper(JSContext* cx, JSObject* global) {
     jsval pluginVal;
     JSObject* pluginObj;
     pluginVal = sdkbox::getJsObjOrCreat(cx, global, "sdkbox.PluginSdkboxPlay", &pluginObj);
-    
+
     REGISTE_SdkboxPlay_FUNCTIONS
 }
 #endif

@@ -14,7 +14,7 @@
 #include "navmesh/lua_cocos2dx_navmesh_manual.h"
 
 #ifdef SDKBOX_ENABLED
-#include "PluginSdkboxPlay.hpp"
+#include "PluginSdkboxPlayLua.hpp"
 #include "PluginSdkboxPlayLuaHelper.h"
 #endif
 
@@ -32,7 +32,7 @@ static int lua_module_register(lua_State* L)
     register_audioengine_module(L);
     
 #ifdef SDKBOX_ENABLED
-    register_all_PluginSdkboxPlay(L);
+    register_all_PluginSdkboxPlayLua(L);
     register_all_PluginSdkboxPlayLua_helper(L);
 #endif
     

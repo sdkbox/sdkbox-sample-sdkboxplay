@@ -7,7 +7,7 @@
 #ifndef _CC_SDKBOX_H_
 #define _CC_SDKBOX_H_
 
-#define SDKBOX_VERSION_STR  "sdkbox V2.2.0.1"
+#define SDKBOX_VERSION_STR  "sdkbox V2.2.0.14"
 
 /**
  * Only certain compilers support __attribute__((deprecated)).
@@ -67,7 +67,7 @@ namespace sdkbox {
         ADTYPE_UNKNOWN
     };
 
-
+    std::string AdTrackingToString (AdActionType t);
     std::string  AdActionTypeToString( AdActionType t );
     AdActionType intToAdActionType( int v );
 
