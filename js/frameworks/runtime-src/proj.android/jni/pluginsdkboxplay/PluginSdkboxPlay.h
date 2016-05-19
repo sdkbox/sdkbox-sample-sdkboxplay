@@ -118,8 +118,14 @@ namespace sdkbox {
         
         /**
          * Fast method to know plugin's connection status.
+         * @deprecated
          */
         static bool isConnected();
+
+        /**
+         * Same as isConnected (deprecated) but more consistent with naming.
+         */
+        static bool isSignedIn();
 
         /**
          * Request connection to the platform-specific services backend.
