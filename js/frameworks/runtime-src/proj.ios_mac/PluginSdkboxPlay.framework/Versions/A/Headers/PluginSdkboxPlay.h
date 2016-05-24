@@ -85,6 +85,10 @@ namespace sdkbox {
          * Request to show the default Leaderboard view.
          * In this view you'll be able to interactively select between daily, weekly or all-time leaderboard time frames and the scope
          * to global or you google play's friends results.
+         *
+         * Android only:
+         *  if empty string or __ALL__ is used as leaderboard_name, sdkbox play will invoke an activity
+         *  with all game-defined leader boards.
          */
         static void showLeaderboard( const std::string& leaderboard_name );
         
@@ -118,8 +122,14 @@ namespace sdkbox {
         
         /**
          * Fast method to know plugin's connection status.
+         * @deprecated
          */
         static bool isConnected();
+
+        /**
+         * Same as isConnected (deprecated) but more consistent with naming.
+         */
+        static bool isSignedIn();
 
         /**
          * Request connection to the platform-specific services backend.
@@ -132,6 +142,34 @@ namespace sdkbox {
          * This method will invoke plugin's listener <code>onConnectionStatusChanged</code> method.
          */
         static void signout();
+
+        /**
+         * Get the currently logged in player's id.
+         */
+        static std::string getPlayerId();
+
+        /**
+         * Get a field from the user account's info obtained after authentication.
+         * Current values are:
+         *
+         * iOS/Android
+         * -----------
+         * display_name
+         * name
+         * player_id
+         *
+         * Android only:
+         * -------------------
+         * title
+         * icon_image_uri
+         * hires_image_uri
+         * last_play_timestamp
+         * retrieved_timestamp
+         *
+         * If a field not valid is queried an empty string will be returned.
+         *
+         */
+        static std::string getPlayerAccountField( const std::string& field );
     };
     
     class SdkboxPlayListener {

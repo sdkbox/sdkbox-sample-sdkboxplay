@@ -102,7 +102,11 @@ var HelloWorldLayer = cc.Layer.extend({
                         cc.log("achievement " + achievement_name + " unlocked (new " + newlyUnlocked ? 1 : 0 + ")");
                     },
                     onConnectionStatusChanged : function (connection_status) {
-                        CCLOG("connection status change: " + connection_status + " connection_status");            
+                        cc.log("connection status change: " + connection_status + " connection_status");      
+                        if ( connection_status==1000 ) {
+                            cc.log( 'Player id: '+plugin.getPlayerId() );
+                            cc.log( 'Player name: '+plugin.getPlayerAccountField("name") );
+                        }      
                     }
                 });
                 plugin.init();

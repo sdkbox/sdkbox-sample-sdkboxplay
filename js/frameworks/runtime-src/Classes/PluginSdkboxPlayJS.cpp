@@ -2,7 +2,7 @@
 #include "cocos2d_specifics.hpp"
 #include "PluginSdkboxPlay/PluginSdkboxPlay.h"
 #include "SDKBoxJSHelper.h"
-#include "sdkbox/Sdkbox.h"
+#include "sdkbox/sdkbox.h"
 
 
 #if defined(MOZJS_MAJOR_VERSION)
@@ -205,6 +205,34 @@ JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard(JSContext *cx, uin
 }
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    if (argc == 0) {
+        std::string ret = sdkbox::PluginSdkboxPlay::getPlayerId();
+        jsval jsret = JSVAL_NULL;
+        jsret = std_string_to_jsval(cx, ret);
+        args.rval().set(jsret);
+        return true;
+    }
+    JS_ReportError(cx, "js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId : wrong number of arguments");
+    return false;
+}
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    if (argc == 0) {
+        std::string ret = sdkbox::PluginSdkboxPlay::getPlayerId();
+        jsval jsret;
+        jsret = std_string_to_jsval(cx, ret);
+        JS_SET_RVAL(cx, vp, jsret);
+        return JS_TRUE;
+    }
+    JS_ReportError(cx, "wrong number of arguments");
+    return JS_FALSE;
+}
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -274,6 +302,43 @@ JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin(JSContext *cx, uint32_t arg
     if (argc == 0) {
         sdkbox::PluginSdkboxPlay::signin();
         JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    JS_ReportError(cx, "wrong number of arguments");
+    return JS_FALSE;
+}
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField : Error processing arguments");
+        std::string ret = sdkbox::PluginSdkboxPlay::getPlayerAccountField(arg0);
+        jsval jsret = JSVAL_NULL;
+        jsret = std_string_to_jsval(cx, ret);
+        args.rval().set(jsret);
+        return true;
+    }
+    JS_ReportError(cx, "js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField : wrong number of arguments");
+    return false;
+}
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    jsval *argv = JS_ARGV(cx, vp);
+    JSBool ok = JS_TRUE;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        std::string ret = sdkbox::PluginSdkboxPlay::getPlayerAccountField(arg0);
+        jsval jsret;
+        jsret = std_string_to_jsval(cx, ret);
+        JS_SET_RVAL(cx, vp, jsret);
         return JS_TRUE;
     }
     JS_ReportError(cx, "wrong number of arguments");
@@ -407,6 +472,34 @@ JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion(JSContext *cx, uint32_t
 }
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    if (argc == 0) {
+        bool ret = sdkbox::PluginSdkboxPlay::isSignedIn();
+        jsval jsret = JSVAL_NULL;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        args.rval().set(jsret);
+        return true;
+    }
+    JS_ReportError(cx, "js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn : wrong number of arguments");
+    return false;
+}
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    if (argc == 0) {
+        bool ret = sdkbox::PluginSdkboxPlay::isSignedIn();
+        jsval jsret;
+        jsret = BOOLEAN_TO_JSVAL(ret);
+        JS_SET_RVAL(cx, vp, jsret);
+        return JS_TRUE;
+    }
+    JS_ReportError(cx, "wrong number of arguments");
+    return JS_FALSE;
+}
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -484,13 +577,16 @@ void js_register_PluginSdkboxPlayJS_PluginSdkboxPlay(JSContext *cx, JS::HandleOb
         JS_FN("signout", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signout, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("incrementAchievement", js_PluginSdkboxPlayJS_PluginSdkboxPlay_incrementAchievement, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("showLeaderboard", js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getPlayerId", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isConnected", js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("showAchievements", js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAchievements, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("signin", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getPlayerAccountField", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("init", js_PluginSdkboxPlayJS_PluginSdkboxPlay_init, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("submitScore", js_PluginSdkboxPlayJS_PluginSdkboxPlay_submitScore, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("unlockAchievement", js_PluginSdkboxPlayJS_PluginSdkboxPlay_unlockAchievement, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getVersion", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("isSignedIn", js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("removeListener", js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
@@ -554,13 +650,16 @@ void js_register_PluginSdkboxPlayJS_PluginSdkboxPlay(JSContext *cx, JSObject *gl
         JS_FN("signout", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signout, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("incrementAchievement", js_PluginSdkboxPlayJS_PluginSdkboxPlay_incrementAchievement, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("showLeaderboard", js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getPlayerId", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isConnected", js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("showAchievements", js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAchievements, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("signin", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getPlayerAccountField", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("init", js_PluginSdkboxPlayJS_PluginSdkboxPlay_init, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("submitScore", js_PluginSdkboxPlayJS_PluginSdkboxPlay_submitScore, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("unlockAchievement", js_PluginSdkboxPlayJS_PluginSdkboxPlay_unlockAchievement, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getVersion", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("isSignedIn", js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("removeListener", js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
@@ -615,13 +714,16 @@ void js_register_PluginSdkboxPlayJS_PluginSdkboxPlay(JSContext *cx, JSObject *gl
         JS_FN("signout", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signout, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("incrementAchievement", js_PluginSdkboxPlayJS_PluginSdkboxPlay_incrementAchievement, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("showLeaderboard", js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getPlayerId", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isConnected", js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("showAchievements", js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAchievements, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("signin", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getPlayerAccountField", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("init", js_PluginSdkboxPlayJS_PluginSdkboxPlay_init, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("submitScore", js_PluginSdkboxPlayJS_PluginSdkboxPlay_submitScore, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("unlockAchievement", js_PluginSdkboxPlayJS_PluginSdkboxPlay_unlockAchievement, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getVersion", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("isSignedIn", js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("removeListener", js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
