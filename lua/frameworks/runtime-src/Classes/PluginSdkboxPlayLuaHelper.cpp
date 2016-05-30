@@ -1,8 +1,6 @@
 
 #include "PluginSdkboxPlayLuaHelper.h"
 #include "PluginSdkboxPlay/PluginSdkboxPlay.h"
-#include "CCLuaEngine.h"
-#include "tolua_fix.h"
 #include "SDKBoxLuaHelper.h"
 
 class SdkboxPlayListenerLua : public sdkbox::SdkboxPlayListener {

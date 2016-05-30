@@ -90,7 +90,7 @@ namespace sdkbox {
          *  if empty string or __ALL__ is used as leaderboard_name, sdkbox play will invoke an activity
          *  with all game-defined leader boards.
          */
-        static void showLeaderboard( const std::string& leaderboard_name );
+        static void showLeaderboard( const std::string& leaderboard_name="" );
         
         /**
          * Request to unlock an achievement defined by its name.
@@ -151,23 +151,19 @@ namespace sdkbox {
         /**
          * Get a field from the user account's info obtained after authentication.
          * Current values are:
-         *
          * iOS/Android
          * -----------
-         * display_name
-         * name
-         * player_id
-         *
+         *   + display_name
+         *   + name
+         *   + player_id
          * Android only:
          * -------------------
-         * title
-         * icon_image_uri
-         * hires_image_uri
-         * last_play_timestamp
-         * retrieved_timestamp
-         *
+         *   + title
+         *   + con_image_uri
+         *   + hires_image_uri
+         *   + last_play_timestamp
+         *   + retrieved_timestamp
          * If a field not valid is queried an empty string will be returned.
-         *
          */
         static std::string getPlayerAccountField( const std::string& field );
     };

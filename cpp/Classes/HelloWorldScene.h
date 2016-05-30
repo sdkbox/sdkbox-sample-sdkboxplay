@@ -21,8 +21,7 @@ public:
 
     void runtests(int fd, const std::string& args);
 
-    void connect(cocos2d::CCObject *sender);
-    void disconnect(cocos2d::CCObject *sender);
+    void connectOrDisconnect(cocos2d::CCObject *sender);
     
     void showLeaderboard(cocos2d::CCObject *sender);
     void showAchievements(cocos2d::CCObject *sender);

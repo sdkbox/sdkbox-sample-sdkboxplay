@@ -1,5 +1,6 @@
 var HelloWorldLayer = cc.Layer.extend({
     sprite:null,
+                                      info:null,
     ctor:function () {
         //////////////////////////////
         // 1. super init first
@@ -26,6 +27,11 @@ var HelloWorldLayer = cc.Layer.extend({
         menu.y = size.height / 2 + 16;
         this.addChild(menu);
 
+                                        this.info =new cc.LabelTTF("unknown status", "sans", 24);
+                                         this.info.x = cc.Director.getInstance().getWinSize().width/2;
+                                         this.info.y = 90;
+                                         this.addChild(this.info);
+                                      
         return true;
     },
 
@@ -42,11 +48,12 @@ var HelloWorldLayer = cc.Layer.extend({
         var score = 1000;
 
         var menu = new cc.Menu(
-            new cc.MenuItemFont("Connect", function() {
+            new cc.MenuItemFont("Connect/Disconnect", function() {
+                                if (sdkbox.PluginSdkboxPlay.isSignedIn() ) {
+              sdkbox.PluginSdkboxPlay.signout();                  
+                                } else {
                 sdkbox.PluginSdkboxPlay.signin();
-            }),
-            new cc.MenuItemFont("Disconnect", function() {
-                sdkbox.PluginSdkboxPlay.signout();
+                                }
             }),
             new cc.MenuItemFont("Show Leaderboard ldb1", function() {
                 sdkbox.PluginSdkboxPlay.showLeaderboard("ldb1");
@@ -76,6 +83,7 @@ var HelloWorldLayer = cc.Layer.extend({
         menu.y = size.height/2;
         this.addChild(menu);
 
+                                      var me= this;
 
         var initSDK = function() {
             if ("undefined" == typeof(sdkbox)) {
@@ -106,7 +114,12 @@ var HelloWorldLayer = cc.Layer.extend({
                         if ( connection_status==1000 ) {
                             cc.log( 'Player id: '+plugin.getPlayerId() );
                             cc.log( 'Player name: '+plugin.getPlayerAccountField("name") );
-                        }      
+                            me.info.setString( "connection status: " + connection_status + " " + plugin.getPlayerId() + " " + plugin.getPlayerAccountField("name") + "("+ plugin.getPlayerAccountField("display_name") +")");
+                       } else {
+                           me.info.setString( "Not connected. Status: " + connection_status );
+                       }
+                                   
+                                   
                     }
                 });
                 plugin.init();

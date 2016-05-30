@@ -93,6 +93,17 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showLeaderboard(lua_State* tolua_S)
 
     argc = lua_gettop(tolua_S) - 1;
 
+    if (argc == 0)
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showLeaderboard'", nullptr);
+            return 0;
+        }
+        sdkbox::PluginSdkboxPlay::showLeaderboard();
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
     if (argc == 1)
     {
         std::string arg0;
@@ -106,7 +117,7 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showLeaderboard(lua_State* tolua_S)
         lua_settop(tolua_S, 1);
         return 1;
     }
-    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:showLeaderboard",argc, 1);
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:showLeaderboard",argc, 0);
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:

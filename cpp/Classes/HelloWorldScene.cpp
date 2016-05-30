@@ -54,8 +54,7 @@ bool HelloWorld::init()
     std::string str = buffer;
     
     Menu* menu = Menu::create(
-                      MenuItemFont::create("Connect",    CC_CALLBACK_1(HelloWorld::connect, this)),
-                      MenuItemFont::create("Disconnect", CC_CALLBACK_1(HelloWorld::disconnect, this)),
+                      MenuItemFont::create("Connect/Disconnect",    CC_CALLBACK_1(HelloWorld::connectOrDisconnect, this)),
                       MenuItemFont::create("Show Leaderboard ldb1", CC_CALLBACK_1(HelloWorld::showLeaderboard, this)),
                       MenuItemFont::create("Achievements", CC_CALLBACK_1(HelloWorld::showAchievements, this)),
                       MenuItemFont::create("Unlock Craftsman", CC_CALLBACK_1(HelloWorld::achievement_craftsman, this)),
@@ -70,14 +69,14 @@ bool HelloWorld::init()
     menu->setPosition(size.width/2, size.height/2);
     addChild(menu);
         
-    _txtStat = Label::create("No action yet.", "fonts/Marker Felt.ttf",32);
+    _txtStat = Label::create("No action yet.", "fonts/Marker Felt.ttf",24);
     _txtStat->setAnchorPoint(cocos2d::Point(0, 0));
-    _txtStat->setPosition(cocos2d::Point(10, 10));
+    _txtStat->setPosition(cocos2d::Point(10, 65));
     addChild(_txtStat);
     
-    _txtC = Label::create("Disconnected", "fonts/Marker Felt.ttf",32);
+    _txtC = Label::create("Disconnected", "fonts/Marker Felt.ttf",24);
     _txtC->setAnchorPoint(cocos2d::Point(0, 0));
-    _txtC->setPosition(cocos2d::Point(10, 45));
+    _txtC->setPosition(cocos2d::Point(10, 85));
     addChild(_txtC);
 
     sdkbox::PluginSdkboxPlay::setListener(this);
@@ -86,12 +85,12 @@ bool HelloWorld::init()
     return true;
 }
 
-void HelloWorld::connect(cocos2d::CCObject *sender) {
-    sdkbox::PluginSdkboxPlay::signin();
-}
-
-void HelloWorld::disconnect(cocos2d::CCObject *sender) {
-    sdkbox::PluginSdkboxPlay::signout();
+void HelloWorld::connectOrDisconnect(cocos2d::CCObject *sender) {
+    if ( sdkbox::PluginSdkboxPlay::isSignedIn()) {
+        sdkbox::PluginSdkboxPlay::signout();
+    } else {
+        sdkbox::PluginSdkboxPlay::signin();
+    }
 }
 
 void HelloWorld::showLeaderboard(cocos2d::CCObject *sender) {
@@ -158,5 +157,7 @@ void HelloWorld::onConnectionStatusChanged(int connection_status) {
             ")'";
         
         _txtC->setString( sstr );
+    } else {
+        _txtC->setString( "" );
     }
 }

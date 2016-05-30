@@ -24,6 +24,10 @@ end
 
 function MainScene:setupTestMenu()
 
+    local info = cc.Label:createWithSystemFont("Not connected yet.", "sans", 32)
+    info:setPosition(display.cx, 80)
+    self:addChild(info);
+
     sdkbox.PluginSdkboxPlay:setListener(function(args)
 
         dump(args)
@@ -37,18 +41,31 @@ function MainScene:setupTestMenu()
         elseif "onAchievementUnlocked" ==  args.name then
             -- do something
         elseif "onConnectionStatusChanged" ==  args.name then
-            -- do something
+            if 1000 == args.status then
+                info:setString( "Status: " ..
+                                args.status ..
+                                " " ..
+                                sdkbox.PluginSdkboxPlay:getPlayerId() ..
+                                " " ..
+                                sdkbox.PluginSdkboxPlay:getPlayerAccountField("name") ..
+                                "(" ..
+                                sdkbox.PluginSdkboxPlay:getPlayerAccountField("display_name") ..
+                                ")" );
+            else
+                info:setString( "Not connected. Status: " .. args.status );
+            end
         end
     end)
     sdkbox.PluginSdkboxPlay:init()
 
     cc.MenuItemFont:setFontName("Arial")
     cc.Menu:create(
-                   cc.MenuItemFont:create("Connect"):onClicked(function()
-                        sdkbox.PluginSdkboxPlay:signin()
-                    end),
-                   cc.MenuItemFont:create("Disconnect"):onClicked(function()
-                        sdkbox.PluginSdkboxPlay:signout()
+                   cc.MenuItemFont:create("Connect/Disconnect"):onClicked(function()
+                        if ( sdkbox.PluginSdkboxPlay:isConnected() ) then
+                            sdkbox.PluginSdkboxPlay:signout()
+                        else
+                            sdkbox.PluginSdkboxPlay:signin()
+                        end
                     end),
                    cc.MenuItemFont:create("Show Leaderboard ldb1"):onClicked(function()
                         sdkbox.PluginSdkboxPlay:showLeaderboard("ldb1")
