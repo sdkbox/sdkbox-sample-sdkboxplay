@@ -29,7 +29,7 @@
                     "name": "incremental"
                 }
             ], 
-            "connect_on_start": false, 
+            "connect_on_start": true, 
             "debug": true
         }
     }, 
@@ -39,7 +39,12 @@
                 {
                     "id": "ldb1", 
                     "name": "ldb1"
-                }
+                },
+                 {
+                 "id": "ldb2",
+                 "name": "ldb2"
+                 }
+                             
             ], 
             "achievements": [
                 {
