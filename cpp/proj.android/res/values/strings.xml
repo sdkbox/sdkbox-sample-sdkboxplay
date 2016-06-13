@@ -2,5 +2,5 @@
 <resources>
     <string name="app_name">SdkboxPlay</string>
     <string name="google_app_id">774139307474</string>
-    <integer name="google_play_services_version">8298000</integer>
+    <!--<integer name="google_play_services_version">8298000</integer>-->
 </resources>
