@@ -159,7 +159,7 @@ namespace sdkbox {
          * Android only:
          * -------------------
          *   + title
-         *   + con_image_uri
+         *   + icon_image_uri
          *   + hires_image_uri
          *   + last_play_timestamp
          *   + retrieved_timestamp

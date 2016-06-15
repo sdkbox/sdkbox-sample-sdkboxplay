@@ -1,6 +1,7 @@
 .*
 contents.xcworkspacedata
 xcuserdata/
+backup-*/
 
 cpp/*.zip
 cpp/bin/
