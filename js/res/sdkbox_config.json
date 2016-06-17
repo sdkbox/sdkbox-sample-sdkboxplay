@@ -3,33 +3,33 @@
         "sdkboxplay": {
             "leaderboards": [
                 {
-                    "id": "CgkI0sux8sMWEAIQAA", 
+                    "id": "CgkI2uKny_QJEAIQBw", 
                     "name": "ldb1"
                 }
             ], 
             "achievements": [
                 {
-                    "incremental": false, 
-                    "id": "CgkI0sux8sMWEAIQAg", 
-                    "name": "ten-games"
+                    "name": "ten-games",
+                    "id": "CgkI2uKny_QJEAIQAw", 
+                    "incremental": false 
                 }, 
                 {
-                    "incremental": false, 
-                    "id": "CgkI0sux8sMWEAIQAw", 
-                    "name": "hunter"
+                    "name": "hunter",
+                    "id": "CgkI2uKny_QJEAIQBA", 
+                    "incremental": false
                 }, 
                 {
-                    "incremental": false, 
-                    "id": "CgkI0sux8sMWEAIQBA", 
-                    "name": "craftsman"
+                    "name": "craftsman",
+                    "id": "CgkI2uKny_QJEAIQBQ", 
+                    "incremental": false
                 }, 
                 {
-                    "incremental": true, 
-                    "id": "CgkI0sux8sMWEAIQBQ", 
-                    "name": "incremental"
+                    "name": "incremental",
+                    "id": "CgkI2uKny_QJEAIQBg", 
+                    "incremental": true
                 }
             ], 
-            "connect_on_start": false, 
+            "connect_on_start": true, 
             "debug": true
         }
     }, 
@@ -37,30 +37,34 @@
         "sdkboxplay": {
             "leaderboards": [
                 {
-                    "id": "ldb1", 
-                    "name": "ldb1"
+                    "name": "ldb1",
+                    "id": "ldb1"
+                },
+                {
+                    "name": "ldb2",
+                    "id": "ldb2"
                 }
             ], 
             "achievements": [
                 {
-                    "incremental": false, 
+                    "name": "ten-games",
                     "id": "tengames", 
-                    "name": "ten-games"
+                    "incremental": false 
                 }, 
                 {
-                    "incremental": false, 
+                    "name": "hunter",
                     "id": "hunter", 
-                    "name": "hunter"
+                    "incremental": false
                 }, 
                 {
-                    "incremental": false, 
+                    "name": "craftsman",
                     "id": "craftsman", 
-                    "name": "craftsman"
+                    "incremental": false 
                 }, 
                 {
-                    "incremental": true, 
+                    "name": "incremental",
                     "id": "CgkI0sux8sMWEAIQBQ", 
-                    "name": "incremental"
+                    "incremental": true
                 }
             ], 
             "connect_on_start": true, 
