@@ -29,7 +29,6 @@ public:
         mLuaHandler = 0;
     }
 
-
     virtual void onConnectionStatusChanged( int status ) {
         LuaStack* stack = LUAENGINE->getLuaStack();
 
@@ -39,10 +38,10 @@ public:
         stack->pushLuaValueDict(dict);
         stack->executeFunctionByHandler(mLuaHandler, 1);
     }
-    
-    virtual void onScoreSubmitted( 
-        const std::string& leaderboard_name, 
-        int score, 
+
+    virtual void onScoreSubmitted(
+        const std::string& leaderboard_name,
+        int score,
         bool alltime,
         bool week,
         bool day) {
@@ -61,6 +60,67 @@ public:
 
     }
 
+    virtual void onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onMyScore")));
+        dict.insert(std::make_pair("leaderboard_name", LuaValue::stringValue(leaderboard_name)));
+        dict.insert(std::make_pair("time_span", LuaValue::intValue(time_span)));
+        dict.insert(std::make_pair("collection_type", LuaValue::intValue(collection_type)));
+        dict.insert(std::make_pair("score", LuaValue::intValue(score)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onMyScoreError")));
+        dict.insert(std::make_pair("leaderboard_name", LuaValue::stringValue(leaderboard_name)));
+        dict.insert(std::make_pair("time_span", LuaValue::intValue(time_span)));
+        dict.insert(std::make_pair("collection_type", LuaValue::intValue(collection_type)));
+        dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
+        dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onPlayerCenteredScores( const std::string& leaderboard_name,
+                                        int time_span,
+                                        int collection_type,
+                                        const std::string& json_with_score_entries ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onPlayerCenteredScores")));
+        dict.insert(std::make_pair("leaderboard_name", LuaValue::stringValue(leaderboard_name)));
+        dict.insert(std::make_pair("time_span", LuaValue::intValue(time_span)));
+        dict.insert(std::make_pair("collection_type", LuaValue::intValue(collection_type)));
+        dict.insert(std::make_pair("json_with_score_entries", LuaValue::stringValue(json_with_score_entries)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onPlayerCenteredScoresError( const std::string& leaderboard_name,
+                                             int time_span,
+                                             int collection_type,
+                                             int error_code,
+                                             const std::string& error_description) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onPlayerCenteredScoresError")));
+        dict.insert(std::make_pair("leaderboard_name", LuaValue::stringValue(leaderboard_name)));
+        dict.insert(std::make_pair("time_span", LuaValue::intValue(time_span)));
+        dict.insert(std::make_pair("collection_type", LuaValue::intValue(collection_type)));
+        dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
+        dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
     virtual void onIncrementalAchievementUnlocked( const std::string& achievement_name ) {
 
         LuaStack* stack = LUAENGINE->getLuaStack();
@@ -70,7 +130,7 @@ public:
         dict.insert(std::make_pair("achievement_name", LuaValue::stringValue(achievement_name)));
         stack->pushLuaValueDict(dict);
         stack->executeFunctionByHandler(mLuaHandler, 1);
-    }    
+    }
 
     virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step ) {
 
@@ -82,16 +142,98 @@ public:
         dict.insert(std::make_pair("step", LuaValue::intValue(step)));
         stack->pushLuaValueDict(dict);
         stack->executeFunctionByHandler(mLuaHandler, 1);
-    }    
+    }
+
+    virtual void onIncrementalAchievementStepError( const std::string& achievement_name, int steps, int error_code, const std::string& error_description ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onIncrementalAchievementStepError")));
+        dict.insert(std::make_pair("achievement_name", LuaValue::stringValue(achievement_name)));
+        dict.insert(std::make_pair("steps", LuaValue::intValue(steps)));
+        dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
+        dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
 
     virtual void onAchievementUnlocked( const std::string& achievement_name, bool newlyUnlocked ) {
 
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict dict;
-        dict.insert(std::make_pair("name", LuaValue::stringValue("onIncrementalAchievementStep")));
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onAchievementUnlocked")));
         dict.insert(std::make_pair("achievement_name", LuaValue::stringValue(achievement_name)));
         dict.insert(std::make_pair("newlyUnlocked", LuaValue::booleanValue(newlyUnlocked)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onIncrementalAchievementStepError")));
+        dict.insert(std::make_pair("achievement_name", LuaValue::stringValue(achievement_name)));
+        dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
+        dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onAchievementsLoaded")));
+        dict.insert(std::make_pair("reload_forced", LuaValue::booleanValue(reload_forced)));
+        dict.insert(std::make_pair("json_achievements_info", LuaValue::stringValue(json_achievements_info)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onSetSteps( const std::string& step_name, int steps ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onSetSteps")));
+        dict.insert(std::make_pair("step_name", LuaValue::stringValue(step_name)));
+        dict.insert(std::make_pair("steps", LuaValue::intValue(steps)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onSetStepsError( const std::string& step_name, int steps, int error_code, const std::string& error_description ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onSetStepsError")));
+        dict.insert(std::make_pair("step_name", LuaValue::stringValue(step_name)));
+        dict.insert(std::make_pair("steps", LuaValue::intValue(steps)));
+        dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
+        dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onReveal( const std::string& reveal_name) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onReveal")));
+        dict.insert(std::make_pair("reveal_name", LuaValue::stringValue(reveal_name)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onRevealError( const std::string& reveal_name, int error_code, const std::string& error_description ) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onRevealError")));
+        dict.insert(std::make_pair("reveal_name", LuaValue::stringValue(reveal_name)));
+        dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
+        dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
         stack->pushLuaValueDict(dict);
         stack->executeFunctionByHandler(mLuaHandler, 1);
     }

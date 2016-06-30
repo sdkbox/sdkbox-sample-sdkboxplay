@@ -19,19 +19,9 @@ void register_all_PluginSdkboxPlayJS(JSContext* cx, JSObject* obj);
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_PluginSdkboxPlayJS_PluginSdkboxPlay_finalize(JSContext *cx, JSObject *obj);
 #if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signout(JSContext *cx, uint32_t argc, jsval *vp);
-#elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signout(JSContext *cx, uint32_t argc, jsval *vp);
-#endif
-#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_incrementAchievement(JSContext *cx, uint32_t argc, jsval *vp);
 #elif defined(JS_VERSION)
 JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_incrementAchievement(JSContext *cx, uint32_t argc, jsval *vp);
-#endif
-#if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard(JSContext *cx, uint32_t argc, jsval *vp);
-#elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId(JSContext *cx, uint32_t argc, jsval *vp);
@@ -39,19 +29,14 @@ bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId(JSContext *cx, uint32_t 
 JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerId(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getMyScore(JSContext *cx, uint32_t argc, jsval *vp);
 #elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getMyScore(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAchievements(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAllLeaderboards(JSContext *cx, uint32_t argc, jsval *vp);
 #elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAchievements(JSContext *cx, uint32_t argc, jsval *vp);
-#endif
-#if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin(JSContext *cx, uint32_t argc, jsval *vp);
-#elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAllLeaderboards(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField(JSContext *cx, uint32_t argc, jsval *vp);
@@ -59,24 +44,19 @@ bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField(JSContext *cx,
 JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerAccountField(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_init(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerCenteredScores(JSContext *cx, uint32_t argc, jsval *vp);
 #elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_init(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getPlayerCenteredScores(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_submitScore(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard(JSContext *cx, uint32_t argc, jsval *vp);
 #elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_submitScore(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showLeaderboard(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_unlockAchievement(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signout(JSContext *cx, uint32_t argc, jsval *vp);
 #elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_unlockAchievement(JSContext *cx, uint32_t argc, jsval *vp);
-#endif
-#if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion(JSContext *cx, uint32_t argc, jsval *vp);
-#elif defined(JS_VERSION)
-JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signout(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn(JSContext *cx, uint32_t argc, jsval *vp);
@@ -84,9 +64,59 @@ bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn(JSContext *cx, uint32_t a
 JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isSignedIn(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_init(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_init(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_unlockAchievement(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_unlockAchievement(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAchievements(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAchievements(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAchievements(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_showAchievements(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_isConnected(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_submitScore(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_submitScore(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_setSteps(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_setSteps(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener(JSContext *cx, uint32_t argc, jsval *vp);
 #elif defined(JS_VERSION)
 JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_reveal(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_reveal(JSContext *cx, uint32_t argc, jsval *vp);
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin(JSContext *cx, uint32_t argc, jsval *vp);
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 #endif
 

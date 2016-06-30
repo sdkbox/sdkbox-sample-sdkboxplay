@@ -11,11 +11,30 @@
 
 namespace sdkbox {
     
+    #define GPG_TAG "GPG"
+    #define TAG "GPG"
+    #define VERSION "1.0.0"
+        
+    #define IOS_VERSION     "ios: 8487000"
+    #define ANDROID_VERSION "android: 8487000"
+    
     const int GPS_CONNECTED = 1000;
     const int GPS_DISCONNECTED = 1001;
     const int GPS_CONNECTION_ERROR = 1002;
     
     class SdkboxPlayListener;
+
+    enum TIME_SCOPE {
+        DAY = 0,
+        WEEK = 1,
+        ALL_TIME = 2
+    };
+    
+    enum PLAYER_SCOPE {
+        GLOBAL = 0,
+        SOCIAL = 1
+    };
+    
     class PluginSdkboxPlay {
     public:
         /**
@@ -80,7 +99,12 @@ namespace sdkbox {
          * If everything's right, it will notify the method <code>onScoreSubmitted</code>.
          */
         static void submitScore( const std::string& leaderboard_name, int score );
-        
+
+        /**
+         * Request to show all leaderboards.
+         */
+        static void showAllLeaderboards();
+
         /**
          * Request to show the default Leaderboard view.
          * In this view you'll be able to interactively select between daily, weekly or all-time leaderboard time frames and the scope
@@ -91,7 +115,61 @@ namespace sdkbox {
          *  with all game-defined leader boards.
          */
         static void showLeaderboard( const std::string& leaderboard_name="" );
-        
+
+        /**
+         * Get The signed-in user score for an specified leaderboard.
+         * This method notifies its result in a call to SdkboxPlay's listener <code>onMyScore</code> method.
+         * <code>time_span</code> offers the abbility to filter leaderboard for one of the three time spans each
+         * leaderboard offers. Values are:
+         *  + 0 : daily time span
+         *  + 1 : weekly time span
+         *  + any other value : all time time span.
+         * <code>collection_type</code> is to filter the leaderboard between social or global scopes.
+         * Values are:
+         *  + 1 : social collection type
+         *  + any other value : global collection type
+         *
+         */
+        static void getMyScore( const std::string& leaderboard_name, int time_span, int collection_type );
+
+        /**
+         * Android Only !!!
+         * Get leaderboard information.
+         * This method notifies its result in a call to SdkboxPlay's listener `onPlayerCenteredScores` method.
+         * The information supplied is a json array encoded string.
+         * Each json element contains the following information:
+         * ```json
+         *   {
+         *      "display_rank"          : string,
+         *      "display_score"         : string,
+         *      "rank"                  : number,   // long
+         *      "score"                 : number,   // long,
+         *      "holder_display_name"   : string,
+         *      "hires_imageuri"        : string,    // content:// protocol
+         *      "lowres_imageuri"       : string,
+         *      "tag"                   : string,
+         *      "timestamp_millis"      : long
+         *    }
+         * ```
+         * <code>time_span</code> offers the abbility to filter leaderboard for one of the three time spans each
+         * leaderboard offers. Values are:
+         *  + 0 : daily time span
+         *  + 1 : weekly time span
+         *  + any other value : all time time span.
+         * <code>collection_type</code> is to filter the leaderboard between social or global scopes.
+         * Values are:
+         *  + 1 : social collection type
+         *  + any other value : global collection type
+         */
+        static void getPlayerCenteredScores( const std::string& leaderboard_name, int time_span, int collection_type, int number_of_entries );
+
+        /**
+         * Load achievements metadata.
+         * A forece reload will force a cloud-side requery of the achievements information.
+         * See `onAchievementsLoaded` for a description on the returned information.
+         */
+        static void loadAchievements( bool force_reload );
+
         /**
          * Request to unlock an achievement defined by its name.
          * This method assumes the achievement is non incremental.
@@ -109,6 +187,9 @@ namespace sdkbox {
          * If the call is successful, this method may invoke two different methods:
          *   + <code>onIncrementalAchievementStep</code> if the achievement is not unlocked.
          *   + <code>onIncrementalAchievementUnlocked</code> the first time it's been newly unlocked.
+         * On Android, the achievement is set to a fixed number of incremental steps. On iOS, the achievment is set as
+         * a percentage value (0..100). In either case, the `increment` value will be added to the current achievement's
+         * value.
          */
         static void incrementAchievement( const std::string& achievement_name, int increment );
         
@@ -119,6 +200,20 @@ namespace sdkbox {
          * Total experience count is measured as well.
          */
         static void showAchievements( );
+
+        /**
+         * Reveal a hidden achievement.
+         * This method will notify on plugin's listener `onReveal` or `onRevelError` methods.
+         */
+        static void reveal( const std::string& achievement_name );
+
+        /**
+         * Set an incremental achievement to the given amount of steps.
+         * If achievement's current steps are already equal or bigger the specified steps, nothing will happen.
+         * This method will  notify on plugin's listener `onSetSteps` or `onSetStepsError` methods.
+         */
+        static void setSteps( const std::string& achievement_name, int steps );
+
         
         /**
          * Fast method to know plugin's connection status.
@@ -167,7 +262,7 @@ namespace sdkbox {
          */
         static std::string getPlayerAccountField( const std::string& field );
     };
-    
+
     class SdkboxPlayListener {
     public:
         /**
@@ -186,7 +281,55 @@ namespace sdkbox {
          * Since Game center can't determine if submitted score is maximum, it will send the max score flags as false.
          */
         virtual void onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday )=0;
-        
+
+        /**
+         * Callback method invoked from a call to `getMyScore` method.
+         * `time_span` and `collection_type` are the supplied values to `getMyScore` method call.
+         */
+        virtual void onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score ) = 0;
+
+        /**
+         * Callback method invoked from a call to `getMyScore` method and the method was errored.
+         * `time_span` and `collection_type` are the supplied values to `getMyScore` method call.
+         * `error_code` and `error_description` give extended info about the error.
+         */
+        virtual void onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) =0;
+
+        /**
+         * Callback method invoked from a call to `getPlayerCenteredScores` method.
+         * `json_with_score_entries` is an json array enconded string, each of which elements is of the form:
+         * Each json element contains the following information:
+         * ```json
+         *   {
+         *      "display_rank"          : string,
+         *      "display_score"         : string,
+         *      "rank"                  : number,   // long
+         *      "score"                 : number,   // long,
+         *      "holder_display_name"   : string,
+         *      "hires_imageuri"        : string,    // content:// protocol
+         *      "lowres_imageuri"       : string,
+         *      "tag"                   : string,
+         *      "timestamp_millis"      : long
+         *    }
+         * ```
+         * `time_span` and `collection_type` are the values supplied to `getPlayerCenteredScores` method.
+         */
+        virtual void onPlayerCenteredScores( const std::string& leaderboard_name,
+                                             int time_span,
+                                             int collection_type,
+                                             const std::string& json_with_score_entries ) = 0;
+
+        /**
+         * Callback method invoked from a call to `getPlayerCenteredScores` method was errored.
+         * `time_span` and `collection_type` are the values supplied to `getPlayerCenteredScores` method.
+         * `error_code` and `error_description` give extended info about the error.
+         */
+        virtual void onPlayerCenteredScoresError( const std::string& leaderboard_name,
+                                                  int time_span,
+                                                  int collection_type,
+                                                  int error_code,
+                                                  const std::string& error_description) = 0;
+
         /**
          * Callback method invoked when the request call to increment an achievement is succeessful and
          * that achievement gets unlocked. This happens when the incremental step count reaches its maximum value. 
@@ -199,12 +342,75 @@ namespace sdkbox {
          * If possible (Google play only) it notifies back with the current achievement step count.
          */
         virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step )=0;
+
+        virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) = 0;
         
         /**
          * Call method invoked when the request call to unlock a non-incremental achievement is successful.
          * If this is the first time the achievement is unlocked, newUnlocked will be true.
          */
         virtual void onAchievementUnlocked( const std::string& achievement_name, bool newlyUnlocked )=0;
+
+        virtual void onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description )=0;
+
+        /**
+         * Method invoked after calling plugin's `loadAchievements` method.
+         * The `json_achievements_info` parameter is a json array encoded string.
+         * #### Android fields:
+         * each array element is of the form:
+         * ```json
+         *   {
+         *      "id"                        : string,
+         *      "name"                      : string,
+         *      "xp_value"                  : string,   // experience value
+         *      "last_updated_timestamp"    : number,
+         *      "description"               : string,
+         *      "type"                      : number,   // 0 = standard, 1 = incremental
+         *      "state"                     : number,   // 0 = unlocked, 1 = revealed,   2 = hidden
+         *      "unlocked_image_uri"        : string,   // content:// protocol
+         *      "revealed_image_uri"        : string,   // content:// protocol
+         *   }
+         * ```
+         *   If the achievement is incremental, these fileds will also be available:
+         * ```json
+         *   {
+         *      "formatted_current_steps"   : string,
+         *      "formatted_total_steps"     : string,
+         *      current_steps"              : number,
+         *      "total_steps"               : number
+         *   }
+         * ```
+         * #### IOS fields:
+         * ```json
+         *   {
+         *      "id"                        : string,
+         *      "name"                      : string,
+         *      "xp_value"                  : number, int
+         *      "last_updated_timestamp"    : number,
+         *      "description"               : string,   // maybe empty if no achievemnt submission happened before.
+         *      "state"                     : number,   // 0 = unlocked, 1 = revealed,   2 = hidden
+         *      "type"                      : 1,        // on ios all achievemtns are incremental.
+         *      "current_steps"             : number,   // double value. percentage 0.0 .. 100.0
+         *      "total_steps"               : number,   // 100.0
+         *   }
+         *  ```
+         *  iOS only fields:
+         * ```json
+         *   {
+         *      "replayable"                : boolean,
+         *   }
+         * ```
+         */
+        virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) = 0;
+
+        virtual void onSetSteps( const std::string& name, int steps ) = 0;
+
+        virtual void onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description ) = 0;
+
+        virtual void onReveal( const std::string& name) = 0;
+
+        virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description ) = 0;
+
     };
 }
 
