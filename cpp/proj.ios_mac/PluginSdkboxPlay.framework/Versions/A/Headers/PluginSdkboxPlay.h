@@ -11,8 +11,8 @@
 
 namespace sdkbox {
     
-    #define GPG_TAG "GPG"
-    #define TAG "GPG"
+    #define GPG_TAG "SdkboxPlay"
+    #define TAG "SdkboxPlay"
     #define VERSION "1.0.0"
         
     #define IOS_VERSION     "ios: 8487000"
@@ -286,14 +286,14 @@ namespace sdkbox {
          * Callback method invoked from a call to `getMyScore` method.
          * `time_span` and `collection_type` are the supplied values to `getMyScore` method call.
          */
-        virtual void onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score ) = 0;
+        virtual void onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score ) {};
 
         /**
          * Callback method invoked from a call to `getMyScore` method and the method was errored.
          * `time_span` and `collection_type` are the supplied values to `getMyScore` method call.
          * `error_code` and `error_description` give extended info about the error.
          */
-        virtual void onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) =0;
+        virtual void onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) {};
 
         /**
          * Callback method invoked from a call to `getPlayerCenteredScores` method.
@@ -317,7 +317,7 @@ namespace sdkbox {
         virtual void onPlayerCenteredScores( const std::string& leaderboard_name,
                                              int time_span,
                                              int collection_type,
-                                             const std::string& json_with_score_entries ) = 0;
+                                            const std::string& json_with_score_entries ) {};
 
         /**
          * Callback method invoked from a call to `getPlayerCenteredScores` method was errored.
@@ -328,7 +328,7 @@ namespace sdkbox {
                                                   int time_span,
                                                   int collection_type,
                                                   int error_code,
-                                                  const std::string& error_description) = 0;
+                                                 const std::string& error_description) {};
 
         /**
          * Callback method invoked when the request call to increment an achievement is succeessful and
@@ -343,7 +343,7 @@ namespace sdkbox {
          */
         virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step )=0;
 
-        virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) = 0;
+        virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) {};
         
         /**
          * Call method invoked when the request call to unlock a non-incremental achievement is successful.
@@ -351,7 +351,7 @@ namespace sdkbox {
          */
         virtual void onAchievementUnlocked( const std::string& achievement_name, bool newlyUnlocked )=0;
 
-        virtual void onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description )=0;
+        virtual void onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description ) {};
 
         /**
          * Method invoked after calling plugin's `loadAchievements` method.
@@ -401,15 +401,15 @@ namespace sdkbox {
          *   }
          * ```
          */
-        virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) = 0;
+        virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) {};
 
-        virtual void onSetSteps( const std::string& name, int steps ) = 0;
+        virtual void onSetSteps( const std::string& name, int steps ) {};
 
-        virtual void onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description ) = 0;
+        virtual void onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description ) {};
 
-        virtual void onReveal( const std::string& name) = 0;
+        virtual void onReveal( const std::string& name) {};
 
-        virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description ) = 0;
+        virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description ) {};
 
     };
 }
