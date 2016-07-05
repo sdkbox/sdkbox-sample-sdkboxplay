@@ -4,7 +4,14 @@
 #include <vector>
 #include <string>
 
+#include "cocos2d.h"
+#if (COCOS2D_VERSION >= 0x00031100)
+#include "scripting/js-bindings/manual/js_manual_conversions.h"
+#include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
+#else
 #include "js_manual_conversions.h"
+#include "cocos2d_specifics.hpp"
+#endif
 
 #if MOZJS_MAJOR_VERSION >= 31
 typedef JS::HandleObject one_JSObject;

@@ -1,12 +1,7 @@
 #include "SDKBoxJSHelper.h"
 #include <string>
 #include <sstream>
-#include "cocos2d_specifics.hpp"
 #include "sdkbox/Sdkbox.h"
-
-#if defined(MOZJS_MAJOR_VERSION)
-#include "cocos2d_specifics.hpp"
-#endif
 
 namespace sdkbox
 {

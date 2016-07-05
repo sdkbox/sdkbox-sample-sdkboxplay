@@ -2,33 +2,38 @@
     "android": {
         "sdkboxplay": {
             "leaderboards": [
-                {
-                    "id": "CgkI2uKny_QJEAIQBw", 
-                    "name": "ldb1"
-                }
-            ], 
-            "achievements": [
-                {
-                    "name": "ten-games",
-                    "id": "CgkI2uKny_QJEAIQAw", 
-                    "incremental": false 
-                }, 
-                {
-                    "name": "hunter",
-                    "id": "CgkI2uKny_QJEAIQBA", 
-                    "incremental": false
-                }, 
-                {
-                    "name": "craftsman",
-                    "id": "CgkI2uKny_QJEAIQBQ", 
-                    "incremental": false
-                }, 
-                {
-                    "name": "incremental",
-                    "id": "CgkI2uKny_QJEAIQBg", 
-                    "incremental": true
-                }
-            ], 
+          {
+            "id": "CgkI6KjppNEWEAIQAg",
+            "name": "ldb1"
+          },
+          {
+            "id": "CgkI6KjppNEWEAIQAw",
+            "name": "ldb2"
+          }
+        ],
+        "achievements": [
+          {
+            "name" : "hidden",
+            "id" : "CgkI6KjppNEWEAIQBA"
+          },
+          {
+            "name" : "incremental",
+            "id" : "CgkI6KjppNEWEAIQBQ",
+            "incremental" : true
+          },
+          {
+            "name" : "craftsman",
+            "id" : "CgkI6KjppNEWEAIQBg"
+          },
+          {
+            "name" : "hunter",
+            "id" : "CgkI6KjppNEWEAIQBw"
+          },
+          {
+            "name" : "ten-games",
+            "id" : "CgkI6KjppNEWEAIQCA"
+          }
+        ],
             "connect_on_start": true, 
             "debug": true
         }
@@ -63,7 +68,7 @@
                 }, 
                 {
                     "name": "incremental",
-                    "id": "CgkI0sux8sMWEAIQBQ", 
+                    "id": "incremental", 
                     "incremental": true
                 }
             ], 

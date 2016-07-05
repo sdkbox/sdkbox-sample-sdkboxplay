@@ -1,9 +1,6 @@
 #include "PluginSdkboxPlayJSHelper.h"
-#include "cocos2d_specifics.hpp"
 #include "PluginSdkboxPlay/PluginSdkboxPlay.h"
 #include "SDKBoxJSHelper.h"
-
-#include "js_manual_conversions.h"
 
 extern JSObject* jsb_sdkbox_PluginSdkboxPlay_prototype;
 static JSContext* s_cx = nullptr;
@@ -16,7 +13,7 @@ public:
 
     std::string _name;
 
-    jsval _paramVal[2];
+    jsval _paramVal[5];
     int _paramLen;
 };
 
@@ -32,15 +29,15 @@ public:
         return _JSDelegate;
     }
 
-    void onConnectionStatusChanged(int connection_status) {
-        JSContext* cx = s_cx;
+    virtual void onConnectionStatusChanged(int connection_status) {
+        //JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
         cb->_name = "onConnectionStatusChanged";
         cb->_paramVal[0] = INT_TO_JSVAL(connection_status);
         cb->_paramLen = 1;
         cb->schedule();
     }
-    void onScoreSubmitted(const std::string &leaderboard_name, int score, bool alltime, bool week, bool day) {
+    virtual void onScoreSubmitted(const std::string &leaderboard_name, int score, bool alltime, bool week, bool day) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
         cb->_name = "onScoreSubmitted";
@@ -52,7 +49,60 @@ public:
         cb->_paramLen = 5;
         cb->schedule();
     }
-    void onIncrementalAchievementUnlocked(const std::string &achievement_name) {
+    virtual void onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onMyScore";
+        cb->_paramVal[0] = std_string_to_jsval(cx, leaderboard_name);
+        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
+        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
+        cb->_paramVal[3] = INT_TO_JSVAL(score);
+        cb->_paramLen = 4;
+        cb->schedule();
+    }
+    virtual void onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onMyScoreError";
+        cb->_paramVal[0] = std_string_to_jsval(cx, leaderboard_name);
+        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
+        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
+        cb->_paramVal[3] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[4] = std_string_to_jsval(cx, error_description);
+        cb->_paramLen = 5;
+        cb->schedule();
+    }
+    virtual void onPlayerCenteredScores( const std::string& leaderboard_name,
+                                         int time_span,
+                                         int collection_type,
+                                         const std::string& json_with_score_entries ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onPlayerCenteredScores";
+        cb->_paramVal[0] = std_string_to_jsval(cx, leaderboard_name);
+        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
+        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
+        cb->_paramVal[3] = std_string_to_jsval(cx, json_with_score_entries);
+        cb->_paramLen = 4;
+        cb->schedule();
+    }
+    virtual void onPlayerCenteredScoresError( const std::string& leaderboard_name,
+                                              int time_span,
+                                              int collection_type,
+                                              int error_code,
+                                              const std::string& error_description) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onPlayerCenteredScoresError";
+        cb->_paramVal[0] = std_string_to_jsval(cx, leaderboard_name);
+        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
+        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
+        cb->_paramVal[3] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[4] = std_string_to_jsval(cx, error_description);
+        cb->_paramLen = 5;
+        cb->schedule();
+    }
+    virtual void onIncrementalAchievementUnlocked(const std::string &achievement_name) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
         cb->_name = "onIncrementalAchievementUnlocked";
@@ -60,7 +110,7 @@ public:
         cb->_paramLen = 1;
         cb->schedule();
     }
-    void onIncrementalAchievementStep(const std::string &achievement_name, int step) {
+    virtual void onIncrementalAchievementStep(const std::string &achievement_name, int step) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
         cb->_name = "onIncrementalAchievementStep";
@@ -69,13 +119,81 @@ public:
         cb->_paramLen = 2;
         cb->schedule();
     }
-    void onAchievementUnlocked(const std::string &achievement_name, bool newly) {
+    virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onIncrementalAchievementStepError";
+        cb->_paramVal[0] = std_string_to_jsval(cx, name);
+        cb->_paramVal[1] = INT_TO_JSVAL(steps);
+        cb->_paramVal[2] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[3] = std_string_to_jsval(cx, error_description);
+        cb->_paramLen = 4;
+        cb->schedule();
+    }
+    virtual void onAchievementUnlocked(const std::string &achievement_name, bool newly) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
         cb->_name = "onAchievementUnlocked";
         cb->_paramVal[0] = std_string_to_jsval(cx, achievement_name);
         cb->_paramVal[1] = BOOLEAN_TO_JSVAL(newly);
         cb->_paramLen = 2;
+        cb->schedule();
+    }
+    virtual void onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onAchievementUnlockError";
+        cb->_paramVal[0] = std_string_to_jsval(cx, achievement_name);
+        cb->_paramVal[1] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[2] = std_string_to_jsval(cx, error_description);
+        cb->_paramLen = 3;
+        cb->schedule();
+    }
+    virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onAchievementsLoaded";
+        cb->_paramVal[0] = BOOLEAN_TO_JSVAL(reload_forced);
+        cb->_paramVal[1] = std_string_to_jsval(cx, json_achievements_info);
+        cb->_paramLen = 2;
+        cb->schedule();
+    }
+    virtual void onSetSteps( const std::string& name, int steps ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onSetSteps";
+        cb->_paramVal[0] = std_string_to_jsval(cx, name);
+        cb->_paramVal[1] = INT_TO_JSVAL(steps);
+        cb->_paramLen = 2;
+        cb->schedule();
+    }
+    virtual void onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onSetStepsError";
+        cb->_paramVal[0] = std_string_to_jsval(cx, name);
+        cb->_paramVal[1] = INT_TO_JSVAL(steps);
+        cb->_paramVal[2] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[3] = std_string_to_jsval(cx, error_description);
+        cb->_paramLen = 4;
+        cb->schedule();
+    }
+    virtual void onReveal( const std::string& name) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onReveal";
+        cb->_paramVal[0] = std_string_to_jsval(cx, name);
+        cb->_paramLen = 1;
+        cb->schedule();
+    }
+    virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description ) {
+        JSContext* cx = s_cx;
+        SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+        cb->_name = "onRevealError";
+        cb->_paramVal[0] = std_string_to_jsval(cx, name);
+        cb->_paramVal[1] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[2] = std_string_to_jsval(cx, error_description);
+        cb->_paramLen = 3;
         cb->schedule();
     }
 

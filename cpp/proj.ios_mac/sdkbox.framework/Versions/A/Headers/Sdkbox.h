@@ -7,7 +7,7 @@
 #ifndef _CC_SDKBOX_H_
 #define _CC_SDKBOX_H_
 
-#define SDKBOX_VERSION_STR  "sdkbox V2.2.3.5"
+#define SDKBOX_VERSION_STR  "sdkbox V2.2.4.10"
 
 /**
  * Only certain compilers support __attribute__((deprecated)).
@@ -81,6 +81,7 @@ namespace sdkbox {
         Platform_Twitter = 1,
         Platform_Facebook = 2,
         Platform_SMS = 5,
+        Platform_EMail = 6,
 
         Platform_Select = 3,
         Platform_All = 4
