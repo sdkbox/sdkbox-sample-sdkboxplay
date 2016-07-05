@@ -31,7 +31,7 @@ var HelloWorldLayer = cc.Layer.extend({
                                          this.info.x = cc.Director.getInstance().getWinSize().width/2;
                                          this.info.y = 90;
                                          this.addChild(this.info);
-                                      
+
         return true;
     },
 
@@ -50,7 +50,7 @@ var HelloWorldLayer = cc.Layer.extend({
         var menu = new cc.Menu(
             new cc.MenuItemFont("Connect/Disconnect", function() {
                                 if (sdkbox.PluginSdkboxPlay.isSignedIn() ) {
-              sdkbox.PluginSdkboxPlay.signout();                  
+              sdkbox.PluginSdkboxPlay.signout();
                                 } else {
                 sdkbox.PluginSdkboxPlay.signin();
                                 }
@@ -87,30 +87,15 @@ var HelloWorldLayer = cc.Layer.extend({
 
         var initSDK = function() {
             if ("undefined" == typeof(sdkbox)) {
-                console.log("sdkbox is not exist")
+                cc.log("sdkbox is not exist")
                 return
             }
 
             if ("undefined" != typeof(sdkbox.PluginSdkboxPlay)) {
                 var plugin = sdkbox.PluginSdkboxPlay
                 plugin.setListener({
-                    onScoreSubmitted : function (leaderboard_name, score, maxScoreAllTime, maxScoreWeek, maxScoreToday) {
-                        cc.log("on score " + score + " submitted to leaderboard: " + leaderboard_name);
-                        cc.log("all time hi " + maxScoreAllTime ? 1 : 0 );
-                        cc.log("weekly hi " + maxScoreWeek ? 1 : 0 );
-                        cc.log("daily hi " + maxScoreToday ? 1 : 0 );
-                    },
-                    onIncrementalAchievementUnlocked : function (achievement_name) {
-                        cc.log("incremental achievement " + achievement_name + " unlocked.");
-                    },
-                    onIncrementalAchievementStep : function (achievement_name, step) {
-                        cc.log("incremental achievent " + achievement_name + " step: " + step);
-                    },
-                    onAchievementUnlocked : function (achievement_name, newlyUnlocked) {
-                        cc.log("achievement " + achievement_name + " unlocked (new " + newlyUnlocked ? 1 : 0 + ")");
-                    },
                     onConnectionStatusChanged : function (connection_status) {
-                        cc.log("connection status change: " + connection_status + " connection_status");      
+                        cc.log("connection status change: " + connection_status + " connection_status");
                         if ( connection_status==1000 ) {
                             cc.log( 'Player id: '+plugin.getPlayerId() );
                             cc.log( 'Player name: '+plugin.getPlayerAccountField("name") );
@@ -118,12 +103,70 @@ var HelloWorldLayer = cc.Layer.extend({
                        } else {
                            me.info.setString( "Not connected. Status: " + connection_status );
                        }
-                                   
-                                   
+                    },
+                    onScoreSubmitted : function (leaderboard_name, score, maxScoreAllTime, maxScoreWeek, maxScoreToday) {
+                        cc.log('onScoreSubmitted trigger leaderboard_name:' + leaderboard_name
+                            + ' score:' + score + ' maxScoreAllTime:' + maxScoreAllTime
+                            + ' maxScoreWeek:' + maxScoreWeek + ' maxScoreToday:' + maxScoreToday);
+                    },
+                    onMyScore : function (leaderboard_name, time_span, collection_type, score ) {
+                        cc.log('onMyScore trigger leaderboard_name:' + leaderboard_name
+                            + ' time_span:' + time_span + ' collection_type:' + collection_type + ' score:' + score);
+                    },
+                    onMyScoreError : function (leaderboard_name, time_span, collection_type, error_code, error_description) {
+                        cc.log('onMyScoreError trigger leaderboard_name:' + leaderboard_name
+                            + ' time_span:' + time_span + ' collection_type:' + collection_type
+                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    },
+                    onPlayerCenteredScores : function (leaderboard_name, time_span, collection_type, json_with_score_entries ) {
+                        cc.log('onPlayerCenteredScores trigger leaderboard_name:' + leaderboard_name
+                            + ' time_span:' + time_span + ' collection_type:' + collection_type
+                            + ' json_with_score_entries:' + json_with_score_entries);
+                    },
+                    onPlayerCenteredScoresError : function (leaderboard_name, time_span, collection_type, error_code, error_description) {
+                        cc.log('onPlayerCenteredScoresError trigger leaderboard_name:' + leaderboard_name
+                            + ' time_span:' + time_span + ' collection_type:' + collection_type
+                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    },
+                    onIncrementalAchievementUnlocked : function (achievement_name) {
+                        cc.log("incremental achievement " + achievement_name + " unlocked.");
+                    },
+                    onIncrementalAchievementStep : function (achievement_name, step) {
+                        cc.log("incremental achievent " + achievement_name + " step: " + step);
+                    },
+                    onIncrementalAchievementStepError : function (name, steps, error_code, error_description) {
+                        cc.log('onIncrementalAchievementStepError trigger leaderboard_name:' + name
+                            + ' steps:' + steps
+                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    },
+                    onAchievementUnlocked : function (achievement_name, newlyUnlocked) {
+                        cc.log('onAchievementUnlocked trigger achievement_name:' + achievement_name + ' newlyUnlocked:' + newlyUnlocked);
+                    },
+                    onAchievementUnlockError : function (achievement_name, error_code, error_description ) {
+                        cc.log('onAchievementUnlockError trigger achievement_name:' + achievement_name
+                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    },
+                    onAchievementsLoaded : function ( reload_forced, json_achievements_info ) {
+                        cc.log('onAchievementsLoaded trigger reload_forced:' + reload_forced
+                            + ' json_achievements_info:' + json_achievements_info);
+                    },
+                    onSetSteps : function (name, steps ) {
+                        cc.log('onSetSteps trigger name:' + name + ' steps:' + steps);
+                    },
+                    onSetStepsError : function (name, steps, error_code, error_description ) {
+                        cc.log('onSetStepsError trigger name:' + name + ' steps:' + steps
+                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    },
+                    onReveal : function (name) {
+                        cc.log('onReveal trigger name:' + name);
+                    },
+                    onRevealError : function (name, error_code, error_description ) {
+                        cc.log('onRevealError trigger name:' + name
+                            + ' error_code:' + error_code + ' error_description:' + error_description);
                     }
                 });
                 plugin.init();
-                
+
             } else {
                 printf("no plugin init")
             }

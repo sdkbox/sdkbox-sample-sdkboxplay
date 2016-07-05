@@ -29,18 +29,9 @@ function MainScene:setupTestMenu()
     self:addChild(info);
 
     sdkbox.PluginSdkboxPlay:setListener(function(args)
+        dump(args, 'listener trigger:')
 
-        dump(args)
-
-        if "onScoreSubmitted" == args.name then
-            -- do something
-        elseif "onIncrementalAchievementUnlocked" ==  args.name then
-            -- do something
-        elseif "onIncrementalAchievementStep" ==  args.name then
-            -- do something
-        elseif "onAchievementUnlocked" ==  args.name then
-            -- do something
-        elseif "onConnectionStatusChanged" ==  args.name then
+        if 'onConnectionStatusChanged' == args.name then
             if 1000 == args.status then
                 info:setString( "Status: " ..
                                 args.status ..
@@ -54,6 +45,36 @@ function MainScene:setupTestMenu()
             else
                 info:setString( "Not connected. Status: " .. args.status );
             end
+        elseif 'onScoreSubmitted' == args.name then
+            -- do something
+        elseif 'onMyScore' == args.name then
+            -- do something
+        elseif 'onMyScoreError' == args.name then
+            -- do something
+        elseif 'onPlayerCenteredScores' == args.name then
+            -- do something
+        elseif 'onPlayerCenteredScoresError' == args.name then
+            -- do something
+        elseif 'onIncrementalAchievementUnlocked' == args.name then
+            -- do something
+        elseif 'onIncrementalAchievementStep' == args.name then
+            -- do something
+        elseif 'onIncrementalAchievementStepError' == args.name then
+            -- do something
+        elseif 'onAchievementUnlocked' == args.name then
+            -- do something
+        elseif 'onAchievementUnlockError' == args.name then
+            -- do something
+        elseif 'onAchievementsLoaded' == args.name then
+            -- do something
+        elseif 'onSetSteps' == args.name then
+            -- do something
+        elseif 'onSetStepsError' == args.name then
+            -- do something
+        elseif 'onReveal' == args.name then
+            -- do something
+        elseif 'onRevealError' == args.name then
+            -- do something
         end
     end)
     sdkbox.PluginSdkboxPlay:init()
