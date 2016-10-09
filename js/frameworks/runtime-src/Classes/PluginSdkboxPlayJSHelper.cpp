@@ -5,7 +5,14 @@
 extern JSObject* jsb_sdkbox_PluginSdkboxPlay_prototype;
 static JSContext* s_cx = nullptr;
 
-class SdkboxPlayCallbackJS: public cocos2d::CCObject {
+#if (COCOS2D_VERSION < 0x00030000)
+#define Ref CCObject
+#define Director CCDirector
+#define getInstance sharedDirector
+#define schedule scheduleSelector
+#endif
+
+class SdkboxPlayCallbackJS: public cocos2d::Ref {
 public:
     SdkboxPlayCallbackJS();
     void schedule();
@@ -17,16 +24,10 @@ public:
     int _paramLen;
 };
 
-class SdkboxPlayListenerJS : public sdkbox::SdkboxPlayListener {
-private:
-    JSObject* _JSDelegate;
+class SdkboxPlayListenerJS : public sdkbox::SdkboxPlayListener, public sdkbox::JSListenerBase
+{
 public:
-    void setJSDelegate(JSObject* delegate) {
-        _JSDelegate = delegate;
-    }
-
-    JSObject* getJSDelegate() {
-        return _JSDelegate;
+    SdkboxPlayListenerJS():sdkbox::JSListenerBase() {
     }
 
     virtual void onConnectionStatusChanged(int connection_status) {
@@ -203,7 +204,7 @@ public:
         }
         JSContext* cx = s_cx;
         const char* func_name = func;
-        JS::RootedObject obj(cx, _JSDelegate);
+        JS::RootedObject obj(cx, getJSDelegate());
         JSAutoCompartment ac(cx, obj);
 
 #if defined(MOZJS_MAJOR_VERSION)
@@ -255,7 +256,7 @@ _paramLen(0) {
 
 void SdkboxPlayCallbackJS::schedule() {
     retain();
-    cocos2d::CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(SdkboxPlayCallbackJS::notityJs), this, 0, false);
+    cocos2d::Director::getInstance()->getScheduler()->schedule(schedule_selector(SdkboxPlayCallbackJS::notityJs), this, 0, 0, 0.0f, false);
     autorelease();
 }
 
@@ -265,7 +266,6 @@ void SdkboxPlayCallbackJS::notityJs(float dt) {
     if (l) {
         l->invokeJS(_name.c_str(), _paramVal, _paramLen);
     }
-    cocos2d::CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
     release();
 }
 
@@ -290,11 +290,10 @@ JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_setListener(JSContext *cx, uint32_
         {
             ok = false;
         }
-        JSObject *tmpObj = args.get(0).toObjectOrNull();
 
         JSB_PRECONDITION2(ok, cx, false, "js_PluginSdkboxPlayJS_PluginSdkboxPlay_setIAPListener : Error processing arguments");
         SdkboxPlayListenerJS* wrapper = new SdkboxPlayListenerJS();
-        wrapper->setJSDelegate(tmpObj);
+        wrapper->setJSDelegate(args.get(0));
         sdkbox::PluginSdkboxPlay::setListener(wrapper);
 
         args.rval().setUndefined();
@@ -350,7 +349,7 @@ void register_all_PluginSdkboxPlayJS_helper(JSContext* cx, JS::HandleObject glob
 #else
 void register_all_PluginSdkboxPlayJS_helper(JSContext* cx, JSObject* global) {
     JS::RootedObject pluginObj(cx);
-    sdkbox::getJsObjOrCreat(cx, JS::RootedObject(cx, global), "sdkbox.PluginAdMob", &pluginObj);
+    sdkbox::getJsObjOrCreat(cx, JS::RootedObject(cx, global), "sdkbox.PluginSdkboxPlay", &pluginObj);
 
     REGISTE_SdkboxPlay_FUNCTIONS
 }
