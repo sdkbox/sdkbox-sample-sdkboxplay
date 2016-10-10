@@ -1,5 +1,3 @@
-# sdkbox-sample-sdkboxplay
-
 ## Getting Started
 
 Run setup script and it will automatically download it's dependencies
@@ -18,14 +16,14 @@ If the setup script runs correctly the folder structure should look like this
 | \-- js
 ~~~
 
+### Test Opt-in
+
+* To test on Android you need to opt-in as an alpha tester [here](https://play.google.com/apps/testing/com.sdkbox.gpg)
+
 SDKBOX samples uses shared cocos2d-x binary to reduce download
 
 ## Documentation
 For more information, check out the [SDKBOX play plugin](http://docs.sdkbox.com/en/plugins/sdkboxplay/)
-
-### Test IAP for android
-
-* To test Android IAP you need to opt-in as an alpha tester [here](https://play.google.com/apps/testing/com.sdkbox.gpg)
 
 ## Run
 
