@@ -2,6 +2,7 @@
 contents.xcworkspacedata
 xcuserdata/
 backup-*/
+*.zip
 
 bin/
 gen/
