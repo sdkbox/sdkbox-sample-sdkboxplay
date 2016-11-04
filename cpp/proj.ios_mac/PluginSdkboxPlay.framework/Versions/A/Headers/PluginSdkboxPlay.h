@@ -10,18 +10,18 @@
 #include <string>
 
 namespace sdkbox {
-    
+
     #define GPG_TAG "SdkboxPlay"
     #define TAG "SdkboxPlay"
     #define VERSION "1.0.0"
-        
+
     #define IOS_VERSION     "ios: 8487000"
     #define ANDROID_VERSION "android: 8487000"
-    
+
     const int GPS_CONNECTED = 1000;
     const int GPS_DISCONNECTED = 1001;
     const int GPS_CONNECTION_ERROR = 1002;
-    
+
     class SdkboxPlayListener;
 
     enum TIME_SCOPE {
@@ -29,12 +29,12 @@ namespace sdkbox {
         WEEK = 1,
         ALL_TIME = 2
     };
-    
+
     enum PLAYER_SCOPE {
         GLOBAL = 0,
         SOCIAL = 1
     };
-    
+
     class PluginSdkboxPlay {
     public:
         /**
@@ -48,11 +48,11 @@ namespace sdkbox {
          *     "enabled"          : boolean
          * }
          *
-         * debug: 
+         * debug:
          *    is a common value to all plugins which enables debug info to be sent to the console. Useful when developing.
-         * enabled: 
+         * enabled:
          *    is a common value to all plugins, which enables or disables the plugin. If enabled is false, the plugin methods will do nothing.
-         * connect_on_start: 
+         * connect_on_start:
          *    tells the plugin to make an automatic connection to Google Play Services on application startup.
          * leaderboards:
          *    a collection of objects of the form:
@@ -133,7 +133,6 @@ namespace sdkbox {
         static void getMyScore( const std::string& leaderboard_name, int time_span, int collection_type );
 
         /**
-         * Android Only !!!
          * Get leaderboard information.
          * This method notifies its result in a call to SdkboxPlay's listener `onPlayerCenteredScores` method.
          * The information supplied is a json array encoded string.
@@ -178,7 +177,7 @@ namespace sdkbox {
          * Otherwise, if everything is right, the method <code>onAchievementUnlocked</code> will be invoked on the plugin listener.
          */
         static void unlockAchievement( const std::string& achievement_name );
-        
+
         /**
          * Request to increment the step count of an incremental achievement by the specified number of steps.
          * This method assumes the achievement is incremental.
@@ -192,7 +191,7 @@ namespace sdkbox {
          * value.
          */
         static void incrementAchievement( const std::string& achievement_name, int increment );
-        
+
         /**
          * Request to show the default Achievements view.
          * In this view, you'll only see public achievements.
@@ -214,7 +213,7 @@ namespace sdkbox {
          */
         static void setSteps( const std::string& achievement_name, int steps );
 
-        
+
         /**
          * Fast method to know plugin's connection status.
          * @deprecated
@@ -231,7 +230,7 @@ namespace sdkbox {
          * This method will invoke plugin's listener <code>onConnectionStatusChanged</code> method.
          */
         static void signin();
-        
+
         /**
          * Request disconnection from the GooglePlay/Game Center backend.
          * This method will invoke plugin's listener <code>onConnectionStatusChanged</code> method.
@@ -258,6 +257,7 @@ namespace sdkbox {
          *   + hires_image_uri
          *   + last_play_timestamp
          *   + retrieved_timestamp
+         *   + server_auth_code
          * If a field not valid is queried an empty string will be returned.
          */
         static std::string getPlayerAccountField( const std::string& field );
@@ -273,7 +273,7 @@ namespace sdkbox {
          *   + GPS_CONNECTION_ERROR:error with google play services connection.
          */
         virtual void onConnectionStatusChanged( int status ) =0;
-        
+
         /**
          * Callback method invoked when an score has been successfully submitted to a leaderboard.
          * It notifies back with the leaderboard_name (not id, see the sdkbox_config.json file) and the
@@ -332,11 +332,11 @@ namespace sdkbox {
 
         /**
          * Callback method invoked when the request call to increment an achievement is succeessful and
-         * that achievement gets unlocked. This happens when the incremental step count reaches its maximum value. 
+         * that achievement gets unlocked. This happens when the incremental step count reaches its maximum value.
          * Maximum step count for an incremental achievement is defined in the google play developer console.
          */
         virtual void onIncrementalAchievementUnlocked( const std::string& achievement_name )=0;
-        
+
         /**
          * Callback method invoked when the request call to increment an achievement is successful.
          * If possible (Google play only) it notifies back with the current achievement step count.
@@ -344,7 +344,7 @@ namespace sdkbox {
         virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step )=0;
 
         virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) {};
-        
+
         /**
          * Call method invoked when the request call to unlock a non-incremental achievement is successful.
          * If this is the first time the achievement is unlocked, newUnlocked will be true.
