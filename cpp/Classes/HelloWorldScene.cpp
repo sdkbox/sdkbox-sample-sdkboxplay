@@ -50,25 +50,25 @@ bool HelloWorld::init()
     time_t tt;
     time(&tt);
     score =  tt%10000;
-    sprintf( buffer, "Send score of %d", score);
+    sprintf( buffer, "submit score: %d", score);
     std::string str = buffer;
     
+    _btn_signin = MenuItemFont::create("Sign In", CC_CALLBACK_1(HelloWorld::connect, this));
+    
+    updateSignInBtn();
+    
     Menu* menu = Menu::create(
-                      MenuItemFont::create("Connect",    CC_CALLBACK_1(HelloWorld::connect, this)),
-                      MenuItemFont::create("Disconnect", CC_CALLBACK_1(HelloWorld::disconnect, this)),
-                      MenuItemFont::create("Show Leaderboard ldb1", CC_CALLBACK_1(HelloWorld::showLeaderboard, this)),
+                      _btn_signin,
+                      MenuItemFont::create("Show Leaderboard", CC_CALLBACK_1(HelloWorld::showLeaderboard, this)),
                       MenuItemFont::create("Show All Leaderboards", CC_CALLBACK_1(HelloWorld::showAllLeaderboards, this)),
-                      MenuItemFont::create("Achievements", CC_CALLBACK_1(HelloWorld::showAchievements, this)),
-                      MenuItemFont::create("Unlock Craftsman", CC_CALLBACK_1(HelloWorld::achievement_craftsman, this)),
-                      MenuItemFont::create("Unlock Hunter", CC_CALLBACK_1(HelloWorld::achievement_hunter, this)),
-                      MenuItemFont::create("Unlock Ten Games", CC_CALLBACK_1(HelloWorld::achievement_ten_games, this)),
-                      MenuItemFont::create("Unlock incremental ", CC_CALLBACK_1(HelloWorld::achievement_incremental, this)),
-                      MenuItemFont::create("Get my score in ldb1 ", CC_CALLBACK_1(HelloWorld::getMyScore, this)),
-                      MenuItemFont::create("Load Achievements meta ", CC_CALLBACK_1(HelloWorld::loadAchievements, this)),
-                      MenuItemFont::create("Reveal hidden ", CC_CALLBACK_1(HelloWorld::revealHidden, this)),
-                      MenuItemFont::create("Increment", CC_CALLBACK_1(HelloWorld::increment, this)),
-                      MenuItemFont::create("Set steps", CC_CALLBACK_1(HelloWorld::setSteps, this)),
                       MenuItemFont::create(str, CC_CALLBACK_1(HelloWorld::send_score, this)),
+                      MenuItemFont::create("Get my score", CC_CALLBACK_1(HelloWorld::getMyScore, this)),
+                      MenuItemFont::create("Show Achievements", CC_CALLBACK_1(HelloWorld::showAchievements, this)),
+                      MenuItemFont::create("achievement unlock", CC_CALLBACK_1(HelloWorld::achievement_craftsman, this)),
+                      MenuItemFont::create("achievement reveal", CC_CALLBACK_1(HelloWorld::revealHidden, this)),
+                      MenuItemFont::create("achievement increase progress", CC_CALLBACK_1(HelloWorld::achievement_incremental, this)),
+                      MenuItemFont::create("achievement set progress", CC_CALLBACK_1(HelloWorld::setSteps, this)),
+                      MenuItemFont::create("Load Achievements data ", CC_CALLBACK_1(HelloWorld::loadAchievements, this)),
                       NULL
     );
 
@@ -92,63 +92,72 @@ bool HelloWorld::init()
     return true;
 }
 
-void HelloWorld::connect(cocos2d::CCObject *sender) {
-    sdkbox::PluginSdkboxPlay::signin();
+void HelloWorld::updateSignInBtn()
+{
+    if (_btn_signin)
+    {
+        if (sdkbox::PluginSdkboxPlay::isSignedIn())
+        {
+            _btn_signin->setString("SignOut");
+        }
+        else
+        {
+            _btn_signin->setString("SignIn");
+        }
+    }
+    
 }
 
-void HelloWorld::disconnect(cocos2d::CCObject *sender) {
-    sdkbox::PluginSdkboxPlay::signout();
+void HelloWorld::connect(cocos2d::Ref *sender)
+{
+    
+    if( sdkbox::PluginSdkboxPlay::isSignedIn())
+    {
+        sdkbox::PluginSdkboxPlay::signout();
+    }
+    else
+    {
+        sdkbox::PluginSdkboxPlay::signin();
+    }
 }
 
-void HelloWorld::showLeaderboard(cocos2d::CCObject *sender) {
+void HelloWorld::showLeaderboard(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::showLeaderboard("ldb1");
 }
 
-void HelloWorld::showAllLeaderboards(cocos2d::CCObject *sender) {
+void HelloWorld::showAllLeaderboards(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::showAllLeaderboards();
 }
 
-void HelloWorld::showAchievements(cocos2d::CCObject *sender) {
+void HelloWorld::showAchievements(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::showAchievements();
 }
 
-void HelloWorld::achievement_craftsman(cocos2d::CCObject *sender) {
+void HelloWorld::achievement_craftsman(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::unlockAchievement("craftsman");
 }
 
-void HelloWorld::achievement_hunter(cocos2d::CCObject *sender) {
-    sdkbox::PluginSdkboxPlay::unlockAchievement("hunter");
-}
-
-void HelloWorld::achievement_ten_games(cocos2d::CCObject *sender) {
-    sdkbox::PluginSdkboxPlay::unlockAchievement("ten-games");
-}
-
-void HelloWorld::achievement_incremental(cocos2d::CCObject *sender) {
+void HelloWorld::achievement_incremental(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::incrementAchievement("incremental",1);
 }
 
-void HelloWorld::getMyScore(cocos2d::CCObject *sender) {
+void HelloWorld::getMyScore(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::getMyScore("ldb1",ALL_TIME,GLOBAL);
 }
 
-void HelloWorld::loadAchievements(cocos2d::CCObject *sender) {
+void HelloWorld::loadAchievements(cocos2d::Ref *sender) {
   sdkbox::PluginSdkboxPlay::loadAchievements(true);
 }
 
-void HelloWorld::send_score(cocos2d::CCObject *sender) {
+void HelloWorld::send_score(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::submitScore("ldb1", score);
 }
 
-void HelloWorld::increment(cocos2d::CCObject* sender) {
-    sdkbox::PluginSdkboxPlay::incrementAchievement("incremental", 10);
-}
-
-void HelloWorld::setSteps(cocos2d::CCObject* sender) {
+void HelloWorld::setSteps(cocos2d::Ref* sender) {
     sdkbox::PluginSdkboxPlay::setSteps("incremental", 50);
 }
 
-void HelloWorld::revealHidden(cocos2d::CCObject* sender) {
+void HelloWorld::revealHidden(cocos2d::Ref* sender) {
     sdkbox::PluginSdkboxPlay::reveal("hidden");
 }
 
@@ -176,7 +185,7 @@ void HelloWorld::onConnectionStatusChanged(int connection_status) {
     CCLOG("connection status change: %d", connection_status);
     
     char str[256];
-    sprintf(str, "Connection status: %d. Is Connected: %d", connection_status, sdkbox::PluginSdkboxPlay::isConnected() ? 1 : 0 );
+    sprintf(str, "Connection status: %d. Is Connected: %d", connection_status, sdkbox::PluginSdkboxPlay::isSignedIn() ? 1 : 0 );
     
     _txtStat->setString( str );
     
@@ -190,6 +199,8 @@ void HelloWorld::onConnectionStatusChanged(int connection_status) {
         
         _txtC->setString( sstr );
     }
+    
+    updateSignInBtn();
 }
 
 void HelloWorld::onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) {
