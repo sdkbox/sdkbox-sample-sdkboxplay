@@ -29,6 +29,7 @@ public:
     void showAllLeaderboards(cocos2d::Ref *sender);
     void showAchievements(cocos2d::Ref *sender);
     void getMyScore(cocos2d::Ref *sender);
+    void getUserCenteredScore(cocos2d::Ref* sender);
     void loadAchievements(cocos2d::Ref *sender);
     void achievement_craftsman(cocos2d::Ref* sender);
     void achievement_incremental(cocos2d::Ref* sender);
@@ -36,7 +37,7 @@ public:
     void setSteps(cocos2d::Ref* sender);
     void revealHidden(cocos2d::Ref* sender);
     void updateSignInBtn();
-    
+    int genRandomScore();
     
     /*****************
      * Callbacks

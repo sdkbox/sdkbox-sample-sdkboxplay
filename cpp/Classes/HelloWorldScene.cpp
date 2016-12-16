@@ -10,9 +10,42 @@
 #include <WS2tcpip.h>
 #endif
 
-USING_NS_CC;
+#include <vector>
+#include <string>
 
+USING_NS_CC;
 using namespace sdkbox;
+using namespace std;
+
+std::vector<std::string> msgbuf;
+static void showMsg(const std::string& msg) {
+    static int msgIndex = 0;
+    //
+    Label *label = dynamic_cast<Label*>(Director::getInstance()->getNotificationNode());
+    if (label == nullptr) {
+        auto size = Director::getInstance()->getWinSize();
+        label = Label::createWithSystemFont("test", "arial", 16);
+        label->setAnchorPoint(ccp(0,0));
+        label->setTextColor(Color4B(0, 255, 0, 255));
+        label->setPosition(10, size.height*0.1);
+        Director::getInstance()->setNotificationNode(label);
+    }
+    
+    stringstream buf;
+    buf << msgIndex++ << " " << msg << "\n";
+    msgbuf.push_back(buf.str());
+    if (msgbuf.size() > 10) {
+        msgbuf.erase(msgbuf.cbegin());
+    }
+    
+    
+    std::string text = "";
+    for (int i = 0; i < msgbuf.size(); i++) {
+        text = text + msgbuf[i];
+    }
+    
+    label->setString(text);
+}
 
 Scene* HelloWorld::createScene()
 {
@@ -41,15 +74,12 @@ bool HelloWorld::init()
         return false;
     }
 
-    Size size = CCDirector::getInstance()->getWinSize();
+    Size size = Director::getInstance()->getWinSize();
     std::string defaultFont("arial.ttf");
-    int defaultFontSize = 32;
 
     char buffer[128];
     
-    time_t tt;
-    time(&tt);
-    score =  tt%10000;
+    score = genRandomScore();
     sprintf( buffer, "submit score: %d", score);
     std::string str = buffer;
     
@@ -63,6 +93,7 @@ bool HelloWorld::init()
                       MenuItemFont::create("Show All Leaderboards", CC_CALLBACK_1(HelloWorld::showAllLeaderboards, this)),
                       MenuItemFont::create(str, CC_CALLBACK_1(HelloWorld::send_score, this)),
                       MenuItemFont::create("Get my score", CC_CALLBACK_1(HelloWorld::getMyScore, this)),
+                      MenuItemFont::create("Get score around me", CC_CALLBACK_1(HelloWorld::getUserCenteredScore, this)),
                       MenuItemFont::create("Show Achievements", CC_CALLBACK_1(HelloWorld::showAchievements, this)),
                       MenuItemFont::create("achievement unlock", CC_CALLBACK_1(HelloWorld::achievement_craftsman, this)),
                       MenuItemFont::create("achievement reveal", CC_CALLBACK_1(HelloWorld::revealHidden, this)),
@@ -90,6 +121,16 @@ bool HelloWorld::init()
     sdkbox::PluginSdkboxPlay::init();
 
     return true;
+}
+
+int HelloWorld::genRandomScore()
+{
+    int s;
+    time_t tt;
+    time(&tt);
+    s =  tt%10000;
+    
+    return s;
 }
 
 void HelloWorld::updateSignInBtn()
@@ -143,6 +184,11 @@ void HelloWorld::achievement_incremental(cocos2d::Ref *sender) {
 
 void HelloWorld::getMyScore(cocos2d::Ref *sender) {
     sdkbox::PluginSdkboxPlay::getMyScore("ldb1",ALL_TIME,GLOBAL);
+}
+
+void HelloWorld::getUserCenteredScore(cocos2d::Ref *sender)
+{
+    sdkbox::PluginSdkboxPlay::getPlayerCenteredScores("ldb1", 2, 2, 3);
 }
 
 void HelloWorld::loadAchievements(cocos2d::Ref *sender) {
@@ -240,7 +286,7 @@ void HelloWorld::onPlayerCenteredScores( const std::string& leaderboard_name,
                                     int time_span,
                                     int collection_type,
                                     const std::string& json_with_score_entries )  {
-    
+    CCLOG("%s", json_with_score_entries.c_str());
 }
 
 void HelloWorld::onPlayerCenteredScoresError( const std::string& leaderboard_name,
@@ -249,6 +295,7 @@ void HelloWorld::onPlayerCenteredScoresError( const std::string& leaderboard_nam
                                          int error_code,
                                          const std::string& error_description) {
     
+    CCLOG("error retriving user centered score");
 }
 
 void HelloWorld::onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) {
