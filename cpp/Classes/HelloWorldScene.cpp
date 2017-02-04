@@ -179,7 +179,8 @@ void HelloWorld::achievement_craftsman(cocos2d::Ref *sender) {
 }
 
 void HelloWorld::achievement_incremental(cocos2d::Ref *sender) {
-    sdkbox::PluginSdkboxPlay::incrementAchievement("incremental",1);
+    sdkbox::PluginSdkboxPlay::incrementAchievement("incremental",10);
+    sdkbox::PluginSdkboxPlay::incrementAchievement("hidden_incremental",20);
 }
 
 void HelloWorld::getMyScore(cocos2d::Ref *sender) {

@@ -70,6 +70,11 @@
                     "name": "incremental",
                     "id": "incremental", 
                     "incremental": true
+                },
+                {
+                    "name": "hidden_incremental",
+                    "id": "hidden_incremental", 
+                    "incremental": true
                 }
             ], 
             "connect_on_start": true, 
