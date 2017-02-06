@@ -1,83 +1,65 @@
 {
     "android": {
         "sdkboxplay": {
-            "leaderboards": [
-          {
-            "id": "CgkI6KjppNEWEAIQAg",
-            "name": "ldb1"
-          },
-          {
-            "id": "CgkI6KjppNEWEAIQAw",
-            "name": "ldb2"
-          }
-        ],
-        "achievements": [
-          {
-            "name" : "hidden",
-            "id" : "CgkI6KjppNEWEAIQBA"
-          },
-          {
-            "name" : "incremental",
-            "id" : "CgkI6KjppNEWEAIQBQ",
-            "incremental" : true
-          },
-          {
-            "name" : "craftsman",
-            "id" : "CgkI6KjppNEWEAIQBg"
-          },
-          {
-            "name" : "hunter",
-            "id" : "CgkI6KjppNEWEAIQBw"
-          },
-          {
-            "name" : "ten-games",
-            "id" : "CgkI6KjppNEWEAIQCA"
-          }
-        ],
-            "connect_on_start": true, 
+            "leaderboards": [{
+                "id": "CgkI6KjppNEWEAIQAg",
+                "name": "ldb1"
+            }, {
+                "id": "CgkI6KjppNEWEAIQAw",
+                "name": "ldb2"
+            }],
+            "achievements": [{
+                "name": "hidden",
+                "id": "CgkI6KjppNEWEAIQBA"
+            }, {
+                "name": "incremental",
+                "id": "CgkI6KjppNEWEAIQBQ",
+                "incremental": true
+            }, {
+                "name": "craftsman",
+                "id": "CgkI6KjppNEWEAIQBg"
+            }, {
+                "name": "hunter",
+                "id": "CgkI6KjppNEWEAIQBw"
+            }, {
+                "name": "ten-games",
+                "id": "CgkI6KjppNEWEAIQCA"
+            }],
+            "connect_on_start": true,
             "debug": true
         }
-    }, 
+    },
     "ios": {
         "sdkboxplay": {
-            "leaderboards": [
-                {
-                    "name": "ldb1",
-                    "id": "ldb1"
-                },
-                {
-                    "name": "ldb2",
-                    "id": "ldb2"
-                }
-            ], 
-            "achievements": [
-                {
-                    "name": "ten-games",
-                    "id": "tengames", 
-                    "incremental": false 
-                }, 
-                {
-                    "name": "hunter",
-                    "id": "hunter", 
-                    "incremental": false
-                }, 
-                {
-                    "name": "craftsman",
-                    "id": "craftsman", 
-                    "incremental": false 
-                }, 
-                {
-                    "name": "incremental",
-                    "id": "incremental", 
-                    "incremental": true
-                },
-                {
-                    "name": "hidden_incremental",
-                    "id": "hidden_incremental", 
-                    "incremental": true
-                }
-            ], 
-            "connect_on_start": true, 
+            "leaderboards": [{
+                "name": "ldb1",
+                "id": "ldb1"
+            }, {
+                "name": "ldb2",
+                "id": "ldb2"
+            }],
+            "achievements": [{
+                "name": "ten-games",
+                "id": "tengames",
+                "incremental": false
+            }, {
+                "name": "hunter",
+                "id": "hunter",
+                "incremental": false
+            }, {
+                "name": "craftsman",
+                "id": "craftsman",
+                "incremental": false
+            }, {
+                "name": "incremental",
+                "id": "Incremental",
+                "incremental": true
+            }, {
+                "name": "hidden_incremental",
+                "id": "hidden_incremental",
+                "incremental": true
+            }],
+            "connect_on_start": true,
             "debug": true
         }
     }
