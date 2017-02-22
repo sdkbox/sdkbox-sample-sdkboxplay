@@ -43,7 +43,7 @@ public:
      * Callbacks
      *****************/
     virtual void onConnectionStatusChanged(int connection_status);
-    virtual void onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday );
+    virtual void onScoreSubmitted( const std::string& leaderboard_name, long score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday );
     virtual void onIncrementalAchievementUnlocked( const std::string& achievement_name );
     virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step );
     virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description );

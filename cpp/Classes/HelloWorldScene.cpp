@@ -209,8 +209,8 @@ void HelloWorld::revealHidden(cocos2d::Ref* sender) {
 }
 
 
-void HelloWorld::onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday ) {
-    CCLOG("on score %d submitted to leaderboard:%s", score, leaderboard_name.c_str() );
+void HelloWorld::onScoreSubmitted( const std::string& leaderboard_name, long score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday ) {
+    CCLOG("on score %ld submitted to leaderboard:%s", score, leaderboard_name.c_str() );
     CCLOG("all time hi %d", maxScoreAllTime ? 1 : 0 );
     CCLOG("weekly hi %d", maxScoreWeek ? 1 : 0 );
     CCLOG("daily hi %d", maxScoreToday ? 1 : 0 );
