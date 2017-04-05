@@ -45,13 +45,17 @@ public:
     virtual void onConnectionStatusChanged(int connection_status);
     virtual void onScoreSubmitted( const std::string& leaderboard_name, long score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday );
     virtual void onIncrementalAchievementUnlocked( const std::string& achievement_name );
-    virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step );
-    virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description );
+    virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step ); // DEPRECATED
+    virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ); // DEPRECATED
+    virtual void onIncrementalAchievementStep( const std::string& achievement_name, double step );
+    virtual void onIncrementalAchievementStepError( const std::string& name, double steps, int error_code, const std::string& error_description );
     virtual void onAchievementUnlocked( const std::string& achievement_name, bool newlyUnlocked );
     virtual void onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description );
     virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info );
-    virtual void onSetSteps( const std::string& name, int steps );
-    virtual void onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description );
+    virtual void onSetSteps( const std::string& name, int steps ); // DEPRECATED
+    virtual void onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description ); // DEPRECATED
+    virtual void onSetSteps( const std::string& name, double steps );
+    virtual void onSetStepsError( const std::string& name, double steps, int error_code, const std::string& error_description );
     virtual void onReveal( const std::string& name);
     virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description );
     virtual void onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score );
@@ -65,6 +69,7 @@ public:
                                              int collection_type,
                                              int error_code,
                                              const std::string& error_description);
+    virtual void onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday );
     
 };
 

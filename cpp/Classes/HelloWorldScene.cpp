@@ -302,3 +302,29 @@ void HelloWorld::onPlayerCenteredScoresError( const std::string& leaderboard_nam
 void HelloWorld::onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) {
     CCLOG("incremental achievent step error: %s step: %d. %d:%s", name.c_str(), steps, error_code, error_description.c_str());
 }
+
+// new callback style
+void HelloWorld::onIncrementalAchievementStep( const std::string& achievement_name, double step ) {
+    CCLOG("incremental achievent %s step: %.1lf", achievement_name.c_str(), step);
+}
+void HelloWorld::onIncrementalAchievementStepError( const std::string& name, double steps,
+                                                    int error_code, const std::string& error_description ) {
+    CCLOG("incremental achievent step error: %s step: %.1lf. %d:%s", name.c_str(),
+          steps, error_code, error_description.c_str());
+}
+void HelloWorld::onSetSteps( const std::string& name, double steps ) {
+    CCLOG("achievement set steps: %s, steps: %.1lf", name.c_str(), steps);
+}
+void HelloWorld::onSetStepsError( const std::string& name,
+                                  double steps,
+                                  int error_code,
+                                  const std::string& error_description ) {
+    CCLOG("achievement set steps error: %s, steps: %.1lf. %d:%s", name.c_str(),
+          steps, error_code, error_description.c_str());
+}
+void HelloWorld::onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday ) {
+    CCLOG("on score %d submitted to leaderboard:%s", score, leaderboard_name.c_str() );
+    CCLOG("all time hi %d", maxScoreAllTime ? 1 : 0 );
+    CCLOG("weekly hi %d", maxScoreWeek ? 1 : 0 );
+    CCLOG("daily hi %d", maxScoreToday ? 1 : 0 );
+}
