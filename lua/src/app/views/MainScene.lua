@@ -75,6 +75,21 @@ function MainScene:setupTestMenu()
             -- do something
         elseif 'onRevealError' == args.name then
             -- do something
+        elseif 'onGameData' == args.name then
+            -- do something
+            if args.error == nil or args.error == '' then
+                -- success
+                if 'load' == args.action then
+                    print('onGameData load:' .. args.save_name .. ':' .. args.data);
+                elseif 'save' == args.action then
+                    print('onGameData save:' .. args.save_name .. ':' .. args.data);
+                else
+                    print('onGameData unknown action:' .. args.action);
+                end
+            else
+                -- failed
+                print('onGameData failed:' .. args.error);
+            end
         end
     end)
     sdkbox.PluginSdkboxPlay:init()
@@ -108,6 +123,12 @@ function MainScene:setupTestMenu()
                     end),
                    cc.MenuItemFont:create("Send Score 1000"):onClicked(function()
                         sdkbox.PluginSdkboxPlay:submitScore("ldb1", 1000)
+                    end),
+                   cc.MenuItemFont:create("load game data"):onClicked(function()
+                        sdkbox.PluginSdkboxPlay:loadAllData()
+                    end),
+                   cc.MenuItemFont:create("save game data"):onClicked(function()
+                        sdkbox.PluginSdkboxPlay:saveGameData('key1', 'test data')
                     end)
                    )
         :move(display.cx, display.cy)
