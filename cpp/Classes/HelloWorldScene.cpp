@@ -88,19 +88,27 @@ bool HelloWorld::init()
     updateSignInBtn();
     
     Menu* menu = Menu::create(
-                      _btn_signin,
-                      MenuItemFont::create("Show Leaderboard", CC_CALLBACK_1(HelloWorld::showLeaderboard, this)),
-                      MenuItemFont::create("Show All Leaderboards", CC_CALLBACK_1(HelloWorld::showAllLeaderboards, this)),
-                      MenuItemFont::create(str, CC_CALLBACK_1(HelloWorld::send_score, this)),
-                      MenuItemFont::create("Get my score", CC_CALLBACK_1(HelloWorld::getMyScore, this)),
-                      MenuItemFont::create("Get score around me", CC_CALLBACK_1(HelloWorld::getUserCenteredScore, this)),
-                      MenuItemFont::create("Show Achievements", CC_CALLBACK_1(HelloWorld::showAchievements, this)),
-                      MenuItemFont::create("achievement unlock", CC_CALLBACK_1(HelloWorld::achievement_craftsman, this)),
-                      MenuItemFont::create("achievement reveal", CC_CALLBACK_1(HelloWorld::revealHidden, this)),
-                      MenuItemFont::create("achievement increase progress", CC_CALLBACK_1(HelloWorld::achievement_incremental, this)),
-                      MenuItemFont::create("achievement set progress", CC_CALLBACK_1(HelloWorld::setSteps, this)),
-                      MenuItemFont::create("Load Achievements data ", CC_CALLBACK_1(HelloWorld::loadAchievements, this)),
-                      NULL
+        _btn_signin,
+        MenuItemFont::create("Show Leaderboard", CC_CALLBACK_1(HelloWorld::showLeaderboard, this)),
+        MenuItemFont::create("Show All Leaderboards", CC_CALLBACK_1(HelloWorld::showAllLeaderboards, this)),
+        MenuItemFont::create(str, CC_CALLBACK_1(HelloWorld::send_score, this)),
+        MenuItemFont::create("Get my score", CC_CALLBACK_1(HelloWorld::getMyScore, this)),
+        MenuItemFont::create("Get score around me", CC_CALLBACK_1(HelloWorld::getUserCenteredScore, this)),
+        MenuItemFont::create("Show Achievements", CC_CALLBACK_1(HelloWorld::showAchievements, this)),
+        MenuItemFont::create("achievement unlock", CC_CALLBACK_1(HelloWorld::achievement_craftsman, this)),
+        MenuItemFont::create("achievement reveal", CC_CALLBACK_1(HelloWorld::revealHidden, this)),
+        MenuItemFont::create("achievement increase progress", CC_CALLBACK_1(HelloWorld::achievement_incremental, this)),
+        MenuItemFont::create("achievement set progress", CC_CALLBACK_1(HelloWorld::setSteps, this)),
+        MenuItemFont::create("Load Achievements data ", CC_CALLBACK_1(HelloWorld::loadAchievements, this)),
+        MenuItemFont::create("Load all game data", [] (cocos2d::Ref* sender) {
+            // comment this to compile with old version sdkboxplay
+            // sdkbox::PluginSdkboxPlay::loadAllData();
+        }),
+        MenuItemFont::create("Load save game data", [](cocos2d::Ref* sender) {
+            // comment this to compile with old version sdkboxplay
+            // sdkbox::PluginSdkboxPlay::saveGameData("key1", "{\"game_name\": \"sdkbox go\", \"stage\": 3}");
+        }),
+        NULL
     );
 
     menu->alignItemsVerticallyWithPadding(5);
@@ -328,3 +336,20 @@ void HelloWorld::onScoreSubmitted( const std::string& leaderboard_name, int scor
     CCLOG("weekly hi %d", maxScoreWeek ? 1 : 0 );
     CCLOG("daily hi %d", maxScoreToday ? 1 : 0 );
 }
+
+void HelloWorld::onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error) {
+    if (error.length() > 0) {
+        // failed
+        CCLOG("game data failed:%s", error.c_str());
+    } else {
+        //success
+        if (action.compare("load")) {
+            CCLOG("load game data, %s : %s", name.c_str(), data.c_str());
+        } else if (action.compare("save")) {
+            CCLOG("save game data, %s : %s", name.c_str(), data.c_str());
+        } else {
+            CCLOG("unknow game data action: %s", action.c_str());
+        }
+    }
+}
+

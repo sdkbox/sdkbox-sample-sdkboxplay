@@ -116,6 +116,7 @@
 		87D4C4441AB2187000F68C44 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9A30A79F1CD329AA00B11C46 /* PluginSdkboxPlayJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSdkboxPlayJS.cpp; sourceTree = "<group>"; };
 		9A30A7A01CD329AA00B11C46 /* PluginSdkboxPlayJS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PluginSdkboxPlayJS.hpp; sourceTree = "<group>"; };
+		9A9793251EE00E0E00263D6A /* sdkboxplay_js-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sdkboxplay_js-mobile.entitlements"; sourceTree = "<group>"; };
 		9F20C9E11A5BBE85006FB50B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		9FFEB99F1A6AB7F70095C43A /* CodeIDESupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeIDESupport.h; sourceTree = "<group>"; };
 		9FFEB9A01A6AB7F70095C43A /* lang */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lang; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				9A9793251EE00E0E00263D6A /* sdkboxplay_js-mobile.entitlements */,
 				C06D18B718C02D4A003D1A65 /* JS Common */,
 				D4545214156E28EF00887EB5 /* Classes */,
 				A92275401517C094001B78AA /* Frameworks */,
@@ -376,6 +378,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					A922753C1517C094001B78AA = {
+						DevelopmentTeam = LNN652W6T6;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = A92275371517C094001B78AA /* Build configuration list for PBXProject "sdkboxplay_js" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -520,8 +532,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_ENTITLEMENTS = "sdkboxplay_js-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = LNN652W6T6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -545,6 +559,7 @@
 				LIBRARY_SEARCH_PATHS = " $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios";
 				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
 				OTHER_LDFLAGS = " -ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sdkbox.sdkboxplay;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos/platform/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/spidermonkey/include/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/auto $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/manual $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/curl/include/ios";
@@ -556,8 +571,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_ENTITLEMENTS = "sdkboxplay_js-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = LNN652W6T6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -581,6 +598,7 @@
 				LIBRARY_SEARCH_PATHS = " $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/prebuilt/ios";
 				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
 				OTHER_LDFLAGS = " -ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sdkbox.sdkboxplay;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/cocos/platform/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/spidermonkey/include/ios $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/auto $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/plugin/jsbindings/manual $(SRCROOT)/../../../../../sdkbox-cocos2d-x-binary/external/curl/include/ios";

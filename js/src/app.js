@@ -1,7 +1,7 @@
 var HelloWorldLayer = cc.Layer.extend({
-    sprite:null,
-                                      info:null,
-    ctor:function () {
+    sprite: null,
+    info: null,
+    ctor: function() {
         //////////////////////////////
         // 1. super init first
         this._super();
@@ -27,15 +27,15 @@ var HelloWorldLayer = cc.Layer.extend({
         menu.y = size.height / 2 + 16;
         this.addChild(menu);
 
-                                        this.info =new cc.LabelTTF("unknown status", "sans", 24);
-                                         this.info.x = cc.Director.getInstance().getWinSize().width/2;
-                                         this.info.y = 90;
-                                         this.addChild(this.info);
+        this.info = new cc.LabelTTF("unknown status", "sans", 24);
+        this.info.x = cc.Director.getInstance().getWinSize().width / 2;
+        this.info.y = 90;
+        this.addChild(this.info);
 
         return true;
     },
 
-    createTestMenu:function() {
+    createTestMenu: function() {
         cc.MenuItemFont.setFontName("sans");
         var size = cc.Director.getInstance().getWinSize();
 
@@ -49,11 +49,11 @@ var HelloWorldLayer = cc.Layer.extend({
 
         var menu = new cc.Menu(
             new cc.MenuItemFont("Connect/Disconnect", function() {
-                                if (sdkbox.PluginSdkboxPlay.isSignedIn() ) {
-              sdkbox.PluginSdkboxPlay.signout();
-                                } else {
-                sdkbox.PluginSdkboxPlay.signin();
-                                }
+                if (sdkbox.PluginSdkboxPlay.isSignedIn()) {
+                    sdkbox.PluginSdkboxPlay.signout();
+                } else {
+                    sdkbox.PluginSdkboxPlay.signin();
+                }
             }),
             new cc.MenuItemFont("Show Leaderboard ldb1", function() {
                 sdkbox.PluginSdkboxPlay.showLeaderboard("ldb1");
@@ -71,19 +71,25 @@ var HelloWorldLayer = cc.Layer.extend({
                 sdkbox.PluginSdkboxPlay.unlockAchievement("ten-games");
             }),
             new cc.MenuItemFont("Unlock incremental", function() {
-                sdkbox.PluginSdkboxPlay.incrementAchievement("incremental",1);
+                sdkbox.PluginSdkboxPlay.incrementAchievement("incremental", 1);
             }),
             new cc.MenuItemFont("Submit Score 1000", function() {
                 sdkbox.PluginSdkboxPlay.submitScore("ldb1", score);
+            }),
+            new cc.MenuItemFont("load game data", function() {
+                sdkbox.PluginSdkboxPlay.loadAllData();
+            }),
+            new cc.MenuItemFont("save game data", function() {
+                sdkbox.PluginSdkboxPlay.saveGameData("key1", "test data");
             })
         );
 
         menu.alignItemsVerticallyWithPadding(5);
-        menu.x = size.width/2;
-        menu.y = size.height/2;
+        menu.x = size.width / 2;
+        menu.y = size.height / 2;
         this.addChild(menu);
 
-                                      var me= this;
+        var me = this;
 
         var initSDK = function() {
             if ("undefined" == typeof(sdkbox)) {
@@ -94,75 +100,75 @@ var HelloWorldLayer = cc.Layer.extend({
             if ("undefined" != typeof(sdkbox.PluginSdkboxPlay)) {
                 var plugin = sdkbox.PluginSdkboxPlay
                 plugin.setListener({
-                    onConnectionStatusChanged : function (connection_status) {
+                    onConnectionStatusChanged: function(connection_status) {
                         cc.log("connection status change: " + connection_status + " connection_status");
-                        if ( connection_status==1000 ) {
-                            cc.log( 'Player id: '+plugin.getPlayerId() );
-                            cc.log( 'Player name: '+plugin.getPlayerAccountField("name") );
-                            me.info.setString( "connection status: " + connection_status + " " + plugin.getPlayerId() + " " + plugin.getPlayerAccountField("name") + "("+ plugin.getPlayerAccountField("display_name") +")");
-                       } else {
-                           me.info.setString( "Not connected. Status: " + connection_status );
-                       }
+                        if (connection_status == 1000) {
+                            cc.log('Player id: ' + plugin.getPlayerId());
+                            cc.log('Player name: ' + plugin.getPlayerAccountField("name"));
+                            me.info.setString("connection status: " + connection_status + " " + plugin.getPlayerId() + " " + plugin.getPlayerAccountField("name") + "(" + plugin.getPlayerAccountField("display_name") + ")");
+                        } else {
+                            me.info.setString("Not connected. Status: " + connection_status);
+                        }
                     },
-                    onScoreSubmitted : function (leaderboard_name, score, maxScoreAllTime, maxScoreWeek, maxScoreToday) {
-                        cc.log('onScoreSubmitted trigger leaderboard_name:' + leaderboard_name
-                            + ' score:' + score + ' maxScoreAllTime:' + maxScoreAllTime
-                            + ' maxScoreWeek:' + maxScoreWeek + ' maxScoreToday:' + maxScoreToday);
+                    onScoreSubmitted: function(leaderboard_name, score, maxScoreAllTime, maxScoreWeek, maxScoreToday) {
+                        cc.log('onScoreSubmitted trigger leaderboard_name:' + leaderboard_name + ' score:' + score + ' maxScoreAllTime:' + maxScoreAllTime + ' maxScoreWeek:' + maxScoreWeek + ' maxScoreToday:' + maxScoreToday);
                     },
-                    onMyScore : function (leaderboard_name, time_span, collection_type, score ) {
-                        cc.log('onMyScore trigger leaderboard_name:' + leaderboard_name
-                            + ' time_span:' + time_span + ' collection_type:' + collection_type + ' score:' + score);
+                    onMyScore: function(leaderboard_name, time_span, collection_type, score) {
+                        cc.log('onMyScore trigger leaderboard_name:' + leaderboard_name + ' time_span:' + time_span + ' collection_type:' + collection_type + ' score:' + score);
                     },
-                    onMyScoreError : function (leaderboard_name, time_span, collection_type, error_code, error_description) {
-                        cc.log('onMyScoreError trigger leaderboard_name:' + leaderboard_name
-                            + ' time_span:' + time_span + ' collection_type:' + collection_type
-                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    onMyScoreError: function(leaderboard_name, time_span, collection_type, error_code, error_description) {
+                        cc.log('onMyScoreError trigger leaderboard_name:' + leaderboard_name + ' time_span:' + time_span + ' collection_type:' + collection_type + ' error_code:' + error_code + ' error_description:' + error_description);
                     },
-                    onPlayerCenteredScores : function (leaderboard_name, time_span, collection_type, json_with_score_entries ) {
-                        cc.log('onPlayerCenteredScores trigger leaderboard_name:' + leaderboard_name
-                            + ' time_span:' + time_span + ' collection_type:' + collection_type
-                            + ' json_with_score_entries:' + json_with_score_entries);
+                    onPlayerCenteredScores: function(leaderboard_name, time_span, collection_type, json_with_score_entries) {
+                        cc.log('onPlayerCenteredScores trigger leaderboard_name:' + leaderboard_name + ' time_span:' + time_span + ' collection_type:' + collection_type + ' json_with_score_entries:' + json_with_score_entries);
                     },
-                    onPlayerCenteredScoresError : function (leaderboard_name, time_span, collection_type, error_code, error_description) {
-                        cc.log('onPlayerCenteredScoresError trigger leaderboard_name:' + leaderboard_name
-                            + ' time_span:' + time_span + ' collection_type:' + collection_type
-                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    onPlayerCenteredScoresError: function(leaderboard_name, time_span, collection_type, error_code, error_description) {
+                        cc.log('onPlayerCenteredScoresError trigger leaderboard_name:' + leaderboard_name + ' time_span:' + time_span + ' collection_type:' + collection_type + ' error_code:' + error_code + ' error_description:' + error_description);
                     },
-                    onIncrementalAchievementUnlocked : function (achievement_name) {
+                    onIncrementalAchievementUnlocked: function(achievement_name) {
                         cc.log("incremental achievement " + achievement_name + " unlocked.");
                     },
-                    onIncrementalAchievementStep : function (achievement_name, step) {
+                    onIncrementalAchievementStep: function(achievement_name, step) {
                         cc.log("incremental achievent " + achievement_name + " step: " + step);
                     },
-                    onIncrementalAchievementStepError : function (name, steps, error_code, error_description) {
-                        cc.log('onIncrementalAchievementStepError trigger leaderboard_name:' + name
-                            + ' steps:' + steps
-                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    onIncrementalAchievementStepError: function(name, steps, error_code, error_description) {
+                        cc.log('onIncrementalAchievementStepError trigger leaderboard_name:' + name + ' steps:' + steps + ' error_code:' + error_code + ' error_description:' + error_description);
                     },
-                    onAchievementUnlocked : function (achievement_name, newlyUnlocked) {
+                    onAchievementUnlocked: function(achievement_name, newlyUnlocked) {
                         cc.log('onAchievementUnlocked trigger achievement_name:' + achievement_name + ' newlyUnlocked:' + newlyUnlocked);
                     },
-                    onAchievementUnlockError : function (achievement_name, error_code, error_description ) {
-                        cc.log('onAchievementUnlockError trigger achievement_name:' + achievement_name
-                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    onAchievementUnlockError: function(achievement_name, error_code, error_description) {
+                        cc.log('onAchievementUnlockError trigger achievement_name:' + achievement_name + ' error_code:' + error_code + ' error_description:' + error_description);
                     },
-                    onAchievementsLoaded : function ( reload_forced, json_achievements_info ) {
-                        cc.log('onAchievementsLoaded trigger reload_forced:' + reload_forced
-                            + ' json_achievements_info:' + json_achievements_info);
+                    onAchievementsLoaded: function(reload_forced, json_achievements_info) {
+                        cc.log('onAchievementsLoaded trigger reload_forced:' + reload_forced + ' json_achievements_info:' + json_achievements_info);
                     },
-                    onSetSteps : function (name, steps ) {
+                    onSetSteps: function(name, steps) {
                         cc.log('onSetSteps trigger name:' + name + ' steps:' + steps);
                     },
-                    onSetStepsError : function (name, steps, error_code, error_description ) {
-                        cc.log('onSetStepsError trigger name:' + name + ' steps:' + steps
-                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    onSetStepsError: function(name, steps, error_code, error_description) {
+                        cc.log('onSetStepsError trigger name:' + name + ' steps:' + steps + ' error_code:' + error_code + ' error_description:' + error_description);
                     },
-                    onReveal : function (name) {
+                    onReveal: function(name) {
                         cc.log('onReveal trigger name:' + name);
                     },
-                    onRevealError : function (name, error_code, error_description ) {
-                        cc.log('onRevealError trigger name:' + name
-                            + ' error_code:' + error_code + ' error_description:' + error_description);
+                    onRevealError: function(name, error_code, error_description) {
+                        cc.log('onRevealError trigger name:' + name + ' error_code:' + error_code + ' error_description:' + error_description);
+                    },
+                    onGameData: function(action, name, data, error) {
+                        if (error) {
+                            // failed
+                            cc.log('onGameData failed:' + error);
+                        } else {
+                            //success
+                            if ('load' == action) {
+                                cc.log('onGameData load:' + name + ':' + data);
+                            } else if ('save' == action) {
+                                cc.log('onGameData save:' + name + ':' + data);
+                            } else {
+                                cc.log('onGameData unknown action:' + action);
+                            }
+                        }
                     }
                 });
                 plugin.init();
@@ -177,10 +183,9 @@ var HelloWorldLayer = cc.Layer.extend({
 });
 
 var HelloWorldScene = cc.Scene.extend({
-    onEnter:function () {
+    onEnter: function() {
         this._super();
         var layer = new HelloWorldLayer();
         this.addChild(layer);
     }
 });
-

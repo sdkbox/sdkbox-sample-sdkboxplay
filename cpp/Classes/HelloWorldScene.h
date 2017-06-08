@@ -70,6 +70,7 @@ public:
                                              int error_code,
                                              const std::string& error_description);
     virtual void onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday );
+    virtual void onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error);
     
 };
 
