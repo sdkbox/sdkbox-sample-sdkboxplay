@@ -30,20 +30,20 @@ static void showMsg(const std::string& msg) {
         label->setPosition(10, size.height*0.1);
         Director::getInstance()->setNotificationNode(label);
     }
-    
+
     stringstream buf;
     buf << msgIndex++ << " " << msg << "\n";
     msgbuf.push_back(buf.str());
     if (msgbuf.size() > 10) {
         msgbuf.erase(msgbuf.cbegin());
     }
-    
-    
+
+
     std::string text = "";
     for (int i = 0; i < msgbuf.size(); i++) {
         text = text + msgbuf[i];
     }
-    
+
     label->setString(text);
 }
 
@@ -78,15 +78,15 @@ bool HelloWorld::init()
     std::string defaultFont("arial.ttf");
 
     char buffer[128];
-    
+
     score = genRandomScore();
     sprintf( buffer, "submit score: %d", score);
     std::string str = buffer;
-    
+
     _btn_signin = MenuItemFont::create("Sign In", CC_CALLBACK_1(HelloWorld::connect, this));
-    
+
     updateSignInBtn();
-    
+
     Menu* menu = Menu::create(
         _btn_signin,
         MenuItemFont::create("Show Leaderboard", CC_CALLBACK_1(HelloWorld::showLeaderboard, this)),
@@ -102,11 +102,15 @@ bool HelloWorld::init()
         MenuItemFont::create("Load Achievements data ", CC_CALLBACK_1(HelloWorld::loadAchievements, this)),
         MenuItemFont::create("Load all game data", [] (cocos2d::Ref* sender) {
             // comment this to compile with old version sdkboxplay
-            // sdkbox::PluginSdkboxPlay::loadAllData();
+             sdkbox::PluginSdkboxPlay::loadAllData();
         }),
-        MenuItemFont::create("Load save game data", [](cocos2d::Ref* sender) {
+        MenuItemFont::create("Load one game data", [](cocos2d::Ref* sender) {
             // comment this to compile with old version sdkboxplay
-            // sdkbox::PluginSdkboxPlay::saveGameData("key1", "{\"game_name\": \"sdkbox go\", \"stage\": 3}");
+            sdkbox::PluginSdkboxPlay::loadGameData("key1");
+        }),
+        MenuItemFont::create("Save game data", [](cocos2d::Ref* sender) {
+            // comment this to compile with old version sdkboxplay
+             sdkbox::PluginSdkboxPlay::saveGameData("key1", "{\"game_name\": \"sdkbox go\", \"stage\": 3}");
         }),
         NULL
     );
@@ -114,12 +118,12 @@ bool HelloWorld::init()
     menu->alignItemsVerticallyWithPadding(5);
     menu->setPosition(size.width/2, size.height/2);
     addChild(menu);
-        
+
     _txtStat = Label::create("No action yet.", "fonts/Marker Felt.ttf",32);
     _txtStat->setAnchorPoint(cocos2d::Point(0, 0));
     _txtStat->setPosition(cocos2d::Point(10, 10));
     addChild(_txtStat);
-    
+
     _txtC = Label::create("Disconnected", "fonts/Marker Felt.ttf",32);
     _txtC->setAnchorPoint(cocos2d::Point(0, 0));
     _txtC->setPosition(cocos2d::Point(10, 45));
@@ -137,7 +141,7 @@ int HelloWorld::genRandomScore()
     time_t tt;
     time(&tt);
     s =  tt%10000;
-    
+
     return s;
 }
 
@@ -154,12 +158,12 @@ void HelloWorld::updateSignInBtn()
             _btn_signin->setString("SignIn");
         }
     }
-    
+
 }
 
 void HelloWorld::connect(cocos2d::Ref *sender)
 {
-    
+
     if( sdkbox::PluginSdkboxPlay::isSignedIn())
     {
         sdkbox::PluginSdkboxPlay::signout();
@@ -238,12 +242,12 @@ void HelloWorld::onAchievementUnlocked( const std::string& achievement_name, boo
 
 void HelloWorld::onConnectionStatusChanged(int connection_status) {
     CCLOG("connection status change: %d", connection_status);
-    
+
     char str[256];
     sprintf(str, "Connection status: %d. Is Connected: %d", connection_status, sdkbox::PluginSdkboxPlay::isSignedIn() ? 1 : 0 );
-    
+
     _txtStat->setString( str );
-    
+
     if ( connection_status==1000 ) {
         std::string sstr = PluginSdkboxPlay::getPlayerId() +
             ":'" +
@@ -251,10 +255,10 @@ void HelloWorld::onConnectionStatusChanged(int connection_status) {
             "(" +
             PluginSdkboxPlay::getPlayerAccountField("display_name")+
             ")'";
-        
+
         _txtC->setString( sstr );
     }
-    
+
     updateSignInBtn();
 }
 
@@ -287,7 +291,7 @@ void HelloWorld::onMyScore( const std::string& leaderboard_name, int time_span, 
 }
 
 void HelloWorld::onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) {
-    
+
     CCLOG("get my score error %d:%s", error_code, error_description.c_str());
 }
 
@@ -303,7 +307,7 @@ void HelloWorld::onPlayerCenteredScoresError( const std::string& leaderboard_nam
                                          int collection_type,
                                          int error_code,
                                          const std::string& error_description) {
-    
+
     CCLOG("error retriving user centered score");
 }
 
@@ -338,18 +342,25 @@ void HelloWorld::onScoreSubmitted( const std::string& leaderboard_name, int scor
 }
 
 void HelloWorld::onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error) {
+    char str[256];
     if (error.length() > 0) {
         // failed
         CCLOG("game data failed:%s", error.c_str());
+        sprintf(str, "GameData failed:%s", error.c_str());
     } else {
         //success
-        if (action.compare("load")) {
+        if (0 == action.compare("load")) {
             CCLOG("load game data, %s : %s", name.c_str(), data.c_str());
-        } else if (action.compare("save")) {
+            sprintf(str, "GameData load %s:%s", name.c_str(), data.c_str());
+        } else if (0 == action.compare("save")) {
             CCLOG("save game data, %s : %s", name.c_str(), data.c_str());
+            sprintf(str, "GameData save %s:%s", name.c_str(), data.c_str());
         } else {
             CCLOG("unknow game data action: %s", action.c_str());
+            sprintf(str, "GameData unknow action:%s", action.c_str());
         }
     }
+
+    _txtStat->setString( str );
 }
 
