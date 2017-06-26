@@ -98,7 +98,7 @@ namespace sdkbox {
          * the call will silently fail.
          * If everything's right, it will notify the method <code>onScoreSubmitted</code>.
          */
-        static void submitScore( const std::string& leaderboard_name, int score );
+        static void submitScore( const std::string& leaderboard_name, long score );
 
         /**
          * Request to show all leaderboards.
@@ -190,7 +190,7 @@ namespace sdkbox {
          * a percentage value (0..100). In either case, the `increment` value will be added to the current achievement's
          * value.
          */
-        static void incrementAchievement( const std::string& achievement_name, int increment );
+        static void incrementAchievement( const std::string& achievement_name, double increment );
 
         /**
          * Request to show the default Achievements view.
@@ -211,7 +211,7 @@ namespace sdkbox {
          * If achievement's current steps are already equal or bigger the specified steps, nothing will happen.
          * This method will  notify on plugin's listener `onSetSteps` or `onSetStepsError` methods.
          */
-        static void setSteps( const std::string& achievement_name, int steps );
+        static void setSteps( const std::string& achievement_name, double steps );
 
 
         /**
@@ -261,6 +261,34 @@ namespace sdkbox {
          * If a field not valid is queried an empty string will be returned.
          */
         static std::string getPlayerAccountField( const std::string& field );
+
+        /**
+         * Calling this class method deletes all progress towards achievements
+         * previously reported for the local player. Hidden achievements that
+         * were previously visible are now hidden again.
+         *
+         * iOS Only
+         */
+        static void resetAchievements();
+
+        /**
+         * load all saved user game data in clound
+         * will trigger onGameData callback
+         */
+        static void loadAllData();
+        
+        /**
+         * load one saved user game data in clound
+         * will trigger onGameData callback
+         */
+        static void loadGameData(const std::string& save_name);
+
+        /**
+         * save user game data in cloud
+         * will trigger onGameData callback
+         */
+        static void saveGameData(const std::string& save_name, const std::string& data);
+
     };
 
     class SdkboxPlayListener {
@@ -280,7 +308,7 @@ namespace sdkbox {
          * subbmited score, as well as whether the score is the daily, weekly, or all time best score.
          * Since Game center can't determine if submitted score is maximum, it will send the max score flags as false.
          */
-        virtual void onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday )=0;
+        virtual void onScoreSubmitted( const std::string& leaderboard_name, long score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday )=0;
 
         /**
          * Callback method invoked from a call to `getMyScore` method.
@@ -341,9 +369,9 @@ namespace sdkbox {
          * Callback method invoked when the request call to increment an achievement is successful.
          * If possible (Google play only) it notifies back with the current achievement step count.
          */
-        virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step )=0;
+        virtual void onIncrementalAchievementStep( const std::string& achievement_name, double step )=0;
 
-        virtual void onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) {};
+        virtual void onIncrementalAchievementStepError( const std::string& name, double steps, int error_code, const std::string& error_description ) {};
 
         /**
          * Call method invoked when the request call to unlock a non-incremental achievement is successful.
@@ -403,13 +431,22 @@ namespace sdkbox {
          */
         virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) {};
 
-        virtual void onSetSteps( const std::string& name, int steps ) {};
+        virtual void onSetSteps( const std::string& name, double steps ) {};
 
-        virtual void onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description ) {};
+        virtual void onSetStepsError( const std::string& name, double steps, int error_code, const std::string& error_description ) {};
 
         virtual void onReveal( const std::string& name) {};
 
         virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description ) {};
+
+        /**
+         * @param action std::string save, load
+         * @param name std::string
+         * @param data std::string
+         * @param error std::string if load/save success, error will be empty
+         *
+         */
+        virtual void onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error) {};
 
     };
 }
