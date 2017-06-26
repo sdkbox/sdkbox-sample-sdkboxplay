@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 
+//#define ENABLE_CLOUD_SAVE
+
 USING_NS_CC;
 using namespace sdkbox;
 using namespace std;
@@ -102,16 +104,28 @@ bool HelloWorld::init()
         MenuItemFont::create("Load Achievements data ", CC_CALLBACK_1(HelloWorld::loadAchievements, this)),
         MenuItemFont::create("Load all game data", [] (cocos2d::Ref* sender) {
             // comment this to compile with old version sdkboxplay
+#ifdef ENABLE_CLOUD_SAVE
              sdkbox::PluginSdkboxPlay::loadAllData();
+#else
+            CCLOG("cloud save is not enable");
+#endif
         }),
         MenuItemFont::create("Load one game data", [](cocos2d::Ref* sender) {
             // comment this to compile with old version sdkboxplay
-            sdkbox::PluginSdkboxPlay::loadGameData("key1");
+#ifdef ENABLE_CLOUD_SAVE
+        sdkbox::PluginSdkboxPlay::loadGameData("key1");
+#else
+        CCLOG("cloud save is not enable");
+#endif
         }),
         MenuItemFont::create("Save game data", [](cocos2d::Ref* sender) {
             // comment this to compile with old version sdkboxplay
+#ifdef ENABLE_CLOUD_SAVE
              sdkbox::PluginSdkboxPlay::saveGameData("key1", "{\"game_name\": \"sdkbox go\", \"stage\": 3}");
-        }),
+#else
+        CCLOG("cloud save is not enable");
+#endif
+    }),
         NULL
     );
 
@@ -346,7 +360,7 @@ void HelloWorld::onGameData(const std::string& action, const std::string& name, 
     if (error.length() > 0) {
         // failed
         CCLOG("game data failed:%s", error.c_str());
-        sprintf(str, "GameData failed:%s", error.c_str());
+        snprintf(str, 256, "GameData failed:%s", error.c_str());
     } else {
         //success
         if (0 == action.compare("load")) {
