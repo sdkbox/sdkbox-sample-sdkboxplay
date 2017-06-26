@@ -132,6 +132,13 @@ bool HelloWorld::init()
     sdkbox::PluginSdkboxPlay::setListener(this);
     sdkbox::PluginSdkboxPlay::init();
 
+    #if (COCOS2D_DEBUG == 1) && (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        auto label = Label::create("Please run in release mode", defaultFont, 64);
+        label->setPosition(size/2);
+        label->setColor(Color3B(255, 0, 0));
+        addChild(label);
+    #endif
+
     return true;
 }
 
