@@ -20,7 +20,7 @@ public:
 
     std::string _name;
 
-    jsval _paramVal[5];
+    JS::Value _paramVal[5];
     int _paramLen;
 };
 
@@ -33,42 +33,62 @@ public:
     virtual void onConnectionStatusChanged(int connection_status) {
         //JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onConnectionStatusChanged";
-        cb->_paramVal[0] = INT_TO_JSVAL(connection_status);
+        cb->_paramVal[0] = JS::Int32Value(connection_status);
         cb->_paramLen = 1;
         cb->schedule();
     }
     virtual void onScoreSubmitted(const std::string &leaderboard_name, long score, bool alltime, bool week, bool day) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onScoreSubmitted";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, leaderboard_name);
-        cb->_paramVal[1] = INT_TO_JSVAL(score);
-        cb->_paramVal[2] = BOOLEAN_TO_JSVAL(alltime);
-        cb->_paramVal[3] = BOOLEAN_TO_JSVAL(week);
-        cb->_paramVal[4] = BOOLEAN_TO_JSVAL(day);
+        cb->_paramVal[1] = JS::Int32Value(score);
+        cb->_paramVal[2] = JS::BooleanValue(alltime);
+        cb->_paramVal[3] = JS::BooleanValue(week);
+        cb->_paramVal[4] = JS::BooleanValue(day);
         cb->_paramLen = 5;
         cb->schedule();
     }
     virtual void onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onMyScore";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, leaderboard_name);
-        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
-        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
-        cb->_paramVal[3] = INT_TO_JSVAL(score);
+        cb->_paramVal[1] = JS::Int32Value(time_span);
+        cb->_paramVal[2] = JS::Int32Value(collection_type);
+        cb->_paramVal[3] = JS::Int32Value(score);
         cb->_paramLen = 4;
         cb->schedule();
     }
     virtual void onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onMyScoreError";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, leaderboard_name);
-        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
-        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
-        cb->_paramVal[3] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[1] = JS::Int32Value(time_span);
+        cb->_paramVal[2] = JS::Int32Value(collection_type);
+        cb->_paramVal[3] = JS::Int32Value(error_code);
         cb->_paramVal[4] = SB_STR_TO_JSVAL(cx, error_description);
         cb->_paramLen = 5;
         cb->schedule();
@@ -79,10 +99,15 @@ public:
                                          const std::string& json_with_score_entries ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onPlayerCenteredScores";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, leaderboard_name);
-        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
-        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
+        cb->_paramVal[1] = JS::Int32Value(time_span);
+        cb->_paramVal[2] = JS::Int32Value(collection_type);
         cb->_paramVal[3] = SB_STR_TO_JSVAL(cx, json_with_score_entries);
         cb->_paramLen = 4;
         cb->schedule();
@@ -94,11 +119,16 @@ public:
                                               const std::string& error_description) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onPlayerCenteredScoresError";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, leaderboard_name);
-        cb->_paramVal[1] = INT_TO_JSVAL(time_span);
-        cb->_paramVal[2] = INT_TO_JSVAL(collection_type);
-        cb->_paramVal[3] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[1] = JS::Int32Value(time_span);
+        cb->_paramVal[2] = JS::Int32Value(collection_type);
+        cb->_paramVal[3] = JS::Int32Value(error_code);
         cb->_paramVal[4] = SB_STR_TO_JSVAL(cx, error_description);
         cb->_paramLen = 5;
         cb->schedule();
@@ -106,6 +136,11 @@ public:
     virtual void onIncrementalAchievementUnlocked(const std::string &achievement_name) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onIncrementalAchievementUnlocked";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, achievement_name);
         cb->_paramLen = 1;
@@ -116,17 +151,22 @@ public:
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
         cb->_name = "onIncrementalAchievementStep";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, achievement_name);
-        cb->_paramVal[1] = DOUBLE_TO_JSVAL(step);
+        cb->_paramVal[1] = JS::DoubleValue(step);
         cb->_paramLen = 2;
         cb->schedule();
     }
     virtual void onIncrementalAchievementStepError( const std::string& name, double steps, int error_code, const std::string& error_description ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onIncrementalAchievementStepError";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, name);
-        cb->_paramVal[1] = DOUBLE_TO_JSVAL(steps);
-        cb->_paramVal[2] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[1] = JS::DoubleValue(steps);
+        cb->_paramVal[2] = JS::Int32Value(error_code);
         cb->_paramVal[3] = SB_STR_TO_JSVAL(cx, error_description);
         cb->_paramLen = 4;
         cb->schedule();
@@ -134,18 +174,28 @@ public:
     virtual void onAchievementUnlocked(const std::string &achievement_name, bool newly) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onAchievementUnlocked";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, achievement_name);
-        cb->_paramVal[1] = BOOLEAN_TO_JSVAL(newly);
+        cb->_paramVal[1] = JS::BooleanValue(newly);
         cb->_paramLen = 2;
         cb->schedule();
     }
     virtual void onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onAchievementUnlockError";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, achievement_name);
-        cb->_paramVal[1] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[1] = JS::Int32Value(error_code);
         cb->_paramVal[2] = SB_STR_TO_JSVAL(cx, error_description);
         cb->_paramLen = 3;
         cb->schedule();
@@ -153,8 +203,13 @@ public:
     virtual void onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onAchievementsLoaded";
-        cb->_paramVal[0] = BOOLEAN_TO_JSVAL(reload_forced);
+        cb->_paramVal[0] = JS::BooleanValue(reload_forced);
         cb->_paramVal[1] = SB_STR_TO_JSVAL(cx, json_achievements_info);
         cb->_paramLen = 2;
         cb->schedule();
@@ -162,19 +217,29 @@ public:
     virtual void onSetSteps( const std::string& name, double steps ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onSetSteps";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, name);
-        cb->_paramVal[1] = DOUBLE_TO_JSVAL(steps);
+        cb->_paramVal[1] = JS::DoubleValue(steps);
         cb->_paramLen = 2;
         cb->schedule();
     }
     virtual void onSetStepsError( const std::string& name, double steps, int error_code, const std::string& error_description ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onSetStepsError";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, name);
-        cb->_paramVal[1] = DOUBLE_TO_JSVAL(steps);
-        cb->_paramVal[2] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[1] = JS::DoubleValue(steps);
+        cb->_paramVal[2] = JS::Int32Value(error_code);
         cb->_paramVal[3] = SB_STR_TO_JSVAL(cx, error_description);
         cb->_paramLen = 4;
         cb->schedule();
@@ -182,6 +247,11 @@ public:
     virtual void onReveal( const std::string& name) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onReveal";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, name);
         cb->_paramLen = 1;
@@ -190,9 +260,14 @@ public:
     virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description ) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onRevealError";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, name);
-        cb->_paramVal[1] = INT_TO_JSVAL(error_code);
+        cb->_paramVal[1] = JS::Int32Value(error_code);
         cb->_paramVal[2] = SB_STR_TO_JSVAL(cx, error_description);
         cb->_paramLen = 3;
         cb->schedule();
@@ -201,6 +276,11 @@ public:
     virtual void onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onGameData";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, action);
         cb->_paramVal[1] = SB_STR_TO_JSVAL(cx, name);
@@ -210,7 +290,7 @@ public:
         cb->schedule();
     }
 
-    void invokeJS(const char* func, jsval* pVals, int valueSize) {
+    void invokeJS(const char* func, JS::Value* pVals, int valueSize) {
         if (!s_cx) {
             return;
         }
@@ -284,7 +364,7 @@ void SdkboxPlayCallbackJS::notityJs(float dt) {
 
 #if defined(MOZJS_MAJOR_VERSION)
 #if MOZJS_MAJOR_VERSION >= 33
-bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_setListener(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_setListener(JSContext *cx, uint32_t argc, JS::Value *vp)
 #else
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_setListener(JSContext *cx, uint32_t argc, jsval *vp)
 #endif
