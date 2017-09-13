@@ -149,6 +149,11 @@ public:
     virtual void onIncrementalAchievementStep(const std::string &achievement_name, double step) {
         JSContext* cx = s_cx;
         SdkboxPlayCallbackJS* cb = new SdkboxPlayCallbackJS();
+
+#if MOZJS_MAJOR_VERSION < 52
+        JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+#endif
+
         cb->_name = "onIncrementalAchievementStep";
         cb->_paramVal[0] = SB_STR_TO_JSVAL(cx, achievement_name);
         cb->_paramVal[1] = JS::DoubleValue(step);
