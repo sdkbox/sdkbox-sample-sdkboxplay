@@ -1,79 +1,82 @@
 {
-  "android": {
-    "sdkboxplay": {
-      "leaderboards": [
-        {
-          "id": "CgkI6KjppNEWEAIQAg",
-          "name": "ldb1"
-        },
-        {
-          "id": "CgkI6KjppNEWEAIQAw",
-          "name": "ldb2"
+    "android": {
+        "sdkboxplay": {
+            "leaderboards": [
+                {
+                    "id": "CgkI6KjppNEWEAIQAg", 
+                    "name": "ldb1"
+                }, 
+                {
+                    "id": "CgkI6KjppNEWEAIQAw", 
+                    "name": "ldb2"
+                }
+            ], 
+            "achievements": [
+                {
+                    "name": "hidden", 
+                    "id": "CgkI6KjppNEWEAIQBA"
+                }, 
+                {
+                    "incremental": true, 
+                    "name": "incremental", 
+                    "id": "CgkI6KjppNEWEAIQBQ"
+                }, 
+                {
+                    "name": "craftsman", 
+                    "id": "CgkI6KjppNEWEAIQBg"
+                }, 
+                {
+                    "name": "hunter", 
+                    "id": "CgkI6KjppNEWEAIQBw"
+                }, 
+                {
+                    "name": "ten-games", 
+                    "id": "CgkI6KjppNEWEAIQCA"
+                }
+            ], 
+            "clound_save": false, 
+            "connect_on_start": true, 
+            "show_achievement_notification": true, 
+            "debug": true
         }
-      ],
-      "achievements": [
-        {
-          "name": "hidden",
-          "id": "CgkI6KjppNEWEAIQBA"
-        },
-        {
-          "name": "incremental",
-          "id": "CgkI6KjppNEWEAIQBQ",
-          "incremental": true
-        },
-        {
-          "name": "craftsman",
-          "id": "CgkI6KjppNEWEAIQBg"
-        },
-        {
-          "name": "hunter",
-          "id": "CgkI6KjppNEWEAIQBw"
-        },
-        {
-          "name": "ten-games",
-          "id": "CgkI6KjppNEWEAIQCA"
+    }, 
+    "ios": {
+        "sdkboxplay": {
+            "leaderboards": [
+                {
+                    "name": "ldb1", 
+                    "id": "ldb1"
+                }, 
+                {
+                    "name": "ldb2", 
+                    "id": "ldb2"
+                }
+            ], 
+            "achievements": [
+                {
+                    "incremental": false, 
+                    "name": "ten-games", 
+                    "id": "tengames"
+                }, 
+                {
+                    "incremental": false, 
+                    "name": "hunter", 
+                    "id": "hunter"
+                }, 
+                {
+                    "incremental": false, 
+                    "name": "craftsman", 
+                    "id": "craftsman"
+                }, 
+                {
+                    "incremental": true, 
+                    "name": "incremental", 
+                    "id": "CgkI0sux8sMWEAIQBQ"
+                }
+            ], 
+            "connect_on_start": true, 
+            "show_achievement_notification": true, 
+            "debug": true
         }
-      ],
-      "connect_on_start": true,
-      "debug": true
     }
-  },
-  "ios": {
-    "sdkboxplay": {
-      "leaderboards": [
-        {
-          "name": "ldb1",
-          "id": "ldb1"
-        },
-        {
-          "name": "ldb2",
-          "id": "ldb2"
-        }
-      ],
-      "achievements": [
-        {
-          "name": "ten-games",
-          "id": "tengames",
-          "incremental": false
-        },
-        {
-          "name": "hunter",
-          "id": "hunter",
-          "incremental": false
-        },
-        {
-          "name": "craftsman",
-          "id": "craftsman",
-          "incremental": false
-        },
-        {
-          "name": "incremental",
-          "id": "CgkI0sux8sMWEAIQBQ",
-          "incremental": true
-        }
-      ],
-      "connect_on_start": true,
-      "debug": true
-    }
-  }
 }

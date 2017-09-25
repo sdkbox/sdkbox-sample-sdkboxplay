@@ -23,9 +23,9 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_incrementAchievement(lua_State* tol
     if (argc == 2)
     {
         std::string arg0;
-        int arg1;
+        double arg1;
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginSdkboxPlay:incrementAchievement");
-        ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1, "sdkbox.PluginSdkboxPlay:incrementAchievement");
+        ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginSdkboxPlay:incrementAchievement");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_incrementAchievement'", nullptr);
@@ -184,6 +184,40 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_getPlayerAccountField(lua_State* to
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_getPlayerAccountField'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllData(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginSdkboxPlay",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllData'", nullptr);
+            return 0;
+        }
+        sdkbox::PluginSdkboxPlay::loadAllData();
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:loadAllData",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllData'.",&tolua_err);
 #endif
     return 0;
 }
@@ -450,6 +484,42 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAchievements(lua_State* tolua_S
 #endif
     return 0;
 }
+int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadGameData(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginSdkboxPlay",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 1)
+    {
+        std::string arg0;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginSdkboxPlay:loadGameData");
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadGameData'", nullptr);
+            return 0;
+        }
+        sdkbox::PluginSdkboxPlay::loadGameData(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:loadGameData",argc, 1);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadGameData'.",&tolua_err);
+#endif
+    return 0;
+}
 int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showAchievements(lua_State* tolua_S)
 {
     int argc = 0;
@@ -481,6 +551,40 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showAchievements(lua_State* tolua_S
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showAchievements'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_resetAchievements(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginSdkboxPlay",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_resetAchievements'", nullptr);
+            return 0;
+        }
+        sdkbox::PluginSdkboxPlay::resetAchievements();
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:resetAchievements",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_resetAchievements'.",&tolua_err);
 #endif
     return 0;
 }
@@ -536,9 +640,9 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_submitScore(lua_State* tolua_S)
     if (argc == 2)
     {
         std::string arg0;
-        int arg1;
+        long arg1;
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginSdkboxPlay:submitScore");
-        ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1, "sdkbox.PluginSdkboxPlay:submitScore");
+        ok &= luaval_to_long(tolua_S, 3, &arg1, "sdkbox.PluginSdkboxPlay:submitScore");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_submitScore'", nullptr);
@@ -574,9 +678,9 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_setSteps(lua_State* tolua_S)
     if (argc == 2)
     {
         std::string arg0;
-        int arg1;
+        double arg1;
         ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginSdkboxPlay:setSteps");
-        ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1, "sdkbox.PluginSdkboxPlay:setSteps");
+        ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginSdkboxPlay:setSteps");
         if(!ok)
         {
             tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_setSteps'", nullptr);
@@ -662,6 +766,40 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_removeListener(lua_State* tolua_S)
 #endif
     return 0;
 }
+int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllGameData(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginSdkboxPlay",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 0)
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllGameData'", nullptr);
+            return 0;
+        }
+        sdkbox::PluginSdkboxPlay::loadAllGameData();
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:loadAllGameData",argc, 0);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllGameData'.",&tolua_err);
+#endif
+    return 0;
+}
 int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_reveal(lua_State* tolua_S)
 {
     int argc = 0;
@@ -695,6 +833,44 @@ int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_reveal(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_reveal'.",&tolua_err);
+#endif
+    return 0;
+}
+int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameData(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginSdkboxPlay",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 2)
+    {
+        std::string arg0;
+        std::string arg1;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginSdkboxPlay:saveGameData");
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1, "sdkbox.PluginSdkboxPlay:saveGameData");
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameData'", nullptr);
+            return 0;
+        }
+        sdkbox::PluginSdkboxPlay::saveGameData(arg0, arg1);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:saveGameData",argc, 2);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameData'.",&tolua_err);
 #endif
     return 0;
 }
@@ -749,6 +925,7 @@ int lua_register_PluginSdkboxPlayLua_PluginSdkboxPlay(lua_State* tolua_S)
         tolua_function(tolua_S,"getMyScore", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_getMyScore);
         tolua_function(tolua_S,"showAllLeaderboards", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showAllLeaderboards);
         tolua_function(tolua_S,"getPlayerAccountField", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_getPlayerAccountField);
+        tolua_function(tolua_S,"loadAllData", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllData);
         tolua_function(tolua_S,"getPlayerCenteredScores", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_getPlayerCenteredScores);
         tolua_function(tolua_S,"showLeaderboard", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showLeaderboard);
         tolua_function(tolua_S,"signout", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_signout);
@@ -756,13 +933,17 @@ int lua_register_PluginSdkboxPlayLua_PluginSdkboxPlay(lua_State* tolua_S)
         tolua_function(tolua_S,"init", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_init);
         tolua_function(tolua_S,"unlockAchievement", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_unlockAchievement);
         tolua_function(tolua_S,"loadAchievements", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAchievements);
+        tolua_function(tolua_S,"loadGameData", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadGameData);
         tolua_function(tolua_S,"showAchievements", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_showAchievements);
+        tolua_function(tolua_S,"resetAchievements", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_resetAchievements);
         tolua_function(tolua_S,"isConnected", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_isConnected);
         tolua_function(tolua_S,"submitScore", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_submitScore);
         tolua_function(tolua_S,"setSteps", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_setSteps);
         tolua_function(tolua_S,"getVersion", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_getVersion);
         tolua_function(tolua_S,"removeListener", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_removeListener);
+        tolua_function(tolua_S,"loadAllGameData", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_loadAllGameData);
         tolua_function(tolua_S,"reveal", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_reveal);
+        tolua_function(tolua_S,"saveGameData", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameData);
         tolua_function(tolua_S,"signin", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_signin);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(sdkbox::PluginSdkboxPlay).name();
@@ -773,12 +954,39 @@ int lua_register_PluginSdkboxPlayLua_PluginSdkboxPlay(lua_State* tolua_S)
 TOLUA_API int register_all_PluginSdkboxPlayLua(lua_State* tolua_S)
 {
 	tolua_open(tolua_S);
-	
-	tolua_module(tolua_S,"sdkbox",0);
-	tolua_beginmodule(tolua_S,"sdkbox");
+
+	std::stringstream ss("sdkbox");
+    std::vector<std::string> nsvec;
+    std::string item;
+    while (std::getline(ss, item, '.')) {
+        nsvec.push_back(item);
+    }
+    int nsLen = nsvec.size();
+    item = nsvec.front();
+    nsvec.erase(nsvec.begin());
+
+    tolua_module(tolua_S, item.c_str(), 0);
+    tolua_beginmodule(tolua_S, item.c_str());
+
+    while (nsvec.size() > 0) {
+        item = nsvec.front();
+        nsvec.erase(nsvec.begin());
+        lua_pushstring(tolua_S, item.c_str()); // m name
+        lua_rawget(tolua_S, -2);             // m value
+        if (!lua_istable(tolua_S, -1)) {
+            lua_pop(tolua_S, 1);             // m
+            lua_newtable(tolua_S);           // m t
+            lua_pushstring(tolua_S, item.c_str()); // m t name
+            lua_pushvalue(tolua_S, -2);      // m t name t
+            lua_rawset(tolua_S, -4);         // m t
+        }
+    }
 
 	lua_register_PluginSdkboxPlayLua_PluginSdkboxPlay(tolua_S);
 
+	if (nsLen > 1) {
+        lua_pop(tolua_S, nsLen - 1); // m
+    }
 	tolua_endmodule(tolua_S);
 
 	sdkbox::setProjectType("lua");

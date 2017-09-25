@@ -90,6 +90,10 @@ function MainScene:setupTestMenu()
                 -- failed
                 print('onGameData failed:' .. args.error);
             end
+        elseif 'onLoadGameData' == args.name then
+            local s = self:hexDump(args.savedData.data)
+            print(s)
+        elseif 'onSaveGameData' == args.name then
         end
     end)
     sdkbox.PluginSdkboxPlay:init()
@@ -125,10 +129,11 @@ function MainScene:setupTestMenu()
                         sdkbox.PluginSdkboxPlay:submitScore("ldb1", 1000)
                     end),
                    cc.MenuItemFont:create("load game data"):onClicked(function()
-                        sdkbox.PluginSdkboxPlay:loadAllData()
+                        sdkbox.PluginSdkboxPlay:loadAllGameData()
                     end),
                    cc.MenuItemFont:create("save game data"):onClicked(function()
-                        sdkbox.PluginSdkboxPlay:saveGameData('key1', 'test data')
+                        local data = 'a8H\0u\23kH'
+                        sdkbox.PluginSdkboxPlay:saveGameDataBinary('key1', data, string.len(data))
                     end)
                    )
         :move(display.cx, display.cy)
@@ -137,6 +142,32 @@ function MainScene:setupTestMenu()
 
 
     -- require('cocos.cocos2d.json')
+end
+
+function MainScene:hexDump (str)
+    local len = string.len( str )
+    local dump = ""
+    local hex = ""
+    local asc = ""
+
+    for i = 1, len do
+        if 1 == i % 8 then
+            dump = dump .. hex .. asc .. "\n"
+            hex = string.format( "%04x: ", i - 1 )
+            asc = ""
+        end
+
+        local ord = string.byte( str, i )
+        hex = hex .. string.format( "%02x ", ord )
+        if ord >= 32 and ord <= 126 then
+            asc = asc .. string.char( ord )
+        else
+            asc = asc .. "."
+        end
+    end
+
+    return dump .. hex
+            .. string.rep( "   ", 8 - len % 8 ) .. asc
 end
 
 return MainScene

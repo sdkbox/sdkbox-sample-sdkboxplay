@@ -41,7 +41,7 @@ public:
 
     virtual void onScoreSubmitted(
         const std::string& leaderboard_name,
-        int score,
+        long score,
         bool alltime,
         bool week,
         bool day) {
@@ -132,25 +132,25 @@ public:
         stack->executeFunctionByHandler(mLuaHandler, 1);
     }
 
-    virtual void onIncrementalAchievementStep( const std::string& achievement_name, int step ) {
+    virtual void onIncrementalAchievementStep( const std::string& achievement_name, double step ) {
 
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict dict;
         dict.insert(std::make_pair("name", LuaValue::stringValue("onIncrementalAchievementStep")));
         dict.insert(std::make_pair("achievement_name", LuaValue::stringValue(achievement_name)));
-        dict.insert(std::make_pair("step", LuaValue::intValue(step)));
+        dict.insert(std::make_pair("step", LuaValue::floatValue(step)));
         stack->pushLuaValueDict(dict);
         stack->executeFunctionByHandler(mLuaHandler, 1);
     }
 
-    virtual void onIncrementalAchievementStepError( const std::string& achievement_name, int steps, int error_code, const std::string& error_description ) {
+    virtual void onIncrementalAchievementStepError( const std::string& achievement_name, double steps, int error_code, const std::string& error_description ) {
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict dict;
         dict.insert(std::make_pair("name", LuaValue::stringValue("onIncrementalAchievementStepError")));
         dict.insert(std::make_pair("achievement_name", LuaValue::stringValue(achievement_name)));
-        dict.insert(std::make_pair("steps", LuaValue::intValue(steps)));
+        dict.insert(std::make_pair("steps", LuaValue::floatValue(steps)));
         dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
         dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
         stack->pushLuaValueDict(dict);
@@ -173,7 +173,7 @@ public:
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict dict;
-        dict.insert(std::make_pair("name", LuaValue::stringValue("onIncrementalAchievementStepError")));
+        dict.insert(std::make_pair("name", LuaValue::stringValue(__FUNCTION__)));
         dict.insert(std::make_pair("achievement_name", LuaValue::stringValue(achievement_name)));
         dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
         dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
@@ -192,24 +192,24 @@ public:
         stack->executeFunctionByHandler(mLuaHandler, 1);
     }
 
-    virtual void onSetSteps( const std::string& step_name, int steps ) {
+    virtual void onSetSteps( const std::string& step_name, double steps ) {
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict dict;
         dict.insert(std::make_pair("name", LuaValue::stringValue("onSetSteps")));
         dict.insert(std::make_pair("step_name", LuaValue::stringValue(step_name)));
-        dict.insert(std::make_pair("steps", LuaValue::intValue(steps)));
+        dict.insert(std::make_pair("steps", LuaValue::floatValue(steps)));
         stack->pushLuaValueDict(dict);
         stack->executeFunctionByHandler(mLuaHandler, 1);
     }
 
-    virtual void onSetStepsError( const std::string& step_name, int steps, int error_code, const std::string& error_description ) {
+    virtual void onSetStepsError( const std::string& step_name, double steps, int error_code, const std::string& error_description ) {
         LuaStack* stack = LUAENGINE->getLuaStack();
 
         LuaValueDict dict;
         dict.insert(std::make_pair("name", LuaValue::stringValue("onSetStepsError")));
         dict.insert(std::make_pair("step_name", LuaValue::stringValue(step_name)));
-        dict.insert(std::make_pair("steps", LuaValue::intValue(steps)));
+        dict.insert(std::make_pair("steps", LuaValue::floatValue(steps)));
         dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
         dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
         stack->pushLuaValueDict(dict);
@@ -235,6 +235,69 @@ public:
         dict.insert(std::make_pair("error_code", LuaValue::intValue(error_code)));
         dict.insert(std::make_pair("error_description", LuaValue::stringValue(error_description)));
         stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onGameData")));
+        dict.insert(std::make_pair("action", LuaValue::stringValue(action)));
+        dict.insert(std::make_pair("save_name", LuaValue::stringValue(name)));
+        dict.insert(std::make_pair("data", LuaValue::stringValue(data)));
+        dict.insert(std::make_pair("error", LuaValue::stringValue(error)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    };
+
+    virtual void onSaveGameData(bool success, const std::string& error) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onSaveGameData")));
+        dict.insert(std::make_pair("success", LuaValue::booleanValue(success)));
+        dict.insert(std::make_pair("error", LuaValue::stringValue(error)));
+        stack->pushLuaValueDict(dict);
+        stack->executeFunctionByHandler(mLuaHandler, 1);
+    }
+
+    virtual void onLoadGameData(const sdkbox::SavedGameData* savedData, const std::string& error) {
+        LuaStack* stack = LUAENGINE->getLuaStack();
+
+        LuaValueDict dict;
+        dict.insert(std::make_pair("name", LuaValue::stringValue("onLoadGameData")));
+        dict.insert(std::make_pair("error", LuaValue::stringValue(error)));
+        stack->pushLuaValueDict(dict);
+
+        if (nullptr != savedData && 0 == error.size()) {
+            lua_State* ls = stack->getLuaState();
+            lua_pushstring(ls, "savedData"); /* L: table key */
+            lua_newtable(ls); /* L: table key table */
+
+            lua_pushstring(ls, "name"); /* L: table key table "name" */
+            lua_pushstring(ls, savedData->name.c_str()); /* L: table key table "name" namevalue */
+            lua_rawset(ls, -3); /* L: table key table */
+
+            lua_pushstring(ls, "deviceName"); /* L: table key table "deviceName" */
+            lua_pushstring(ls, savedData->deviceName.c_str()); /* L: table key table "deviceName" deviceNameValue */
+            lua_rawset(ls, -3); /* L: table key table */
+
+            lua_pushstring(ls, "lastModifiedTimestamp"); /* L: table key table "lastModifiedTimestamp" */
+            lua_pushnumber(ls, savedData->lastModifiedTimestamp); /* L: table key table "lastModifiedTimestamp" timestamp */
+            lua_rawset(ls, -3); /* L: table key table */
+
+            lua_pushstring(ls, "dataLength"); /* L: table key table "dataLength" */
+            lua_pushnumber(ls, savedData->dataLength); /* L: table key table "dataLength" length */
+            lua_rawset(ls, -3); /* L: table key table */
+
+            lua_pushstring(ls, "data"); /* L: table key table "data" */
+            lua_pushlstring(ls, (const char*)savedData->data, savedData->dataLength); /* L: table key table "data" datavalue */
+            lua_rawset(ls, -3); /* L: table key table */
+            
+            lua_rawset(ls, -3); /* L: table*/
+        }
+
         stack->executeFunctionByHandler(mLuaHandler, 1);
     }
 
@@ -283,6 +346,50 @@ tolua_lerror:
     return 0;
 }
 
+int lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameDataBinary(lua_State* tolua_S) {
+    int argc = 0;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginSdkboxPlay",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    argc = lua_gettop(tolua_S) - 1;
+
+    if (argc == 3)
+    {
+        std::string arg0;
+        const void* arg1;
+        int arg2;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginSdkboxPlay:saveGameDataBinary");
+
+        size_t size = 0;
+        arg1 = (const void*) lua_tolstring(tolua_S, 3, &size);
+        if ( NULL == arg1) {
+            ok = false;
+        }
+        ok &= luaval_to_int32(tolua_S, 4,(int *)&arg2, "sdkbox.PluginSdkboxPlay:saveGameDataBinary");
+        if(!ok) {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameDataBinary'", nullptr);
+            return 0;
+        }
+        sdkbox::PluginSdkboxPlay::saveGameDataBinary(arg0, arg1, arg2);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginSdkboxPlay:saveGameDataBinary",argc, 3);
+    return 0;
+#if COCOS2D_DEBUG >= 1
+tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameDataBinary'.",&tolua_err);
+#endif
+    return 0;
+}
+
 int extern_PluginSdkboxPlay(lua_State* L) {
     if (nullptr == L) {
         return 0;
@@ -290,11 +397,11 @@ int extern_PluginSdkboxPlay(lua_State* L) {
 
     lua_pushstring(L, "sdkbox.PluginSdkboxPlay");
     lua_rawget(L, LUA_REGISTRYINDEX);
-    if (lua_istable(L,-1))
-    {
+    if (lua_istable(L,-1)) {
         tolua_function(L,"setListener", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_setListener);
+        tolua_function(L,"saveGameDataBinary", lua_PluginSdkboxPlayLua_PluginSdkboxPlay_saveGameDataBinary);
     }
-     lua_pop(L, 1);
+    lua_pop(L, 1);
 
     return 1;
 }
