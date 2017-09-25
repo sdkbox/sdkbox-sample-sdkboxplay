@@ -105,23 +105,20 @@ bool HelloWorld::init()
         MenuItemFont::create("Load all game data", [] (cocos2d::Ref* sender) {
             // comment this to compile with old version sdkboxplay
 #ifdef ENABLE_CLOUD_SAVE
-             sdkbox::PluginSdkboxPlay::loadAllData();
+             // sdkbox::PluginSdkboxPlay::loadAllData(); //DEPRECATED
+            sdkbox::PluginSdkboxPlay::loadAllGameData();
 #else
             CCLOG("cloud save is not enable");
-#endif
-        }),
-        MenuItemFont::create("Load one game data", [](cocos2d::Ref* sender) {
-            // comment this to compile with old version sdkboxplay
-#ifdef ENABLE_CLOUD_SAVE
-        sdkbox::PluginSdkboxPlay::loadGameData("key1");
-#else
-        CCLOG("cloud save is not enable");
 #endif
         }),
         MenuItemFont::create("Save game data", [](cocos2d::Ref* sender) {
             // comment this to compile with old version sdkboxplay
 #ifdef ENABLE_CLOUD_SAVE
-             sdkbox::PluginSdkboxPlay::saveGameData("key1", "{\"game_name\": \"sdkbox go\", \"stage\": 3}");
+             //sdkbox::PluginSdkboxPlay::saveGameData("key1", "{\"game_name\": \"sdkbox go\", \"stage\": 3}"); // DEPRECATED
+        std::string sData("1bC\0u\4;Y\5L", 10);
+        const void* data = (const void*)sData.c_str();
+        int len = (int)sData.length();
+        sdkbox::PluginSdkboxPlay::saveGameDataBinary("key3", data, len);
 #else
         CCLOG("cloud save is not enable");
 #endif
@@ -385,3 +382,31 @@ void HelloWorld::onGameData(const std::string& action, const std::string& name, 
     _txtStat->setString( str );
 }
 
+void HelloWorld::onSaveGameData(bool success,
+                            const std::string& error) {
+    char str[512];
+    sprintf(str, "%s suc:%d, e:%s", __FUNCTION__, success, error.c_str());
+    _txtStat->setString( str );
+    CCLOG("%s", str);
+}
+
+void HelloWorld::onLoadGameData(const sdkbox::SavedGameData* savedData,
+                    const std::string& error) {
+    char str[512];
+    sprintf(str, "%s name:%s, device:%s, timestamp:%ld, e:%s",
+            __FUNCTION__,
+            savedData->name.c_str(), savedData->deviceName.c_str(), savedData->lastModifiedTimestamp,
+            error.c_str());
+    sprintf(str, "name:%s, v:%s",
+            savedData->name.c_str(), savedData->data);
+    _txtStat->setString( str );
+    CCLOG("%s, name:%s, device:%s, timestamp:%ld, e:%s",
+          __FUNCTION__,
+          savedData->name.c_str(), savedData->deviceName.c_str(), savedData->lastModifiedTimestamp,
+          error.c_str());
+    unsigned char* d = (unsigned char*)savedData->data;
+//    CCLOG("data length:%d and dump:", savedData->dataLength);
+//    for (int i = 0; i < savedData->dataLength; i++) {
+//        CCLOG("%d", *(d + i));
+//    }
+}
