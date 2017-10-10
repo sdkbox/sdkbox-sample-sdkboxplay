@@ -739,6 +739,30 @@ JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener(JSContext *cx, uint
 }
 #endif
 #if defined(MOZJS_MAJOR_VERSION)
+bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAllGameData(JSContext *cx, uint32_t argc, JS::Value *vp)
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    if (argc == 0) {
+        sdkbox::PluginSdkboxPlay::loadAllGameData();
+        args.rval().setUndefined();
+        return true;
+    }
+    JS_ReportErrorUTF8(cx, "js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAllGameData : wrong number of arguments");
+    return false;
+}
+#elif defined(JS_VERSION)
+JSBool js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAllGameData(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    if (argc == 0) {
+        sdkbox::PluginSdkboxPlay::loadAllGameData();
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    JS_ReportError(cx, "wrong number of arguments");
+    return JS_FALSE;
+}
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginSdkboxPlayJS_PluginSdkboxPlay_reveal(JSContext *cx, uint32_t argc, JS::Value *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -890,6 +914,7 @@ void js_register_PluginSdkboxPlayJS_PluginSdkboxPlay(JSContext *cx, JS::HandleOb
         JS_FN("setSteps", js_PluginSdkboxPlayJS_PluginSdkboxPlay_setSteps, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getVersion", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("removeListener", js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("loadAllGameData", js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAllGameData, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("reveal", js_PluginSdkboxPlayJS_PluginSdkboxPlay_reveal, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("saveGameData", js_PluginSdkboxPlayJS_PluginSdkboxPlay_saveGameData, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("signin", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -981,6 +1006,7 @@ void js_register_PluginSdkboxPlayJS_PluginSdkboxPlay(JSContext *cx, JSObject *gl
         JS_FN("setSteps", js_PluginSdkboxPlayJS_PluginSdkboxPlay_setSteps, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getVersion", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("removeListener", js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("loadAllGameData", js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAllGameData, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("reveal", js_PluginSdkboxPlayJS_PluginSdkboxPlay_reveal, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("saveGameData", js_PluginSdkboxPlayJS_PluginSdkboxPlay_saveGameData, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("signin", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -1055,6 +1081,7 @@ void js_register_PluginSdkboxPlayJS_PluginSdkboxPlay(JSContext *cx, JSObject *gl
         JS_FN("setSteps", js_PluginSdkboxPlayJS_PluginSdkboxPlay_setSteps, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getVersion", js_PluginSdkboxPlayJS_PluginSdkboxPlay_getVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("removeListener", js_PluginSdkboxPlayJS_PluginSdkboxPlay_removeListener, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("loadAllGameData", js_PluginSdkboxPlayJS_PluginSdkboxPlay_loadAllGameData, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("reveal", js_PluginSdkboxPlayJS_PluginSdkboxPlay_reveal, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("saveGameData", js_PluginSdkboxPlayJS_PluginSdkboxPlay_saveGameData, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("signin", js_PluginSdkboxPlayJS_PluginSdkboxPlay_signin, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),

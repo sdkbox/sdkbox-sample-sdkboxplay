@@ -56,7 +56,7 @@ namespace sdkbox {
     };
 
     // Spidermonkey v186+
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
     bool js_to_bool(JSContext *cx, JS::HandleValue vp, bool *ret);
     bool js_to_number(JSContext *cx, JS::HandleValue v, double *dp);
     bool jsval_to_std_map_string_string(JSContext *cx, JS::HandleValue v, std::map<std::string,std::string> *ret);

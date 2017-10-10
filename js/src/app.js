@@ -173,6 +173,9 @@ var HelloWorldLayer = cc.Layer.extend({
                 });
                 plugin.init();
 
+                // ref to http://discuss.cocos2d-x.org/t/sdkbox-play-savegamedata-error/39367
+                plugin.saveGameData("name", 'test'); // crash here ?
+
             } else {
                 printf("no plugin init")
             }

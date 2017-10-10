@@ -8,6 +8,7 @@
 #define _PLUGIN_SDKBOXPLAY_H_
 
 #include <string>
+#include "sdkbox/Sdkbox.h"
 
 namespace sdkbox {
 
@@ -33,6 +34,14 @@ namespace sdkbox {
     enum PLAYER_SCOPE {
         GLOBAL = 0,
         SOCIAL = 1
+    };
+
+    struct SavedGameData {
+        std::string name;
+        const void* data; //saved game data
+        int dataLength; // byte
+        long lastModifiedTimestamp; //second
+        std::string deviceName;
     };
 
     class PluginSdkboxPlay {
@@ -272,22 +281,43 @@ namespace sdkbox {
         static void resetAchievements();
 
         /**
+         ****** DEPRECATED ****** Please use loadAllGameData to replace
          * load all saved user game data in clound
          * will trigger onGameData callback
          */
         static void loadAllData();
-        
+
         /**
+         ****** DEPRECATED ****** Please use loadAllGameData to replace
          * load one saved user game data in clound
          * will trigger onGameData callback
          */
         static void loadGameData(const std::string& save_name);
 
         /**
+         ****** DEPRECATED ****** Please use saveGameData(name, data, length) to replace
          * save user game data in cloud
          * will trigger onGameData callback
          */
         static void saveGameData(const std::string& save_name, const std::string& data);
+
+        /**
+         * load all saved game data
+         * will trigger onLoadGameData callback
+         */
+        static void loadAllGameData();
+
+        /**
+         * save user game data
+         * will trigger onSaveGameData callback
+         *
+         * @param name: saved data name
+         * @param data: data pointer
+         * @param length: data length in byte
+         *
+         * Note: if you want to save string, please translate to void*
+         */
+        static void saveGameDataBinary(const std::string& name, const void* data, int length);
 
     };
 
@@ -440,6 +470,7 @@ namespace sdkbox {
         virtual void onRevealError( const std::string& name, int error_code, const std::string& error_description ) {};
 
         /**
+         ****** DEPRECATED ******
          * @param action std::string save, load
          * @param name std::string
          * @param data std::string
@@ -447,6 +478,20 @@ namespace sdkbox {
          *
          */
         virtual void onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error) {};
+
+        /**
+         * @param success bool
+         * @param error std::string if success, error will be empty
+         *
+         */
+        virtual void onSaveGameData(bool success, const std::string& error) {};
+
+        /**
+         * @param savedData SavedGameData*
+         * @param error std::string if success, error will be empty
+         *
+         */
+        virtual void onLoadGameData(const SavedGameData* savedData, const std::string& error) {};
 
     };
 }

@@ -394,7 +394,7 @@ namespace sdkbox {
         bool ok = cocos2d::StringUtils::UTF8ToUTF16(std::string(v, length), strUTF16);
 
         if (ok && !strUTF16.empty()) {
-            JSString* str = JS_NewUCStringCopyN(cx, reinterpret_cast<const char16_t*>(strUTF16.data()), strUTF16.size());
+            JSString* str = JS_NewUCStringCopyN(cx, reinterpret_cast<const jschar*>(strUTF16.data()), strUTF16.size());
             if (str) {
                 ret.set(JS::StringValue(str));
             }
@@ -408,16 +408,16 @@ namespace sdkbox {
     void std_map_string_int_to_jsval(JSContext* cx, const std::map<std::string, int>& v, JS::MutableHandleValue retVal) {
         JS::RootedObject proto(cx);
         JS::RootedObject parent(cx);
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 52
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 52
         JS::RootedObject jsRet(cx, JS_NewObject(cx, NULL));
-#elif defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#elif defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
         JS::RootedObject jsRet(cx, JS_NewObject(cx, NULL, proto, parent));
 #else
         JSObject *jsRet = JS_NewObject(cx, NULL, NULL, NULL);
 #endif
 
         for (auto iter = v.begin(); iter != v.end(); ++iter) {
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
             JS::RootedValue element(cx);
 #else
             jsval element;
@@ -429,7 +429,7 @@ namespace sdkbox {
             element = JS::Int32Value(val);
 
             if (!key.empty()) {
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
                 JS_SetProperty(cx, jsRet, key.c_str(), element);
 #else
                 JS_SetProperty(cx, jsRet, key.c_str(), &element);
@@ -443,16 +443,16 @@ namespace sdkbox {
     void std_map_string_string_to_jsval(JSContext* cx, const std::map<std::string, std::string>& v, JS::MutableHandleValue retVal) {
         JS::RootedObject proto(cx);
         JS::RootedObject parent(cx);
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 52
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 52
         JS::RootedObject jsRet(cx, JS_NewObject(cx, NULL));
-#elif defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#elif defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
         JS::RootedObject jsRet(cx, JS_NewObject(cx, NULL, proto, parent));
 #else
         JSObject *jsRet = JS_NewObject(cx, NULL, NULL, NULL);
 #endif
 
         for (auto iter = v.begin(); iter != v.end(); ++iter) {
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
             JS::RootedValue element(cx);
 #else
             jsval element;
@@ -465,7 +465,7 @@ namespace sdkbox {
             element = JS::StringValue(jsstr);
 
             if (!key.empty()) {
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
                 JS_SetProperty(cx, jsRet, key.c_str(), element);
 #else
                 JS_SetProperty(cx, jsRet, key.c_str(), &element);
@@ -477,11 +477,12 @@ namespace sdkbox {
     }
 
     bool std_vector_string_to_jsval(JSContext* cx, const std::vector<std::string>& arr, JS::MutableHandleValue retVal) {
-#if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 52
+#if defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 52
         return ::std_vector_string_to_jsval(cx, arr, retVal);
-#elif defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
+#elif defined(MOZJS_MAJOR_VERSION) && MOZJS_MAJOR_VERSION >= 26
         JS::Value val = ::std_vector_string_to_jsval(cx, arr);
         retVal.set(val);
+        return true;
 #else
         //support v2?
         JSObject *jsretArr = JS_NewArrayObject(cx, 0, NULL);
