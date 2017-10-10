@@ -1,6 +1,7 @@
 {
   "android": {
     "sdkboxplay": {
+      "clound_save": true,
       "leaderboards": [
         {
           "id": "CgkI6KjppNEWEAIQAg",
