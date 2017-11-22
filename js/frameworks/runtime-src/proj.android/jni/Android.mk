@@ -1,5 +1,4 @@
-LOCAL_PATH := $(call \
-my-dir)
+LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
@@ -23,6 +22,8 @@ LOCAL_LDLIBS := -landroid \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 LOCAL_WHOLE_STATIC_LIBRARIES := PluginSdkboxPlay \
 sdkbox
+LOCAL_WHOLE_STATIC_LIBRARIES += PluginSdkboxPlay
+LOCAL_WHOLE_STATIC_LIBRARIES += sdkbox
 
 LOCAL_STATIC_LIBRARIES := cocos2d_js_static
 LOCAL_STATIC_LIBRARIES += cocos2d_simulator_static
