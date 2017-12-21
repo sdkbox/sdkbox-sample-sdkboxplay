@@ -13,6 +13,9 @@
 #include <vector>
 #include <string>
 
+#define SCREENLOG_IMPLEMENTATION
+#include "ScreenLog.h"
+
 //#define ENABLE_CLOUD_SAVE
 
 USING_NS_CC;
@@ -30,6 +33,8 @@ static void showMsg(const std::string& msg) {
         label->setAnchorPoint(ccp(0,0));
         label->setTextColor(Color4B(0, 255, 0, 255));
         label->setPosition(10, size.height*0.1);
+        label->setMaxLineWidth(size.width-50);
+        label->setWidth(size.width-50);
         Director::getInstance()->setNotificationNode(label);
     }
 
@@ -59,6 +64,10 @@ Scene* HelloWorld::createScene()
 
     // add layer as a child to scene
     scene->addChild(layer);
+
+    ScreenLog::getInstance()->setLevelMask( LL_DEBUG | LL_INFO | LL_WARNING | LL_ERROR | LL_FATAL );
+    ScreenLog::getInstance()->setTimeoutSeconds( 0xFFFF );
+    ScreenLog::getInstance()->attachToScene( scene );
 
     // return the scene
     return scene;
@@ -108,7 +117,7 @@ bool HelloWorld::init()
              // sdkbox::PluginSdkboxPlay::loadAllData(); //DEPRECATED
             sdkbox::PluginSdkboxPlay::loadAllGameData();
 #else
-            CCLOG("cloud save is not enable");
+            INFO("cloud save is not enable");
 #endif
         }),
         MenuItemFont::create("Save game data", [](cocos2d::Ref* sender) {
@@ -120,7 +129,7 @@ bool HelloWorld::init()
         int len = (int)sData.length();
         sdkbox::PluginSdkboxPlay::saveGameDataBinary("key3", data, len);
 #else
-        CCLOG("cloud save is not enable");
+        INFO("cloud save is not enable");
 #endif
     }),
         NULL
@@ -240,26 +249,26 @@ void HelloWorld::revealHidden(cocos2d::Ref* sender) {
 
 
 void HelloWorld::onScoreSubmitted( const std::string& leaderboard_name, long score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday ) {
-    CCLOG("on score %ld submitted to leaderboard:%s", score, leaderboard_name.c_str() );
-    CCLOG("all time hi %d", maxScoreAllTime ? 1 : 0 );
-    CCLOG("weekly hi %d", maxScoreWeek ? 1 : 0 );
-    CCLOG("daily hi %d", maxScoreToday ? 1 : 0 );
+    INFO("on score %ld submitted to leaderboard:%s", score, leaderboard_name.c_str() );
+    INFO("all time hi %d", maxScoreAllTime ? 1 : 0 );
+    INFO("weekly hi %d", maxScoreWeek ? 1 : 0 );
+    INFO("daily hi %d", maxScoreToday ? 1 : 0 );
 }
 
 void HelloWorld::onIncrementalAchievementUnlocked( const std::string& achievement_name ) {
-    CCLOG("incremental achievement %s unlocked.", achievement_name.c_str());
+    INFO("incremental achievement %s unlocked.", achievement_name.c_str());
 }
 
 void HelloWorld::onIncrementalAchievementStep( const std::string& achievement_name, int step ) {
-    CCLOG("incremental achievent %s step: %d", achievement_name.c_str(), step);
+    INFO("incremental achievent %s step: %d", achievement_name.c_str(), step);
 }
 
 void HelloWorld::onAchievementUnlocked( const std::string& achievement_name, bool newlyUnlocked ) {
-    CCLOG("achievement %s unlocked (new %d)", achievement_name.c_str(), newlyUnlocked ? 1 : 0);
+    INFO("achievement %s unlocked (new %d)", achievement_name.c_str(), newlyUnlocked ? 1 : 0);
 }
 
 void HelloWorld::onConnectionStatusChanged(int connection_status) {
-    CCLOG("connection status change: %d", connection_status);
+    INFO("connection status change: %d", connection_status);
 
     char str[256];
     sprintf(str, "Connection status: %d. Is Connected: %d", connection_status, sdkbox::PluginSdkboxPlay::isSignedIn() ? 1 : 0 );
@@ -281,43 +290,43 @@ void HelloWorld::onConnectionStatusChanged(int connection_status) {
 }
 
 void HelloWorld::onAchievementsLoaded( bool reload_forced, const std::string& json_achievements_info ) {
-    CCLOG("load achievements fr: %d, metadata: %s", reload_forced ? 1 : 0, json_achievements_info.c_str());
+    INFO("load achievements fr: %d, metadata: %s", reload_forced ? 1 : 0, json_achievements_info.c_str());
 }
 
 void HelloWorld::onSetSteps( const std::string& name, int steps ) {
-    CCLOG("achievement set steps: %s, steps: %d", name.c_str(), steps);
+    INFO("achievement set steps: %s, steps: %d", name.c_str(), steps);
 }
 
 void HelloWorld::onSetStepsError( const std::string& name, int steps, int error_code, const std::string& error_description ) {
-    CCLOG("achievement set steps error: %s, steps: %d. %d:%s", name.c_str(), steps, error_code, error_description.c_str());
+    INFO("achievement set steps error: %s, steps: %d. %d:%s", name.c_str(), steps, error_code, error_description.c_str());
 }
 
 void HelloWorld::onReveal( const std::string& name) {
-    CCLOG("achievement revealed: %s", name.c_str());
+    INFO("achievement revealed: %s", name.c_str());
 }
 
 void HelloWorld::onRevealError( const std::string& name, int error_code, const std::string& error_description ) {
-    CCLOG("achievement reveal error: %s. %d:%s", name.c_str(), error_code, error_description.c_str());
+    INFO("achievement reveal error: %s. %d:%s", name.c_str(), error_code, error_description.c_str());
 }
 
 void HelloWorld::onAchievementUnlockError( const std::string& achievement_name, int error_code, const std::string& error_description ) {
-    CCLOG("achievement %s unlock error. %d:%s", achievement_name.c_str(), error_code, error_description.c_str());
+    INFO("achievement %s unlock error. %d:%s", achievement_name.c_str(), error_code, error_description.c_str());
 }
 
 void HelloWorld::onMyScore( const std::string& leaderboard_name, int time_span, int collection_type, long score ) {
-    CCLOG("get my score in leaderboard %s time scope %d collection scope %d = %ld", leaderboard_name.c_str(), time_span, collection_type, score);
+    INFO("get my score in leaderboard %s time scope %d collection scope %d = %ld", leaderboard_name.c_str(), time_span, collection_type, score);
 }
 
 void HelloWorld::onMyScoreError( const std::string& leaderboard_name, int time_span, int collection_type, int error_code, const std::string& error_description) {
 
-    CCLOG("get my score error %d:%s", error_code, error_description.c_str());
+    INFO("get my score error %d:%s", error_code, error_description.c_str());
 }
 
 void HelloWorld::onPlayerCenteredScores( const std::string& leaderboard_name,
                                     int time_span,
                                     int collection_type,
                                     const std::string& json_with_score_entries )  {
-    CCLOG("%s", json_with_score_entries.c_str());
+    INFO("%s", json_with_score_entries.c_str());
 }
 
 void HelloWorld::onPlayerCenteredScoresError( const std::string& leaderboard_name,
@@ -326,55 +335,49 @@ void HelloWorld::onPlayerCenteredScoresError( const std::string& leaderboard_nam
                                          int error_code,
                                          const std::string& error_description) {
 
-    CCLOG("error retriving user centered score");
+    INFO("error retriving user centered score");
 }
 
 void HelloWorld::onIncrementalAchievementStepError( const std::string& name, int steps, int error_code, const std::string& error_description ) {
-    CCLOG("incremental achievent step error: %s step: %d. %d:%s", name.c_str(), steps, error_code, error_description.c_str());
+    INFO("incremental achievent step error: %s step: %d. %d:%s", name.c_str(), steps, error_code, error_description.c_str());
 }
 
 // new callback style
 void HelloWorld::onIncrementalAchievementStep( const std::string& achievement_name, double step ) {
-    CCLOG("incremental achievent %s step: %.1lf", achievement_name.c_str(), step);
+    INFO("incremental achievent %s step: %.1lf", achievement_name.c_str(), step);
 }
 void HelloWorld::onIncrementalAchievementStepError( const std::string& name, double steps,
                                                     int error_code, const std::string& error_description ) {
-    CCLOG("incremental achievent step error: %s step: %.1lf. %d:%s", name.c_str(),
+    INFO("incremental achievent step error: %s step: %.1lf. %d:%s", name.c_str(),
           steps, error_code, error_description.c_str());
 }
 void HelloWorld::onSetSteps( const std::string& name, double steps ) {
-    CCLOG("achievement set steps: %s, steps: %.1lf", name.c_str(), steps);
+    INFO("achievement set steps: %s, steps: %.1lf", name.c_str(), steps);
 }
 void HelloWorld::onSetStepsError( const std::string& name,
                                   double steps,
                                   int error_code,
                                   const std::string& error_description ) {
-    CCLOG("achievement set steps error: %s, steps: %.1lf. %d:%s", name.c_str(),
+    INFO("achievement set steps error: %s, steps: %.1lf. %d:%s", name.c_str(),
           steps, error_code, error_description.c_str());
-}
-void HelloWorld::onScoreSubmitted( const std::string& leaderboard_name, int score, bool maxScoreAllTime, bool maxScoreWeek, bool maxScoreToday ) {
-    CCLOG("on score %d submitted to leaderboard:%s", score, leaderboard_name.c_str() );
-    CCLOG("all time hi %d", maxScoreAllTime ? 1 : 0 );
-    CCLOG("weekly hi %d", maxScoreWeek ? 1 : 0 );
-    CCLOG("daily hi %d", maxScoreToday ? 1 : 0 );
 }
 
 void HelloWorld::onGameData(const std::string& action, const std::string& name, const std::string& data, const std::string& error) {
     char str[256];
     if (error.length() > 0) {
         // failed
-        CCLOG("game data failed:%s", error.c_str());
+        INFO("game data failed:%s", error.c_str());
         snprintf(str, 256, "GameData failed:%s", error.c_str());
     } else {
         //success
         if (0 == action.compare("load")) {
-            CCLOG("load game data, %s : %s", name.c_str(), data.c_str());
+            INFO("load game data, %s : %s", name.c_str(), data.c_str());
             sprintf(str, "GameData load %s:%s", name.c_str(), data.c_str());
         } else if (0 == action.compare("save")) {
-            CCLOG("save game data, %s : %s", name.c_str(), data.c_str());
+            INFO("save game data, %s : %s", name.c_str(), data.c_str());
             sprintf(str, "GameData save %s:%s", name.c_str(), data.c_str());
         } else {
-            CCLOG("unknow game data action: %s", action.c_str());
+            INFO("unknow game data action: %s", action.c_str());
             sprintf(str, "GameData unknow action:%s", action.c_str());
         }
     }
@@ -387,7 +390,7 @@ void HelloWorld::onSaveGameData(bool success,
     char str[512];
     sprintf(str, "%s suc:%d, e:%s", __FUNCTION__, success, error.c_str());
     _txtStat->setString( str );
-    CCLOG("%s", str);
+    INFO("%s", str);
 }
 
 void HelloWorld::onLoadGameData(const sdkbox::SavedGameData* savedData,
@@ -400,13 +403,13 @@ void HelloWorld::onLoadGameData(const sdkbox::SavedGameData* savedData,
     sprintf(str, "name:%s, v:%s",
             savedData->name.c_str(), savedData->data);
     _txtStat->setString( str );
-    CCLOG("%s, name:%s, device:%s, timestamp:%ld, e:%s",
+    INFO("%s, name:%s, device:%s, timestamp:%ld, e:%s",
           __FUNCTION__,
           savedData->name.c_str(), savedData->deviceName.c_str(), savedData->lastModifiedTimestamp,
           error.c_str());
     unsigned char* d = (unsigned char*)savedData->data;
-//    CCLOG("data length:%d and dump:", savedData->dataLength);
+//    INFO("data length:%d and dump:", savedData->dataLength);
 //    for (int i = 0; i < savedData->dataLength; i++) {
-//        CCLOG("%d", *(d + i));
+//        INFO("%d", *(d + i));
 //    }
 }
