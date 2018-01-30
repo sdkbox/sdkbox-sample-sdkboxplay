@@ -396,6 +396,10 @@ void HelloWorld::onSaveGameData(bool success,
 void HelloWorld::onLoadGameData(const sdkbox::SavedGameData* savedData,
                     const std::string& error) {
     char str[512];
+    if (nullptr == savedData) {
+        CCLOG("saved data is null, e:%s", error.c_str());
+        return;
+    }
     sprintf(str, "%s name:%s, device:%s, timestamp:%ld, e:%s",
             __FUNCTION__,
             savedData->name.c_str(), savedData->deviceName.c_str(), savedData->lastModifiedTimestamp,
