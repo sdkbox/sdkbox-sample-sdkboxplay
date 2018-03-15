@@ -76,7 +76,9 @@ public:
                                 const std::string& error);
     virtual void onLoadGameData(const sdkbox::SavedGameData* savedData,
                                 const std::string& error);
-    
+    virtual void onGameDataNames(const std::vector<std::string>& names,
+                                 const std::string& error);
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__
