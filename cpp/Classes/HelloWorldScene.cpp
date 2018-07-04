@@ -132,6 +132,13 @@ bool HelloWorld::init()
         INFO("cloud save is not enable");
 #endif
     }),
+    MenuItemFont::create("FetchNames", [] (cocos2d::Ref* sender) {
+#ifdef ENABLE_CLOUD_SAVE
+        sdkbox::PluginSdkboxPlay::fetchGameDataNames();
+#else
+        INFO("cloud save is not enable");
+#endif
+    }),
         NULL
     );
 
@@ -416,4 +423,17 @@ void HelloWorld::onLoadGameData(const sdkbox::SavedGameData* savedData,
 //    for (int i = 0; i < savedData->dataLength; i++) {
 //        INFO("%d", *(d + i));
 //    }
+}
+
+void HelloWorld::onGameDataNames(const std::vector<std::string>& names, const std::string& error) {
+    CCLOG("game data names begin");
+    if (0 != error.length()) {
+        CCLOG("game data names, e:%s", error.c_str());
+        return;
+    }
+    for (std::string name : names) {
+        CCLOG("%s", name.c_str());
+        _txtStat->setString( name.c_str() );
+    }
+    CCLOG("game data names end");
 }
